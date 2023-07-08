@@ -29,7 +29,7 @@ public class TitleManager : MonoBehaviourPunCallbacks
         // 룸 접속 버튼 잠시 비활성화
         joinButton.interactable = false;
         // 접속 시도중임을 텍스트로 표시
-        connectionInfoText.text = "마스터 서버에 접속 중...";
+        connectionInfoText.text = "Connecting...";
     }
 
     // 마스터 서버 접속 성공 시 자동 실행 -> ConnectUsingSettings() 성공 시
@@ -38,7 +38,7 @@ public class TitleManager : MonoBehaviourPunCallbacks
         // 룸 접속 버튼 활성화
         joinButton.interactable = true;
         // 접속 정보 표시
-        connectionInfoText.text = "온라인 : 마스터 서버와 연결됨";
+        connectionInfoText.text = "Online : Master Server";
     }
 
     // 마스터 서버 접속 실패 시 자동 실행 -> ConnectUsingSettings() 실패 시 
@@ -48,7 +48,7 @@ public class TitleManager : MonoBehaviourPunCallbacks
         // 룸 접속 버튼 비활성화
         joinButton.interactable = false;
         // 접속 정보 표시
-        connectionInfoText.text = "오프라인 : 마스터 서버와 연결되지 않음 \n 접속 재시도 중...";
+        connectionInfoText.text = "ReConnecting...";
 
         // 마스터 서버로의 재접속 시도
         PhotonNetwork.ConnectUsingSettings();
@@ -64,13 +64,13 @@ public class TitleManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsConnected)
         {
             // 룸 접속 실행
-            connectionInfoText.text = "룸에 접속...";
+            connectionInfoText.text = "Join To Room...";
             PhotonNetwork.JoinRandomRoom();
         }
         else
         {
             // 마스터 서버에 접속 중이 아니라면 마스터 서버에 접속 시도
-            connectionInfoText.text = "오프라인 : 마스터 서버와 연결되지 않음 \n 접속 재시도 중...";
+            connectionInfoText.text = "ReConnecting...";
             // 마스터 서버로의 재접속 시도
             PhotonNetwork.ConnectUsingSettings();
         }
@@ -80,7 +80,7 @@ public class TitleManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         // 접속 상태 표시
-        connectionInfoText.text = "빈 방이 없음, 새로운 방 생성...";
+        connectionInfoText.text = "Create New Room";
         // 최대 4명을 수용 가능한 빈 방 생성
         PhotonNetwork.CreateRoom("GameRoom" + PhotonNetwork.CountOfRooms, new RoomOptions { MaxPlayers = 4 });
     }
@@ -89,9 +89,7 @@ public class TitleManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         // 접속 상태 표시
-        connectionInfoText.text = "방 참가 성공!";
-
-        Debug.Log("Success");
+        connectionInfoText.text = "Success";
 
         // 모든 룸 참가자가 Main 씬을 로드하게 함
         PhotonNetwork.LoadLevel("Game Room");
