@@ -39,6 +39,14 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - UpdateColor
+  - UpdateOtherPlayerCharacterRPC
+  - UpdatePlayerCharacter
+  - Test
+  - SetSprite
+  - SetupCharacterFromMasterClientRPC
+  - UpdateCharcterRPC
+  - UpdateCharacterRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
