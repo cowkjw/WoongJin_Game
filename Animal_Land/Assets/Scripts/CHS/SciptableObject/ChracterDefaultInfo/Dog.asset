@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Dog
   m_EditorClassIdentifier: 
   _moveColor:
+  - 1
+  - 1
   - 0
-  - 0
-  - 0
-  - 0
+  - 0.5
   _areaColor:
+  - 1
+  - 1
   - 0
-  - 0
-  - 0
-  - 0
+  - 0.2
   _borderColor:
-  - 0
-  - 0
-  - 0
-  - 0
+  - 1
+  - 1
+  - 1
+  - 1
   _characterSprite: C_dog

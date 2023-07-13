@@ -41,4 +41,19 @@ public class CharacterDefaultInfo : ScriptableObject
     {
         _characterSprite = spriteName;
     }
+
+    public void SetMoveColor(float[] color)
+    {
+        _moveColor = color; 
+    }
+
+    public void SetAreaColor(float[] color)
+    {
+        _areaColor = color;
+    }
+
+    public void SetBorderColor(float[] color)
+    {
+        _borderColor = color;
+    }
 }

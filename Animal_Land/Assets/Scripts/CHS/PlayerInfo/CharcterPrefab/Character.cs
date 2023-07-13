@@ -9,6 +9,8 @@ struct Test
     Sprite CharcterSprite; 
 }
 
+// 캐릭터의 정보를 저장하는 스크립트
+// 캐릭터 프리팹에 컴포넌트로 추가하여 캐릭터의 정보를 저장한다.
 public class Character : MonoBehaviour
 {
     [SerializeField]
@@ -58,11 +60,7 @@ public class Character : MonoBehaviour
         }
 
         // 불러온 정보를 이용하여 캐릭터 정보를 업데이트 한다.
-        _pv.RPC("UpdateCharacterRPC", RpcTarget.All, 
-            _defaultInfo.GetMoveColor(),
-            _defaultInfo.GetAreaColor(),
-            _defaultInfo.GetBorderColor(),
-            _defaultInfo.GetCharcterSpriteName());
+        SetupCharacterFromMasterClientRPC();
     }
 
     [PunRPC]
@@ -90,18 +88,56 @@ public class Character : MonoBehaviour
 
         /**/
 
-        )
+     )
     {
-        // 정보를 저장한다.
-        _defaultInfo.SetCharacterSpriteName(sprieName);
-
-        // 정보를 업데이트한다.
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if(spriteRenderer != null)
+        // CharcterSprite 정보 저장&업데이트
         {
-            Sprite sprite = Resources.Load<Sprite>("Sprites/Characters/" + _defaultInfo.GetCharcterSpriteName());
-            spriteRenderer.sprite = sprite;
+            // 정보를 저장한다.
+            _defaultInfo.SetCharacterSpriteName(sprieName);
+
+            // 정보를 업데이트한다.
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                Sprite sprite = Resources.Load<Sprite>("Sprites/Characters/" + _defaultInfo.GetCharcterSpriteName());
+                spriteRenderer.sprite = sprite;
+            }
         }
+        // Color 정보 저장&업데이트 (Move, Area, Border)
+        {
+            TileColorChange tileColorChange = GetComponent<TileColorChange>();
+            if(tileColorChange == null)
+            {
+                Debug.Log("TileColorChange Component is Null");
+                return;
+            }
+
+            // MoveColor 정보 업데이트
+            {
+                // 정보를 저장한다.
+                _defaultInfo.SetMoveColor(moveColor);
+
+                // 정보를 업데이트한다.
+                tileColorChange.SetMoveColor(_defaultInfo.GetMoveColor());
+            }
+            // Araa Color 정보 업데이트
+            {
+                // 정보를 저장한다.
+                _defaultInfo.SetAreaColor(areaColor);
+
+                // 정보를 업데이트한다.
+                tileColorChange.SetAreaColor(_defaultInfo.GetAreaColor());
+            }
+            // Border Color 정보 업데이트
+            {
+                // 정보를 저장한다.
+                _defaultInfo.SetBorderColor(borderColor);
+
+                // 정보를 업데이트한다.
+                tileColorChange.SetBorderColor(_defaultInfo.GetBorderColor());
+            }
+        }
+        // 
     }
 
     private UserManager GetUserManager()

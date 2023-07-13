@@ -47,6 +47,12 @@ MonoBehaviour:
   - SetupCharacterFromMasterClientRPC
   - UpdateCharcterRPC
   - UpdateCharacterRPC
+  - UpdateTileColor
+  - UpdateTileColorToMove
+  - SetCurDir
+  - UpdateTileColorToAreaRPC
+  - UpdateTileColorToMoveRPC
+  - UpdateTileColorToThisColor
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

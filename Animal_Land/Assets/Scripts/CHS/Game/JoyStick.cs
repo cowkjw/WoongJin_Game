@@ -30,7 +30,8 @@ public class JoyStick : MonoBehaviourPun, IDragHandler, IPointerDownHandler, IPo
     private Coroutine _runningCoroutine;        // 부드러운 회전 코루틴
     private bool _OnTouch;
 
-    private PhotonView _pv;
+    private PhotonView  _pv;
+    private PlayInfo    _playInfo;
 
     // Size of Map
     private MapSize _mapSize;
@@ -46,6 +47,7 @@ public class JoyStick : MonoBehaviourPun, IDragHandler, IPointerDownHandler, IPo
     void Start()
     {
         _pv = Character.GetComponent<PhotonView>();
+        _playInfo = Character.GetComponent<PlayInfo>();
     }
 
     void Update()
@@ -56,14 +58,6 @@ public class JoyStick : MonoBehaviourPun, IDragHandler, IPointerDownHandler, IPo
         }
 
         UpdateSpeed();
-        
-        // 게임장 밖으로 나가지 못하게 막는다.
-        BorderCheck();
-    }
-
-    private void BorderCheck()
-    {
-
     }
 
     private void UpdateSpeed()
@@ -141,17 +135,22 @@ public class JoyStick : MonoBehaviourPun, IDragHandler, IPointerDownHandler, IPo
         if (angleDegrees <= 45f || angleDegrees > 315f)
         {
             direction = Vector3.right;
+            _pv.RPC("SetCurDir", RpcTarget.MasterClient, Vector2.right);
         }
         else if (angleDegrees > 45f && angleDegrees <= 135f)
         {
             direction = Vector3.up;
+            _pv.RPC("SetCurDir", RpcTarget.MasterClient, Vector2.up);
         }
         else if (angleDegrees > 135f && angleDegrees <= 225f)
         {
-            direction = Vector3.left;       }
+            direction = Vector3.left;
+            _pv.RPC("SetCurDir", RpcTarget.MasterClient, Vector2.left);
+        }
         else if (angleDegrees > 225f && angleDegrees <= 315f)
         {
             direction = Vector3.down;
+            _pv.RPC("SetCurDir", RpcTarget.MasterClient, Vector2.down);
         }
 
         return direction;

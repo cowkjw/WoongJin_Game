@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveColor:
   - 0
+  - 1
   - 0
-  - 0
-  - 0
+  - 0.5
   _areaColor:
   - 0
+  - 1
   - 0
-  - 0
-  - 0
+  - 0.2
   _borderColor:
-  - 0
-  - 0
-  - 0
-  - 0
+  - 1
+  - 1
+  - 1
+  - 1
   _characterSprite: C_frog

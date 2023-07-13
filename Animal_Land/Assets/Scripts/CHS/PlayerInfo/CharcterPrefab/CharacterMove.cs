@@ -16,13 +16,13 @@ public class CharacterMove : MonoBehaviourPunCallbacks, IPunObservable
         {
             BorderCheck();
         }
-        else 
+        else
         {
             transform.position = curPos;
         }
     }  
 
-        public void Awake()
+    public void Awake()
     {
         _pv = GetComponent<PhotonView>();
     }
@@ -31,8 +31,6 @@ public class CharacterMove : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (stream.IsWriting)
         {
-            // 게임장 밖으로 나가지 못하게 막는다.
-
             stream.SendNext(transform.position);
         }
         else

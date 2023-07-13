@@ -119,6 +119,8 @@ GameObject:
   - component: {fileID: 5807024699560511108}
   - component: {fileID: 3187079418864867599}
   - component: {fileID: -8304028658486637638}
+  - component: {fileID: -8569134973741649387}
+  - component: {fileID: 3274561071480156928}
   m_Layer: 6
   m_Name: Character
   m_TagString: Player
@@ -216,6 +218,7 @@ MonoBehaviour:
   - {fileID: 5191455459992123269}
   - {fileID: 5807024699560511108}
   - {fileID: -8304028658486637638}
+  - {fileID: -8569134973741649387}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -326,6 +329,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09fe7ed8c12178f46a5e7c337b198101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8569134973741649387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191455459992123265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89ed4e2edfc522147a4db16aaac042ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveColor: {r: 0, g: 0, b: 0, a: 0}
+  _areaColor: {r: 0, g: 0, b: 0, a: 0}
+  _borderColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &3274561071480156928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191455459992123265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bea7bbc7b50d5c4a9cd3217470ba8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveTileList: []
+  _moveTileColorList: []
 --- !u!1 &5191455460988447660
 GameObject:
   m_ObjectHideFlags: 0

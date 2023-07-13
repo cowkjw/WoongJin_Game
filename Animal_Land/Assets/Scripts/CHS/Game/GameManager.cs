@@ -79,6 +79,16 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
         // 단, 해당 게임 오브젝트의 주도권은, 생성 메서드를 직접 실행한 클라이언트에게 있음
         GameObject Object = PhotonNetwork.Instantiate("Prefabs/Character", SpawnPos, Quaternion.identity, 0);
 
+        // 오브젝트의 이름 변경 (테스트 목적)
+        if(playerCount == 1)
+        {
+            Object.name = "Bird";
+        }
+        else if(playerCount == 2)
+        {
+            Object.name = "Dog";
+        }
+
         return Object;
     }
 
