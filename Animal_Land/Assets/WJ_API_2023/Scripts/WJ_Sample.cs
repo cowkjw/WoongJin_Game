@@ -34,6 +34,7 @@ public class WJ_Sample : MonoBehaviour
     [SerializeField] Text QuestionTimer;
     [SerializeField] Text CorrectAnswerCount;
     [SerializeField] Slider TimerSlider;
+    [SerializeField] GameObject Pannel;
     private const int SOLVE_TIME = 15; // 문제 풀이 시간
     private int _correctAnswerRemind; // 정답 인덱스 저장
     private int _diagnosisIndex; // 진단 인덱스
@@ -63,6 +64,8 @@ public class WJ_Sample : MonoBehaviour
 
     private void Setup()
     {
+        Pannel?.SetActive(true);
+
         if (wj_conn != null && !wj_conn._needDiagnosis)
         {
             currentStatus = CurrentStatus.LEARNING;
@@ -219,7 +222,7 @@ public class WJ_Sample : MonoBehaviour
 
                     wj_displayText.SetState("문제풀이 중", "-1", "N", questionSolveTime + " 초");
 
-                    if (currentQuestionIndex >= 8)
+                    if (currentQuestionIndex >= 2) // 문제 개수
                     {
                         panel_question.SetActive(false);
                         wj_displayText.SetState("문제풀이 완료", "", "", "");
@@ -266,7 +269,7 @@ public class WJ_Sample : MonoBehaviour
 
                 wj_displayText.SetState("문제풀이 중", textAnsr[_idx].text, ansrCwYn, questionSolveTime + " 초");
 
-                if (currentQuestionIndex >= 8)
+                if (currentQuestionIndex >= 2) // 문제 개수
                 {
                     panel_question.SetActive(false);
                     wj_displayText.SetState("문제풀이 완료", "", "", "");

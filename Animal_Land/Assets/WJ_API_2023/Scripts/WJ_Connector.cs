@@ -336,7 +336,7 @@ public class WJ_Connector : MonoBehaviour
     }
 
     /// <summary>
-    /// 학습 - 고른 정답을 저장, 푼 문제가 8개가 되면 전송
+    /// 학습 - 고른 정답을 저장, 푼 문제가 n개가 되면 전송
     /// </summary>
     public void Learning_SelectAnswer(int _index, string _cransr, string _ansrYn, long _slvTime = 5000)
     {
@@ -344,7 +344,7 @@ public class WJ_Connector : MonoBehaviour
 
         cMyAnsrs.Add(new Learning_MyAnsr(cLearnSet.data.qsts[_index - 1].qstCd, _cransr, _ansrYn, 0));
 
-        if (cMyAnsrs.Count >= 8) 
+        if (cMyAnsrs.Count >= 2) // 여기서 문제 몇개로 조절할지 설정 나중에 매직넘버 바꾸기
         {
             StartCoroutine(SendProgress_Learning());
         }
