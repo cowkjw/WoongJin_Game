@@ -7,6 +7,7 @@ using Photon.Realtime;
 using UnityEngine.UI;
 using UnityEngine.TextCore.Text;
 using Unity.VisualScripting;
+using TMPro;
 
 // 점수와 게임 오버 여부, 게임 UI를 관리하는 게임 매니저
 public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
@@ -21,7 +22,11 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     GameObject[]                _SpawnPos = new GameObject[4];
 
-    GameObject _localUser;
+    GameObject  _localUser;
+    PhotonView  _pv;
+
+    [Header("버튼")]
+    public TextMeshProUGUI   _playButton;
 
     // 주기적으로 자동 실행되는, 동기화 메서드
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -39,15 +44,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
-        // 씬에 싱글톤 오브젝트가 된 다른 GameManager 오브젝트가 있다면
-        if (instance != this)
-        {
-            // 자신을 파괴
-            Destroy(gameObject);
-        }
-
-        // TODO : 캐릭터가 만들어지는 동안 입력을 받지 못하게 한다.
-
+        _pv = GetComponent<PhotonView>();
 
         // 게임 시작과 동시에 플레이어가 될 게임 오브젝트를 생성
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
@@ -156,6 +153,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     // 룸을 나갈때 자동 실행되는 메서드
+    [PunRPC]
     public override void OnLeftRoom()
     {
         // 룸을 나가면 로비 씬으로 돌아감
@@ -176,5 +174,42 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
 
         Debug.Log("User Manager is Null");
         return null;
+    }
+
+    public void StartGameBtn()
+    {
+        if(PhotonNetwork.IsMasterClient == true)
+        {
+            _pv.RPC("StartGame", RpcTarget.All);
+        }
+    }
+
+    public void DropOutAllPlayerBtn()
+    {
+        _pv.RPC("DropOutAllPlayer", RpcTarget.All);
+    }
+
+    [PunRPC]
+    void DropOutAllPlayer()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    [PunRPC]
+    void StartGame()
+    {
+        JoyStick JoyStick = GameObject.FindGameObjectWithTag("GameController").GetComponent<JoyStick>();
+        if (JoyStick != null)
+        {
+            if (JoyStick.IsGameStart() == true)
+            {
+                return;
+            }
+            else
+            {
+                JoyStick.SetIsGameStart(true);
+                _playButton.text = "Game is Already Start";
+            }
+        }
     }
 }

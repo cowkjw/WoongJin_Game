@@ -25,6 +25,7 @@ public class JoyStick : MonoBehaviourPun, IDragHandler, IPointerDownHandler, IPo
 
     private Vector2 _joystickVector;            // 조이스틱의 방향벡터이자 플레이어에게 넘길 방향정보.
     private Vector3 _characterDirection;        // 캐릭터 이동 방향
+    [SerializeField]
     private float _speed;                       // 캐릭터 스피드
     private float _rotateSpeed;                 // 회전 속도
     private Coroutine _runningCoroutine;        // 부드러운 회전 코루틴
@@ -32,16 +33,20 @@ public class JoyStick : MonoBehaviourPun, IDragHandler, IPointerDownHandler, IPo
 
     private PhotonView  _pv;
     private PlayInfo    _playInfo;
+    [SerializeField]
+    private bool        _isGameStart;
 
     // Size of Map
     private MapSize _mapSize;
+    private bool _check = false;
 
     void Awake()
     {
-        _speed = 3.0f;
+        _speed = 1.5f;
         _rotateSpeed = 5.0f;
         _OnTouch = false;
         _characterDirection = Vector3.zero;
+        _isGameStart = false;
     }
 
     void Start()
@@ -53,6 +58,17 @@ public class JoyStick : MonoBehaviourPun, IDragHandler, IPointerDownHandler, IPo
     void Update()
     {
         if(Character == null)
+        {
+            return;
+        }
+
+        // 게임이 시작하기 전까지는 입력을 받지 않는다.
+        if(_isGameStart == false)
+        {
+            return;
+        }
+
+        if(_check == true)
         {
             return;
         }
@@ -135,22 +151,22 @@ public class JoyStick : MonoBehaviourPun, IDragHandler, IPointerDownHandler, IPo
         if (angleDegrees <= 45f || angleDegrees > 315f)
         {
             direction = Vector3.right;
-            _pv.RPC("SetCurDir", RpcTarget.MasterClient, Vector2.right);
+            //_pv.RPC("SetCurDir", RpcTarget.MasterClient, Vector2.right);
         }
         else if (angleDegrees > 45f && angleDegrees <= 135f)
         {
             direction = Vector3.up;
-            _pv.RPC("SetCurDir", RpcTarget.MasterClient, Vector2.up);
+            //_pv.RPC("SetCurDir", RpcTarget.MasterClient, Vector2.up);
         }
         else if (angleDegrees > 135f && angleDegrees <= 225f)
         {
             direction = Vector3.left;
-            _pv.RPC("SetCurDir", RpcTarget.MasterClient, Vector2.left);
+            //_pv.RPC("SetCurDir", RpcTarget.MasterClient, Vector2.left);
         }
         else if (angleDegrees > 225f && angleDegrees <= 315f)
         {
             direction = Vector3.down;
-            _pv.RPC("SetCurDir", RpcTarget.MasterClient, Vector2.down);
+            //_pv.RPC("SetCurDir", RpcTarget.MasterClient, Vector2.down);
         }
 
         return direction;
@@ -177,5 +193,20 @@ public class JoyStick : MonoBehaviourPun, IDragHandler, IPointerDownHandler, IPo
 
         InnerPad.rectTransform.anchoredPosition = Vector2.zero;
         _OnTouch = false;
+    }
+
+    public void SetIsGameStart(bool isGameStart)
+    {
+        _isGameStart = isGameStart;
+    }
+
+    public bool IsGameStart()
+    {
+        return _isGameStart;
+    }
+
+    public void SetCheck(bool check)
+    {
+        _check = check;
     }
 }

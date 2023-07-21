@@ -2,6 +2,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -21,9 +22,13 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
 
     Tilemap         _curTilemap;
     PlayInfo        _playInfo;
-    Vector3Int      _startPosition;         // moveTileList를 시작한 위치
+    Vector3         _startPosition;         // moveTileList를 시작한 위치
+
+    // 영역을 획득하여 색상을 칠할 좌표의 리스트
+    List<Vector3>   _updateTileList;        
 
     int test;
+    bool _checking = false;
     void Awake()
     {
         PhotonNetwork.SendRate = 30;            // 5번/초로 메시지를 보냄
@@ -38,6 +43,7 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
         _tilemap = new Tilemap();
         _pv = GetComponent<PhotonView>();
         _playInfo = GetComponent<PlayInfo>();
+        _updateTileList = new List<Vector3>();
 
         Vector3Int cellPosition = GetTileMap().WorldToCell(transform.position);
         UpdateTileColorToArea(new int[3] { cellPosition.x, cellPosition.y, cellPosition.z});
@@ -89,6 +95,11 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
             return;
         }
 
+        if(_checking == true)
+        {
+            return;
+        }
+
         // 동일한 위치라면 반환한다.
         if (_prevPos.x == cellPos.x && _prevPos.y == cellPos.y)
         {
@@ -96,34 +107,28 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         // TODO : 테스트를 위해 지나가는 타일의 색상을 자신의 색상으로 변환한다.
-        
+
         // 자신의 영역에 들어왔다면
-        if(GetTileMap().GetColor(cellPos) == _areaColor)
+        if (GetTileMap().GetColor(cellPos) == _areaColor)
         {
             // 이전 위치가 영역 안에 위치한다면
             if (isInMoveTileList(new Vector3Int(_prevPos.x, _prevPos.y, _prevPos.z)) == false)
             {
-                UpdatePrevPos(cellPos);
-                UpdateStartPos(cellPos);
-                return;
+                
             }
             // 이전 위치가 영역 안이 아니라면
             else
             {
-                // 색을 칠해준다.
-                ChangeMoveLIstTile(cellPos);
-                FillArea(cellPos);
-                _playInfo.ClearMoveTileList();
-
-                UpdatePrevPos(cellPos);
-                return;
+                Fill(cellPos);
             }
+            UpdateStartPos();
+            UpdatePrevPos(cellPos);
+            return;
         }
         // MoveTile인 경우
-        else if(GetTileMap().GetColor(cellPos) == _moveColor)
+        else if (IsPlayerMoveTile(cellPos) == true)
         {
-
-
+            // 조건문에서 내용을 처리
             return;
         }
         // 그 외의 타일인 경우
@@ -137,9 +142,7 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
             Vector3Int nextPos = FindNextPos(cellPos);
             if(GetTileMap().GetColor(nextPos) == _areaColor)
             {
-                ChangeMoveLIstTile(cellPos);
-                FillArea(cellPos);
-                _playInfo.ClearMoveTileList();
+                Fill(cellPos);
             }
 
             UpdatePrevPos(cellPos);
@@ -147,6 +150,17 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    private void Fill(Vector3Int cellPos)
+    {
+        // 색을 칠해준다.
+        ChangeMoveLIstTile(cellPos);
+        FillArea(cellPos);
+        _playInfo.ClearMoveTileList();
+
+        // 다른 클라이언트에게 요청한다.
+        _pv.RPC("UpdateTileColorToAreaRPCRPC", RpcTarget.Others, Vector3ListToArray(_updateTileList), _updateTileList.Count);
+        _updateTileList.Clear();
+    }
 
     private bool isInMoveTileList(Vector3Int cellPosition)
     {
@@ -163,8 +177,30 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
         return false;
     }
 
+    private Vector3[] Vector3ListToArray(List<Vector3> list)
+    {
+        Vector3[] array = new Vector3[list.Count];
+
+        for(int i = 0; i < list.Count; i++)
+        {
+            array[i] = list[i];
+        }
+
+        return array;
+    }
 
     // RPC 함수들
+    [PunRPC]
+    private void UpdateTileColorToAreaRPCRPC(Vector3[] pos, int size)
+    {
+        for(int i = 0; i < size; i++) 
+        {
+            Vector3Int cellPos = new Vector3Int((int)pos[i].x, (int)pos[i].y, (int)pos[i].z);
+            GetTileMap().SetTileFlags(cellPos, TileFlags.None);
+            GetTileMap().SetColor(cellPos, new Color(_areaColor[0], _areaColor[1], _areaColor[2], _areaColor[3]));
+        }
+    }
+
     [PunRPC]
     private void UpdateTileColorToMoveRPC(int[] pos)
     {
@@ -193,11 +229,10 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    private void UpdateTileColorToThisColor(int[] pos, float[] colors)
+    private void ResetMoveTileListRPC(Vector3[] pos, float[][] colors, int size, Vector3 startPos)
     {
-        Vector3Int cellPos = new Vector3Int(pos[0], pos[1], pos[2]);
-        GetTileMap().SetTileFlags(cellPos, TileFlags.None);
-        GetTileMap().SetColor(cellPos, new Color(colors[0], colors[1], colors[2], colors[3]));
+        UpdateTileColorToThisColor(pos, colors, size);
+        transform.position = startPos;
     }
 
     [PunRPC]
@@ -243,11 +278,26 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
 
         _borderColor = color;
     }
+    private void UpdateTileColorToThisColor(Vector3[] pos, float[][] colors, int size)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            Vector3Int cellPos = new Vector3Int((int)pos[i].x, (int)pos[i].y, (int)pos[i].z);
+
+            GetTileMap().SetTileFlags(cellPos, TileFlags.None);
+            GetTileMap().SetColor(cellPos, new Color(colors[i][0], colors[i][1], colors[i][2], colors[i][3]));
+        }
+    }
+
+    public Color GetMoveColor()
+    {
+        return _moveColor;
+    }
 
     // Pos 관련 함수들
-    private void UpdateStartPos(Vector3Int cellPos)
+    private void UpdateStartPos()
     {
-        _startPosition = cellPos;
+        _startPosition = transform.position;
     }
 
     private void UpdatePrevPos(Vector3Int cellPos)
@@ -331,7 +381,6 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
         return FillAreaPosList;
     }
 
-
     private bool IsInit()
     {
         // 초기화가 이뤄졌다면 _moveColor와 _borderColor가 같을리 없으므로 return
@@ -350,9 +399,10 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
 
         foreach (var move in moveList)
         {
-            UpdateTileColorToArea(new int[3] { (int)move.x, (int)move.y, celPos.z });
+            _updateTileList.Add(move);
+            UpdateTileColorToAreaRPC(new int[3] { (int)move.x, (int)move.y, celPos.z });
+            // UpdateTileColorToArea(new int[3] { (int)move.x, (int)move.y, celPos.z });
         }
-
     }
 
     private void FillArea(Vector3Int cellPos)
@@ -381,11 +431,14 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
 
         if (color1 == _areaColor || color1 == _borderColor)
         {
-            Debug.Log("return");
             return;
         }
 
-        UpdateTileColorToArea(new int[3] {cellPos.x,cellPos.y,cellPos.z});
+        // 호출할 좌표들을 저장.
+        _updateTileList.Add(cellPos); 
+        UpdateTileColorToAreaRPC(new int[3] { cellPos.x, cellPos.y, cellPos.z });
+
+        // UpdateTileColorToArea(new int[3] {cellPos.x,cellPos.y,cellPos.z});
         int[] dx = new int[4] { 0, 0, -1, 1 };
         int[] dy = new int[4] { 1, -1, 0, 0 };
 
@@ -398,8 +451,12 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
         while (Q.Count > 0)
         {
             Vector3Int pos = Q.Dequeue();
-            UpdateTileColorToArea(new int[3] { pos.x, pos.y, pos.z });
 
+            // 호출할 좌표들을 저장.
+            _updateTileList.Add(pos);
+            UpdateTileColorToAreaRPC(new int[3] { pos.x, pos.y, pos.z });
+
+            // UpdateTileColorToArea(new int[3] { pos.x, pos.y, pos.z });
             for (int i = 0; i < 4; i++)
             {
                 Vector3Int vPos = new Vector3Int(pos.x + dx[i], pos.y + dy[i], pos.z);
@@ -469,6 +526,47 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
         return true;
     }
 
+    private void ResetMoveTileList(Vector3Int cellPos)
+    {
+        //Color color = _tilemap.GetColor(cellPos);
+        //_playInfo.AddMoveTileList(cellPos, color);
+
+        List<Color> colorList = _playInfo.GetMoveTileColorList();
+        List<Vector2> posList = _playInfo.GetMoveTileList();
+
+        int size = colorList.Count;
+        Vector3[] vector3s = new Vector3[size];
+        float[][] floats = new float[size][];
+
+        for (int i = 0; i < size; i++)
+        {
+            vector3s[i] = posList[i];
+            floats[i] = new float[4] { colorList[i].r, colorList[i].g, colorList[i].b, colorList[i].a };
+        }
+        _pv.RPC("ResetMoveTileListRPC", RpcTarget.All, vector3s, floats, size, _startPosition);
+        _playInfo.ClearMoveTileList();
+    }
+
+    private bool IsPlayerMoveTile(Vector3Int cellPos)
+    {
+        Color color = GetTileMap().GetColor(cellPos);
+
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject obj in objects)
+        {
+            TileColorChange player = obj.GetComponent<TileColorChange>();
+            if(player.GetMoveColor() == color)
+            {
+                player.SetJoyStickMove(true);
+                player.ResetMoveTileList(cellPos);
+                player.SetJoyStickMove(false);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private Tilemap GetTileMap()
     {
         if(_tilemap != null)
@@ -487,5 +585,28 @@ public class TileColorChange : MonoBehaviourPunCallbacks, IPunObservable
             Debug.Log("Tile Map is Null");
             return null;
         }
+    }
+    
+    public void SetJoyStickMove(bool value)
+    {
+        _pv.RPC("SetJoyStick", RpcTarget.All, value);
+    }
+
+    [PunRPC]
+    private void SetJoyStick(bool value)
+    {
+        if(_pv.IsMine == true)
+        {
+            GameObject JoyStick = GameObject.FindGameObjectWithTag("GameController");
+            if(JoyStick != null) 
+            {
+                JoyStick.GetComponent<JoyStick>().SetCheck(value);
+            }
+        }
+    }
+
+    public void SetCheck(bool check) 
+    {
+        _checking = check;
     }
 }

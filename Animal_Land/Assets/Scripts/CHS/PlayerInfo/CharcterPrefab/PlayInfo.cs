@@ -70,7 +70,7 @@ public class PlayInfo : MonoBehaviourPunCallbacks
         return _prevprevDir;
     }
 
-    public List<Color> GetMoveTilsColorList()
+    public List<Color> GetMoveTileColorList()
     {
         return _moveTileColorList;
     }

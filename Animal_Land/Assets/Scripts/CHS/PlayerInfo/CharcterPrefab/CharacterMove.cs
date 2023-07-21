@@ -25,6 +25,7 @@ public class CharacterMove : MonoBehaviourPunCallbacks, IPunObservable
     public void Awake()
     {
         _pv = GetComponent<PhotonView>();
+
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
