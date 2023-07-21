@@ -28,7 +28,7 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: 
+  DevRegion: kr
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
@@ -39,6 +39,26 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - UpdateColor
+  - UpdateOtherPlayerCharacterRPC
+  - UpdatePlayerCharacter
+  - Test
+  - SetSprite
+  - SetupCharacterFromMasterClientRPC
+  - UpdateCharcterRPC
+  - UpdateCharacterRPC
+  - UpdateTileColor
+  - UpdateTileColorToMove
+  - SetCurDir
+  - UpdateTileColorToAreaRPC
+  - UpdateTileColorToMoveRPC
+  - UpdateTileColorToThisColor
+  - UpdateTileColorToAreaRPCRPC
+  - StartGame
+  - OnLeftRoom
+  - DropOutAllPlayer
+  - ResetMoveTileListRPC
+  - SetJoyStick
   DisableAutoOpenWizard: 1
   ShowSettings: 0
-  DevRegionSetOnce: 0
+  DevRegionSetOnce: 1
