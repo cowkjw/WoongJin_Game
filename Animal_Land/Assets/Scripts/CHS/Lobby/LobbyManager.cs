@@ -69,7 +69,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         // 모든 룸 참가자가 Main 씬을 로드하게 함
-        PhotonNetwork.LoadLevel("Game Room");
+        PhotonNetwork.LoadLevel("Multi Game Room");
     }
 
     public string GetGameVersion()

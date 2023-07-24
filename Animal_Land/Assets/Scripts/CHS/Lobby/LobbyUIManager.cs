@@ -18,9 +18,12 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
 
     [Header("UI 요소")]
     // UI 멤버 변수
-    public Button           joinButton;                 // 룸 접속 버튼
-    public TextMeshProUGUI  connectionInfoText;         // 네트워크 정보를 표시할 텍스트
-    
+    public Button           joinToMultiButton;                 // 룸 접속 버튼
+    public Button           joinToSingleButton;                // 룸 접속 버튼
+    public TextMeshProUGUI  connectionInfoText;                // 네트워크 정보를 표시할 텍스트
+
+    public GameObject       singleGamePanel;
+
     [Header("매니저 클래스")]
     public LobbyManager     lobbyManager;
 
@@ -36,12 +39,28 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
         
     }
 
-    public void ConnectGame()
+    public void ConnectMultiGame()
     {
         Debug.Log("ConnectGame");
         // 중복 접속 시도를 막기 위해 접속 버튼 잠시 비활성화
-        joinButton.interactable = false;
+        joinToMultiButton.interactable = false;
         lobbyManager.Connect();
+    }
+
+    public void OpenSingleGamePanel()
+    {
+        singleGamePanel.SetActive(true);
+    }
+
+    public void CloseSingleGamePanel()
+    {
+        singleGamePanel.SetActive(false);
+    }
+
+    public void ConnectSingleGame()
+    {
+        // TODO : 현재 단일 씬으로 이동하는 것을 스테이지 별로 이동할 수 있게 변경
+        SceneManager.LoadScene("Single Game Room");
     }
 
     public void SetJoinToRoomText()
@@ -56,7 +75,7 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
     }
     public void SetTryConnectText()
     {
-        joinButton.interactable = true;
+        joinToMultiButton.interactable = true;
         ChangeText(TryConnectText);
     }
 
