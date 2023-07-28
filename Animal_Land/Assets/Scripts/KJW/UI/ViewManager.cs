@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,13 +8,13 @@ public class ViewManager : MonoBehaviour
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
                 instance = new ViewManager();
             return instance;
         }
     }
 
-    [Header("시작 화면")]   
+    [Header("시작 화면")]
     [SerializeField]
     private View startingView; // 시작 화면
     [Header("창 목록")]
@@ -26,7 +25,7 @@ public class ViewManager : MonoBehaviour
 
     private readonly Stack<View> _viewHistory = new Stack<View>();
 
-    private void Awake() 
+    private void Awake()
     {
         instance = this; // 싱글톤 인스턴스 
     }
@@ -55,31 +54,39 @@ public class ViewManager : MonoBehaviour
                 return tView;
             }
         }
-
+#if UNITY_EDITOR
+        Debug.LogWarning("UI 찾을 수 없음");
+#endif
         return null;
     }
 
-    public static void Show<T>(bool remember = true) where T : View
+    public static void Show<T>(bool remember = true, bool popUpUI = false) where T : View
     {
         foreach (var view in Instance.views)
         {
             if (view is T)
             {
-                if (Instance._currentView != null)
+                if (Instance._currentView != null) // 현재 창이 null이 아니면
                 {
-                    if (remember)
+                    if (remember) // 기억해야하는 거라면 
                     {
-                        Instance._viewHistory.Push(Instance._currentView);
+                        Instance._viewHistory.Push(Instance._currentView); // stack에 삽입
                     }
 
-                    Instance._currentView.Hide();
+                    if (!popUpUI) // popup이 아니면
+                    {
+                        Instance._currentView.Hide(); // 현재 창은 숨기기
+                    }
                 }
 
-                view.Show();
-                Instance._currentView = view;
+                view.Show(); // 새로 보여질 창 보이기
+                Instance._currentView = view; // 현재 창으로 변경
+                return;
             }
         }
     }
+
+
 
     public static void Show(View view, bool remember = true)
     {
@@ -91,14 +98,14 @@ public class ViewManager : MonoBehaviour
             }
 
             Instance._currentView.Hide(); // 현재 창은 숨긴다
-        }   
+        }
 
         view.Show(); // 선택 한 창을 보여준다
 
         Instance._currentView = view; // 현재 창을 선택 창으로 변경
     }
 
-    public static void ShowList()
+    public static void ShowLast()
     {
         if (Instance._viewHistory.Count > 0)
         {
@@ -106,4 +113,3 @@ public class ViewManager : MonoBehaviour
         }
     }
 }
-    

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class View : MonoBehaviour // 추상 클래스 구현
+public abstract class View : MonoBehaviour // 추상 클래스 구현 (각자 초기화 할 게 다름)
 {
     public abstract void Initialize();
 
