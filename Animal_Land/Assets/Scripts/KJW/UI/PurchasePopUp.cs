@@ -21,8 +21,6 @@ public class PurchasePopUp : PopUpUI
 
     void OnSelectPurchase(int index)
     {
-
-        //  ViewManager.Show<PopUpUI>(false, false);
         switch (index)
         {
             case 0: // ±¸¸Å

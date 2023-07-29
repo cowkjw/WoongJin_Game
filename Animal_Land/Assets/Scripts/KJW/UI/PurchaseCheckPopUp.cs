@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PurchaseCheckPopUp : PopUpUI , IStatusCheckPopUP
+public class PurchaseCheckPopUp : PopUpUI , IStatusCheckPopUP 
 {
     public override void Initialize()
     {

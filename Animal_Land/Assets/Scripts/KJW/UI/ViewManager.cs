@@ -23,7 +23,7 @@ public class ViewManager : MonoBehaviour
 
     private View _currentView; // 현재 창
 
-    private readonly Stack<View> _viewHistory = new Stack<View>();
+    private readonly Stack<View> _viewHistory = new Stack<View>(); // UI Stack
 
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class ViewManager : MonoBehaviour
 
     private void Start()
     {
-        foreach (var view in Instance.views)
+        foreach (var view in Instance.views) // 순회하면서 초기화 및 숨기기
         {
             view.Initialize();
 
@@ -41,11 +41,11 @@ public class ViewManager : MonoBehaviour
 
         if (startingView != null) // 시작할 때 보여질 창
         {
-            Show(startingView);
+            Show(startingView); // 처음 시작하는 화면은 기억하기
         }
     }
 
-    public static T GetView<T>() where T : View
+    public static T GetView<T>() where T : View // View를 상속받거나 하는 객체들로 한정
     {
         foreach (var view in Instance.views)
         {
@@ -105,7 +105,7 @@ public class ViewManager : MonoBehaviour
         Instance._currentView = view; // 현재 창을 선택 창으로 변경
     }
 
-    public static void ShowLast()
+    public static void ShowLast() // 마지막 창(이전 창) 보여주기
     {
         if (Instance._viewHistory.Count > 0)
         {

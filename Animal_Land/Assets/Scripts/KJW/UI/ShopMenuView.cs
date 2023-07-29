@@ -16,11 +16,15 @@ public class ShopMenuView : View
     private Image characterChangeImage; // 바뀔 캐릭터 이미지
     [SerializeField]
     private List<Sprite> characterSprites; // 캐릭터 스프라이트들
+    [SerializeField]
+    private Text goldText;
 
     public override void Initialize()
     {
         backButton.onClick.AddListener(() => ViewManager.ShowLast()); // 마지막 창  
         buyButton.onClick.AddListener(() => ViewManager.Show<PurchasePopUp>(true, true)); // 구매창 활성화
+        saveButton.onClick.AddListener(() => DataManager.Instance.SaveData<IDictionary<string, Contents.CharacterCustom>>(DataManager.Instance.CharacterCustomData, "TestJson")); ;
+        goldText.text = $"GOLD : {DataManager.Instance.Gold}";
 
         for (int i = 0; i < selectCharaceterBtns.Count; i++)
         {
