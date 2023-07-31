@@ -6,17 +6,31 @@ using UnityEngine;
 
 namespace Contents
 {
-    [Serializable]
+    //[Serializable]
     public class CharacterCustom
     {
-        private string head;
-        private string glass;
-        private string necklace;
+        [JsonProperty("Hat")]
+        string hat;
+        [JsonProperty("Glass")]
+        string glass;
+        [JsonProperty("Necklace")]
+        string necklace;
     }
 
     public class PlayerData
     {
-        [JsonProperty("Player Gold")]
-        int gold;
+        [JsonProperty("Gold")]
+        public int Gold { get; set; }
+        [JsonProperty("ShoppingList")]
+        public IDictionary<string,bool> ShoppingList { get; set; } = new Dictionary<string,bool>();
     }
+
+    public class ItemInfo
+    {
+        [JsonProperty("Name")]
+        public string Name { get; set; }
+        [JsonProperty("Price")]
+        public int Price { get; set; }
+    }
+
 }

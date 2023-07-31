@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopMenuView : View
 {
+    public Action OnShopClick;
+
     [SerializeField]
     private Button backButton; // 뒤로가기 버튼
     [SerializeField]
@@ -21,16 +24,23 @@ public class ShopMenuView : View
 
     public override void Initialize()
     {
-        backButton.onClick.AddListener(() => ViewManager.ShowLast()); // 마지막 창  
-        buyButton.onClick.AddListener(() => ViewManager.Show<PurchasePopUp>(true, true)); // 구매창 활성화
-        saveButton.onClick.AddListener(() => DataManager.Instance.SaveData<IDictionary<string, Contents.CharacterCustom>>(DataManager.Instance.CharacterCustomData, "TestJson")); ;
-        goldText.text = $"GOLD : {DataManager.Instance.Gold}";
+        backButton?.onClick.AddListener(() => ViewManager.ShowLast()); // 마지막 창  
+        buyButton?.onClick.AddListener(() => ViewManager.Show<PurchasePopUp>(true, true)); // 구매창 활성화
+        saveButton?.onClick.AddListener(() => DataManager.Instance.SaveData<IDictionary<string, Contents.CharacterCustom>>
+        (DataManager.Instance.CharacterCustomData, "TestJson"));
+
+        OnShopClick += UpdateGoldText;
+        UpdateGoldText();
 
         for (int i = 0; i < selectCharaceterBtns.Count; i++)
         {
             int characterIndex = i; // 변수를 캡쳐하기 때문에 i를 안넣고 로컬로 따로 변수에 할당해서 사용
             selectCharaceterBtns[i].onClick.AddListener(() => OnCharacterButtonClicked(characterIndex));
         }
+    }
+    void UpdateGoldText()
+    {
+        goldText.text = $"GOLD : {DataManager.Instance.PlayerData.Gold}";
     }
 
     void OnCharacterButtonClicked(int characterIndex)
@@ -40,5 +50,6 @@ public class ShopMenuView : View
             characterChangeImage.sprite = characterSprites[characterIndex];
         }
     }
+
 
 }
