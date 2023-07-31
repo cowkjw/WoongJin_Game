@@ -188,7 +188,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1125597
 GameObject:
@@ -736,7 +736,7 @@ RectTransform:
   - {fileID: 2138340575}
   - {fileID: 299758029}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 13.126, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1027,9 +1027,9 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC18C3\n"
+  m_Text: "\uC548\uACBD"
 --- !u!222 &310895866
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1160,8 +1160,52 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &417011367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 417011368}
+  - component: {fileID: 417011369}
+  m_Layer: 0
+  m_Name: ShopManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &417011368
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417011367}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 478.84998, y: 521, z: 0}
+  m_LocalScale: {x: 133.33333, y: 133.33333, z: 60}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 525702572}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &417011369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417011367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917f2a192bd495549a8276c2a613e812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &421636971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,7 +1264,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: adeb71c559337cb4f8d7c8f7c9a50d62, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ccfd7b777017a7d44a7c914623055ce3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1418,7 +1462,7 @@ GameObject:
   - component: {fileID: 523946904}
   - component: {fileID: 523946903}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: Hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1564,6 +1608,7 @@ RectTransform:
   - {fileID: 260377175}
   - {fileID: 1062337846}
   - {fileID: 1600860473}
+  - {fileID: 417011368}
   m_Father: {fileID: 230156049}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1587,6 +1632,11 @@ MonoBehaviour:
   backButton: {fileID: 1600860474}
   buyButton: {fileID: 2033757975}
   saveButton: {fileID: 1985542375}
+  categoryBtns:
+  - {fileID: 995047107}
+  - {fileID: 523946903}
+  - {fileID: 1774317808}
+  - {fileID: 1934958352}
   selectCharaceterBtns:
   - {fileID: 1604856514}
   - {fileID: 85694406}
@@ -1599,6 +1649,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41668323d1c87b24f8085f02a8d7dee2, type: 3}
   - {fileID: 21300000, guid: cd836ace169499b42bee596ee86992bf, type: 3}
   goldText: {fileID: 1062337847}
+  buyText: {fileID: 1046687911}
 --- !u!1 &575842427
 GameObject:
   m_ObjectHideFlags: 0
@@ -2118,7 +2169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &943946181
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2378,7 +2429,7 @@ GameObject:
   - component: {fileID: 995047108}
   - component: {fileID: 995047107}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3176,9 +3227,9 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC18C1"
+  m_Text: "\uBAA8\uC790"
 --- !u!222 &1145831808
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3725,9 +3776,9 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC18C2"
+  m_Text: "\uBAA9\uAC78\uC774"
 --- !u!222 &1311872199
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5017,7 +5068,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1774317806
 GameObject:
@@ -5032,7 +5083,7 @@ GameObject:
   - component: {fileID: 1774317809}
   - component: {fileID: 1774317808}
   m_Layer: 5
-  m_Name: Button (Legacy) (2)
+  m_Name: Necklace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5270,7 +5321,7 @@ GameObject:
   - component: {fileID: 1934958353}
   - component: {fileID: 1934958352}
   m_Layer: 5
-  m_Name: Button (Legacy) (3)
+  m_Name: Glass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

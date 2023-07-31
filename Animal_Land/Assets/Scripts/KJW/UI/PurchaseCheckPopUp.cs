@@ -15,6 +15,6 @@ public class PurchaseCheckPopUp : PopUpUI, IStatusCheckPopUP
 
     public void SetCheckMessage(string message)
     {
-       checkMessage.text = message;
+        checkMessage.text = message;
     }
 }

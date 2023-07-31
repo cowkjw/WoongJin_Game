@@ -1,3 +1,4 @@
+using Contents;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,51 +6,91 @@ using UnityEngine.UI;
 
 public class ShopMenuView : View
 {
-    public Action OnShopClick;
+    public Action OnShopClick; // 상점 클릭에 대한 업데이트 델리게이트
+    public bool ToggleBuy = true;
 
-    [SerializeField]
-    private Button backButton; // 뒤로가기 버튼
-    [SerializeField]
-    private Button buyButton; // 구매 버튼
-    [SerializeField]
-    private Button saveButton; // 저장 버튼
-    [SerializeField]
-    private List<Button> selectCharaceterBtns; // 캐릭터 선택 버튼
-    [SerializeField]
-    private Image characterChangeImage; // 바뀔 캐릭터 이미지
-    [SerializeField]
-    private List<Sprite> characterSprites; // 캐릭터 스프라이트들
-    [SerializeField]
-    private Text goldText;
+    [SerializeField] private Button backButton; // 뒤로가기 버튼
+    [SerializeField] private Button buyButton; // 구매 버튼
+    [SerializeField] private Button saveButton; // 저장 버튼
+    [SerializeField] private List<Button> categoryBtns; // 아이템 카테고리 버튼들
+    [SerializeField] private List<Button> selectCharaceterBtns; // 캐릭터 선택 버튼
+    [SerializeField] private Image characterChangeImage; // 바뀔 캐릭터 이미지
+    [SerializeField] private List<Sprite> characterSprites; // 캐릭터 스프라이트들
+    [SerializeField] private Text goldText;
+    [SerializeField] private Text buyText;
 
     public override void Initialize()
     {
         backButton?.onClick.AddListener(() => ViewManager.ShowLast()); // 마지막 창  
-        buyButton?.onClick.AddListener(() => ViewManager.Show<PurchasePopUp>(true, true)); // 구매창 활성화
-        saveButton?.onClick.AddListener(() => DataManager.Instance.SaveData<IDictionary<string, Contents.CharacterCustom>>
-        (DataManager.Instance.CharacterCustomData, "TestJson"));
+        buyButton?.onClick.AddListener(() => OnBuyButtonClicked()); // 구매창 활성화
+        saveButton?.onClick.AddListener(() => OnSaveButtonClicked()); // 캐릭터 커스텀 저장 버튼
 
-        OnShopClick += UpdateGoldText;
-        UpdateGoldText();
+        OnShopClick += UpdateShopInterface;
+        OnShopClick?.Invoke(); ; // 골드 UI Text 업데이트
 
-        for (int i = 0; i < selectCharaceterBtns.Count; i++)
+        for (int i = 0; i < selectCharaceterBtns.Count; i++) // 캐릭터 선택 버튼들 초기화
         {
             int characterIndex = i; // 변수를 캡쳐하기 때문에 i를 안넣고 로컬로 따로 변수에 할당해서 사용
-            selectCharaceterBtns[i].onClick.AddListener(() => OnCharacterButtonClicked(characterIndex));
+            selectCharaceterBtns[i]?.onClick.AddListener(() => OnCharacterButtonClicked(characterIndex));
+        }
+
+        for (int i = 0; i < categoryBtns.Count; i++) // 카테고리 버튼들 초기화
+        {
+            Contents.ItemType itemType = (Contents.ItemType)i; // 아이템 타입으로 변환
+            categoryBtns[i]?.onClick.AddListener(() => OnItemCategoryButtonClicked(itemType));
         }
     }
-    void UpdateGoldText()
+
+    void UpdateShopInterface() // 상점 업데이트를 위함
+    {
+        DataManager.Instance.ReloadData();
+        UpdateGoldText();
+    }
+
+    void UpdateGoldText() // 골드 업데이트 구매 시에 변경을 위함
     {
         goldText.text = $"GOLD : {DataManager.Instance.PlayerData.Gold}";
     }
 
-    void OnCharacterButtonClicked(int characterIndex)
+    public void UpdateBuyText(bool notHave) // 구매 버튼 텍스 변경 함수
+    {
+        buyText.text = notHave ? "구매" : "장착";
+    }
+
+    #region UI_Button
+
+    void OnCharacterButtonClicked(int characterIndex) // 캐릭터 변경을 위한 이벤트
     {
         if (characterChangeImage != null && characterSprites.Count > 0)
         {
             characterChangeImage.sprite = characterSprites[characterIndex];
+            ShopManager.Instance.CharacterType = (CharacterType)characterIndex;
+            ShopManager.Instance.LoadCharacterCustom();
         }
     }
 
+    void OnItemCategoryButtonClicked(Contents.ItemType itemType) // 아이템 카테고리 변경
+    {
+        ShopManager.CheckItemList(itemType);
+    }
 
+    void OnBuyButtonClicked()
+    {
+        ViewManager.Show<PurchasePopUp>(true, true);
+        if (!ToggleBuy)
+        {
+            ShopManager.Instance.SetCharacterCustom(); // 선택 시에 만약 가지고 있는 아이템이라면
+        }
+    }
+
+    void OnSaveButtonClicked()
+    {
+        CharacterType characterType = ShopManager.Instance.CharacterType;
+
+        DataManager.Instance.CharacterCustomData[characterType.ToString()] = ShopManager.Instance.CharacterCustom;
+        DataManager.Instance.SaveData<IDictionary<string, Contents.CharacterCustom>>
+            (DataManager.Instance.CharacterCustomData, "CustomData");
+        DataManager.Instance.ReloadData();
+    }
+    #endregion
 }

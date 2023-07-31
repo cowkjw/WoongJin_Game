@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Newtonsoft.Json;
-using System.IO;
 using Contents;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
@@ -22,13 +21,14 @@ public class DataManager : MonoBehaviour
     }
 
     private PlayerData _playerData = new PlayerData();
-    private IDictionary<string, CharacterCustom> _characterCustomData = new Dictionary<string, Contents.CharacterCustom>();
-    private IList<ItemInfo> _hatItemInfoList = new List<ItemInfo>();
+    private IDictionary<string, CharacterCustom> _characterCustomData = new Dictionary<string, CharacterCustom>();
+    private IDictionary<string, IList<ItemInfo>> _propsItemDict = new Dictionary<string, IList<ItemInfo>>();
+
+
 
     public IDictionary<string, CharacterCustom> CharacterCustomData => _characterCustomData;
     public PlayerData PlayerData => _playerData;
-    public IList<ItemInfo> HatItemInfoList => _hatItemInfoList;
-
+    public IDictionary<string,IList<ItemInfo>> PropsItemDict => _propsItemDict;
 
     private void Awake()
     {
@@ -53,8 +53,9 @@ public class DataManager : MonoBehaviour
         //_hatItemInfoList.Add(temp3);
         //_hatItemInfoList.Add(temp4);
         //SaveData<IList<ItemInfo>>(_hatItemInfoList, "Item_Hat");
-        _hatItemInfoList = LoadData<IList<ItemInfo>>("Item_Hat", _hatItemInfoList);
+
         _characterCustomData = LoadData<IDictionary<string, CharacterCustom>>("CustomData", _characterCustomData);
+        _propsItemDict = LoadData<IDictionary<string, IList<ItemInfo>>>("ItemData", _propsItemDict);
         _playerData = LoadData<PlayerData>("PlayerData", _playerData);
     }
 
@@ -103,6 +104,13 @@ public class DataManager : MonoBehaviour
         {
             return defaultData;
         }
+    }
+
+    public void ReloadData()
+    {
+        _characterCustomData = LoadData<IDictionary<string, CharacterCustom>>("CustomData", _characterCustomData);
+        _propsItemDict = LoadData<IDictionary<string, IList<ItemInfo>>>("ItemData", _propsItemDict);
+        _playerData = LoadData<PlayerData>("PlayerData", _playerData);
     }
 
 }

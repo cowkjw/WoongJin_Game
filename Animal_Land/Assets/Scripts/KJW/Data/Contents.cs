@@ -1,20 +1,29 @@
 using Newtonsoft.Json;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Contents
 {
-    //[Serializable]
+    public enum ItemType
+    {
+        Face,
+        Hat,
+        Necklace,
+        Glass,
+        Wing
+    }
+
+    public enum CharacterType
+    {
+        Frog,
+        Bird,
+        Dog,
+        Cat
+    }
+
     public class CharacterCustom
     {
-        [JsonProperty("Hat")]
-        string hat;
-        [JsonProperty("Glass")]
-        string glass;
-        [JsonProperty("Necklace")]
-        string necklace;
+        [JsonProperty("CustomList")]
+        public IDictionary<string, string> ItemDict { get; set; } = new Dictionary<string, string>(); // Key : 아이템 타입, Vlaue : 아이템 이름
     }
 
     public class PlayerData
@@ -22,7 +31,7 @@ namespace Contents
         [JsonProperty("Gold")]
         public int Gold { get; set; }
         [JsonProperty("ShoppingList")]
-        public IDictionary<string,bool> ShoppingList { get; set; } = new Dictionary<string,bool>();
+        public IDictionary<string, bool> ShoppingList { get; set; } = new Dictionary<string, bool>();
     }
 
     public class ItemInfo

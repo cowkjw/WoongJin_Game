@@ -1,0 +1,102 @@
+{
+  "Necklace": [
+    {
+      "Name": "Necklace1",
+      "Price": 100000
+    },
+    {
+      "Name": "Necklace2",
+      "Price": 500
+    },
+    {
+      "Name": "Necklace3",
+      "Price": 20000
+    },
+    {
+      "Name": "Necklace4",
+      "Price": 1000
+    },
+    {
+      "Name": "Necklace5",
+      "Price": 500000
+    },
+    {
+      "Name": "Necklace6",
+      "Price": 200
+    }
+  ],
+  "Face": [
+    {
+      "Name": "Face1",
+      "Price": 10
+    },
+    {
+      "Name": "Face2",
+      "Price": 500000
+    },
+    {
+      "Name": "Face3",
+      "Price": 20000
+    },
+    {
+      "Name": "Face4",
+      "Price": 100
+    }
+  ],
+  "Glass": [
+    {
+      "Name": "Glass1",
+      "Price": 100000
+    },
+    {
+      "Name": "Glass2",
+      "Price": 500
+    },
+    {
+      "Name": "Glass3",
+      "Price": 20000
+    },
+    {
+      "Name": "Glass4",
+      "Price": 1000
+    },
+    {
+      "Name": "Glass5",
+      "Price": 5000
+    },
+    {
+      "Name": "Glass6",
+      "Price": 700000
+    },
+    {
+      "Name": "Glass7",
+      "Price": 1000
+    },
+    {
+      "Name": "Glass8",
+      "Price": 2000
+    }
+  ],
+  "Hat": [
+    {
+      "Name": "Crown",
+      "Price": 100000
+    },
+    {
+      "Name": "Hat1",
+      "Price": 500
+    },
+    {
+      "Name": "Hat2",
+      "Price": 20000
+    },
+    {
+      "Name": "Hat3",
+      "Price": 1000
+    },
+    {
+      "Name": "Hat4",
+      "Price": 500000
+    }
+  ]
+}
