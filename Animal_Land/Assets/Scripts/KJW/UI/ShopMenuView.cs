@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class ShopMenuView : View
 {
     public Action OnShopClick; // 상점 클릭에 대한 업데이트 델리게이트
-    public bool ToggleBuy = true;
+    public bool canPutOn;
 
     [SerializeField] private Button backButton; // 뒤로가기 버튼
     [SerializeField] private Button buyButton; // 구매 버튼
-    [SerializeField] private Button saveButton; // 저장 버튼
+    [SerializeField] private Button putOnButton; // 장착 버튼
     [SerializeField] private List<Button> categoryBtns; // 아이템 카테고리 버튼들
     [SerializeField] private List<Button> selectCharaceterBtns; // 캐릭터 선택 버튼
     [SerializeField] private Image characterChangeImage; // 바뀔 캐릭터 이미지
@@ -23,7 +23,7 @@ public class ShopMenuView : View
     {
         backButton?.onClick.AddListener(() => ViewManager.ShowLast()); // 마지막 창  
         buyButton?.onClick.AddListener(() => OnBuyButtonClicked()); // 구매창 활성화
-        saveButton?.onClick.AddListener(() => OnSaveButtonClicked()); // 캐릭터 커스텀 저장 버튼
+        putOnButton?.onClick.AddListener(() => OnPutOnButtonClicked()); // 캐릭터 커스텀 저장 버튼
 
         OnShopClick += UpdateShopInterface;
         OnShopClick?.Invoke(); ; // 골드 UI Text 업데이트
@@ -52,12 +52,7 @@ public class ShopMenuView : View
         goldText.text = $"GOLD : {DataManager.Instance.PlayerData.Gold}";
     }
 
-    public void UpdateBuyText(bool notHave) // 구매 버튼 텍스 변경 함수
-    {
-        buyText.text = notHave ? "구매" : "장착";
-    }
-
-    #region UI_Button
+    #region UI_Buttons
 
     void OnCharacterButtonClicked(int characterIndex) // 캐릭터 변경을 위한 이벤트
     {
@@ -71,26 +66,33 @@ public class ShopMenuView : View
 
     void OnItemCategoryButtonClicked(Contents.ItemType itemType) // 아이템 카테고리 변경
     {
-        ShopManager.CheckItemList(itemType);
+        ShopManager.Instance.CheckItemList(itemType);
     }
 
     void OnBuyButtonClicked()
     {
         ViewManager.Show<PurchasePopUp>(true, true);
-        if (!ToggleBuy)
-        {
-            ShopManager.Instance.SetCharacterCustom(); // 선택 시에 만약 가지고 있는 아이템이라면
-        }
     }
 
-    void OnSaveButtonClicked()
+    void OnPutOnButtonClicked()
     {
         CharacterType characterType = ShopManager.Instance.CharacterType;
 
+
+        ShopManager.Instance.SetCharacterCustom(); // 선택 시에 만약 가지고 있는 아이템이라면
+        PurchasePopUp popUp = ViewManager.GetView<PurchasePopUp>();
+        if (popUp != null)
+        {
+            popUp.SetCheckMessage("장착 완료!");
+            popUp.checkAction(false); // 완료 버튼만 뜨도록
+            ViewManager.Show<PurchasePopUp>(true, true);
+        }
+
+        // 데이터 매니저의 캐릭터 커스텀 데이터를 현재 상점 창의 캐릭터 커스텀으로 할당
         DataManager.Instance.CharacterCustomData[characterType.ToString()] = ShopManager.Instance.CharacterCustom;
         DataManager.Instance.SaveData<IDictionary<string, Contents.CharacterCustom>>
             (DataManager.Instance.CharacterCustomData, "CustomData");
-        DataManager.Instance.ReloadData();
+        DataManager.Instance.ReloadData(); // 다시 저장한 데이터 불러옴
     }
     #endregion
 }

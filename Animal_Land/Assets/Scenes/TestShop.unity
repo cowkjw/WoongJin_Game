@@ -1206,6 +1206,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 917f2a192bd495549a8276c2a613e812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slots:
+  - {fileID: 1126453991}
+  - {fileID: 1255864485}
+  - {fileID: 1457956686}
+  - {fileID: 1317812144}
+  - {fileID: 1125601}
+  - {fileID: 1267397974}
+  - {fileID: 2091686864}
+  - {fileID: 1523748927}
+  - {fileID: 1951920386}
+  - {fileID: 575842431}
+  - {fileID: 1507848441}
+  - {fileID: 839091486}
+  - {fileID: 984457172}
+  - {fileID: 241087748}
+  - {fileID: 1272188031}
 --- !u!1 &421636971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,9 +1645,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a44786aba396c468e795b4b0bf84cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canPutOn: 0
   backButton: {fileID: 1600860474}
   buyButton: {fileID: 2033757975}
-  saveButton: {fileID: 1985542375}
+  putOnButton: {fileID: 1985542375}
   categoryBtns:
   - {fileID: 995047107}
   - {fileID: 523946903}
@@ -2053,7 +2070,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC800\uC7A5"
+  m_Text: "\uC7A5\uCC29"
 --- !u!222 &764475857
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5205,7 +5222,7 @@ GameObject:
   - component: {fileID: 1824144511}
   - component: {fileID: 1824144510}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Slots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5532,7 +5549,7 @@ GameObject:
   - component: {fileID: 1985542376}
   - component: {fileID: 1985542375}
   m_Layer: 5
-  m_Name: Save_Button
+  m_Name: PutOn_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

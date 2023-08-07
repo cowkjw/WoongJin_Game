@@ -1,5 +1,8 @@
 using Contents;
+using System;
+using System.IO;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,14 +12,17 @@ public class Slot : MonoBehaviour, IPointerDownHandler
 
     public ItemInfo SlotInfo { get; private set; }
     public int SlotIndex { get; private set; }
-    bool isCanClick; // 클릭할 수 있는지
+    public Action<int> ClickSlotAction = null;
+    public bool isCanClick { get; private set; } // 클릭할 수 있는지   
+    public bool unLock { get; private set; } // 구매했는지   
     ItemType _itemType = ItemType.Face; // 아이템 타입 설정
+    Image _itemImage;
 
     void Start()
     {
         SlotIndex = transform.GetSiblingIndex();
         InitializeSlot(_itemType); // 기본은 얼굴 장식 Slot 초기화
-        ShopManager.Instance.UpdateShopItemListAction += InitializeSlot;
+        ShopManager.Instance.UpdateShopItemListAction += InitializeSlot; // 슬롯 초기화
         ViewManager.GetView<ShopMenuView>().OnShopClick += ResetSlot;
     }
 
@@ -32,19 +38,47 @@ public class Slot : MonoBehaviour, IPointerDownHandler
         {
             SlotInfo = element;
             isCanClick = true;
-            if (DataManager.Instance.PlayerData.ShoppingList.Count > 0 && DataManager.Instance.PlayerData.ShoppingList.ContainsKey(SlotInfo.Name))
+            if (DataManager.Instance.PlayerData.ShoppingList.Count > 0 && DataManager.Instance.PlayerData.ShoppingList.ContainsKey(SlotInfo.Name)) // 이미 구입한 상품이라면
             {
                 this.GetComponent<Image>().color = new Color(255, 255, 255, 1);
+                unLock = true;
             }
             else
             {
                 this.GetComponent<Image>().color = new Color(0, 0, 0, 1);
+                unLock = false;
             }
         }
         else
         {
             isCanClick = false;
             this.GetComponent<Image>().color = new Color(0, 0, 0, 0);// 굳이 이미지를 보여줄 필요 없음
+        }
+
+        UpdateItemImage();
+    }
+
+    void UpdateItemImage() // 슬롯 아이템의 이미지 업데이트
+    {
+        if (SlotInfo == null) return; // 현재 슬롯에는 들어 갈 아이템이 없는 경우임 
+
+        _itemImage = GetComponent<Image>();
+        if (_itemImage == null)
+        {
+            _itemImage = GetComponent<Image>();
+        }
+
+        Sprite itemSprite = Resources.Load<Sprite>($"Sprites/Items/{_itemType.ToString()}/{SlotInfo.Name}");
+        if (itemSprite != null)
+        {
+            _itemImage.sprite = itemSprite;
+        }
+        else
+        {
+            _itemImage.sprite = null;
+#if UNITY_EDITOR
+            Debug.LogError($"리소스 폴더에 아이템 {SlotInfo.Name} 이미지가 없습니다.");
+#endif  
         }
     }
 
@@ -53,28 +87,34 @@ public class Slot : MonoBehaviour, IPointerDownHandler
         InitializeSlot(_itemType);
     }
 
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!isCanClick) return; // 선택을 못하는 슬롯이라면 
 
+        ClickSlotAction?.Invoke(SlotIndex);
         string message; // 전달 할 메시지
         bool notHave = true; // 가지고 있는 아이템인지
-
+        ShopMenuView shopMenu = ViewManager.GetView<ShopMenuView>();
         if (DataManager.Instance.PlayerData.ShoppingList.ContainsKey(SlotInfo.Name)) // 이미 구입한 아이템이라면
         {
-            message = "장착 완료.";
+            message = "이미 구매한 아이템입니다.";
             notHave = false;
-            ViewManager.GetView<ShopMenuView>().ToggleBuy = false;
+            if (shopMenu != null)
+            {
+                shopMenu.canPutOn = true;
+            }
         }
         else
         {
             message = $"{SlotInfo.Price} Gold가 소모됩니다.\n{SlotInfo.Name}를 구매하시겠습니까?";
-            ViewManager.GetView<ShopMenuView>().ToggleBuy = true;
+            if (shopMenu != null)
+            {
+                shopMenu.canPutOn = false;
+            }
         }
 
-        ViewManager.GetView<ShopMenuView>()?.UpdateBuyText(notHave); // 구매 버튼에 장착으로 변경할지 선택 후 업데이트
         ShopManager.Instance.ItemInfo = SlotInfo;
-
         PurchasePopUp purchasePopUp = ViewManager.GetView<PurchasePopUp>();
         if (purchasePopUp != null)
         {
