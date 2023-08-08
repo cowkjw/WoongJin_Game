@@ -35,6 +35,9 @@ public class SGameManager : MonoBehaviour
 
         // 유저 정보를 업데이트
         UpdateUser(user, playerCharacterNum);
+
+        // 몬스터에 정보를 업데이트
+        UpdateMonsters();
     }
 
     private void Start()
@@ -45,6 +48,15 @@ public class SGameManager : MonoBehaviour
     private void Init()
     {
 
+    }
+
+    private void UpdateMonsters()
+    {
+        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        foreach (GameObject monster in monsters)
+        {
+            monster.GetComponent<SMonsterMove>().Init();
+        }
     }
 
     private GameObject SetUser(int playerCount)

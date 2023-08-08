@@ -17,6 +17,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        // TODO : 멀티 기능 임시 차단
+        return;
+
         // 원하는 동기화 주기 설정
         PhotonNetwork.SendRate = 30;            // 5번/초로 메시지를 보냄
         PhotonNetwork.SerializationRate = 60;   // 5번/초로 메시지를 수신 및 업데이트
@@ -69,7 +72,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         // 모든 룸 참가자가 Main 씬을 로드하게 함
-        PhotonNetwork.LoadLevel("Multi Game Room");
+        PhotonNetwork.LoadLevel("Game Room");
     }
 
     public string GetGameVersion()
