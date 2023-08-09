@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class NickNameColor : MonoBehaviour
 {
@@ -13,7 +14,11 @@ public class NickNameColor : MonoBehaviour
 
     private void Start()
     {
-        if(GetComponent<PhotonView>().IsMine == true)
+        if(SceneManager.GetActiveScene().name == "Single Game Room")
+        {
+            NickNameText.color = Color.green;
+        }
+        else if(GetComponent<PhotonView>().IsMine == true)
         {
             NickNameText.color = Color.green;
         }
@@ -21,16 +26,5 @@ public class NickNameColor : MonoBehaviour
 
     private void Update()
     {
-    }
-
-    [PunRPC]
-    void UpdateColor(Vector3 pos)
-    {
-        Tilemap tilemap = GameObject.Find("GameManager").GetComponent<GameManager>().tileMap;
-        Vector3Int cellPos = tilemap.WorldToCell(pos);
-
-        Debug.Log("Set Color");
-        tilemap.SetTileFlags(cellPos, TileFlags.None);
-        tilemap.SetColor(cellPos, Color.red);
     }
 }

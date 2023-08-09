@@ -18,8 +18,12 @@ public class TitleUIManager : MonoBehaviour
     public Button           BtChangeScene;
     public TextMeshProUGUI  BtText;
 
+    [Header("패널")]
+    public GameObject       HowToPlayPanel;
+
     // 멤버 변수
     private bool            _isCanMoveToLobby = false;
+
 
     void Start()
     {
@@ -73,5 +77,15 @@ public class TitleUIManager : MonoBehaviour
     void ChangeRoom(string roomName)
     {
         SceneManager.LoadScene(roomName);
+    }
+
+    public void OpenHowToPlay()
+    {
+        HowToPlayPanel.SetActive(true);
+    }
+
+    public void CloseHowToPlay()
+    {
+        HowToPlayPanel.SetActive(false);
     }
 }

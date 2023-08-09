@@ -16,11 +16,22 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private string          JoinToRoomText       = "Join To Room...";
 
-    [Header("UI 요소")]
+    [Header("로비 UI 요소")]
     // UI 멤버 변수
     public Button           joinButton;                 // 룸 접속 버튼
     public TextMeshProUGUI  connectionInfoText;         // 네트워크 정보를 표시할 텍스트
     
+    public Button           joinToMultiButton;                 // 룸 접속 버튼
+    public Button           joinToSingleButton;                // 룸 접속 버튼
+
+    [Header("싱글 게임 패널 관련")]
+    public GameObject       singleGamePanel;
+
+    [Header("설정 패널 관련")]
+    public GameObject       settingPanel;
+    public Button           openSettingButton;
+    public Button           exitSettingButton;
+
     [Header("매니저 클래스")]
     public LobbyManager     lobbyManager;
 
@@ -38,10 +49,40 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
 
     public void ConnectGame()
     {
+    
+    }
+
+    public void OpenSingleGamePanel()
+    {
+        singleGamePanel.SetActive(true);
+    }
+
+    public void CloseSingleGamePanel()
+    {
+        singleGamePanel.SetActive (false);
+    }
+
+    public void OpenSettingPanel()
+    {
+        settingPanel.SetActive(true);
+    }
+
+    public void CloseSettingPanel()
+    {
+        settingPanel.SetActive(false);
+    }
+
+    public void ConnectMultiGame()
+    {
         Debug.Log("ConnectGame");
         // 중복 접속 시도를 막기 위해 접속 버튼 잠시 비활성화
         joinButton.interactable = false;
         lobbyManager.Connect();
+    }
+
+    public void ConnectSingleGame()
+    {
+        SceneManager.LoadScene(SStageInfo.StageName);
     }
 
     public void SetJoinToRoomText()
@@ -63,6 +104,12 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
     void ChangeText(string text)
     {
         connectionInfoText.text = text;
+    }
+
+    public void SetStageNumber(string stage)
+    {
+        // TODO : 스테이지 이름을 넘겨준다.
+        SStageInfo.StageName = stage;
     }
 
 }
