@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuView : View
+public class LobbyMenuView : View
 {
     [SerializeField]
     private Button shopButton;

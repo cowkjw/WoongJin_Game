@@ -66,7 +66,8 @@ public class TitleUIManager : MonoBehaviour
 
     void GoToLobby()
     {
-        ChangeRoom("Lobby");
+       // ChangeRoom("Lobby");
+        ChangeRoom("Lobby 1");
     }
 
     void GoToTest()

@@ -35,13 +35,14 @@ public class SCharacter : MonoBehaviour
     // 클라이언트 접속 시, 실행되는 메소드
     public void SetupCharacter(int playerCount)
     {
-        if (GetUserManager() != null)
+        UserManager userManager = GetUserManager();
+        if (userManager != null)
         {
             // 입장 순서에 따라 디폴트 정보를 불러온다.
-            _defaultInfo = GetUserManager().GetCharcterDefaultInfo(playerCount);
+            _defaultInfo = userManager.GetCharcterDefaultInfo(playerCount);
 
             // 자신의 정보를 가져온다.
-            _characterInfo = GetUserManager().GetCharcterInfo(playerCount);
+            _characterInfo = userManager.GetCharcterInfo(playerCount);
 
             // 가진 정보를 이용하여 캐릭터 커스텀을 불러온다.
 

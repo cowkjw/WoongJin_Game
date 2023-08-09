@@ -1,1 +1,17 @@
-{"Gold":533989,"ShoppingList":{"Face1":true,"Hat1":true,"Hat3":true,"Glass3":true,"Glass7":true,"Glass8":true,"Face3":true,"Glass4":true,"Hat2":true,"Crown":true,"Glass2":true,"Face2":true}}
+{
+  "Gold": 533989,
+  "ShoppingList": {
+    "Face1": true,
+    "Hat1": true,
+    "Hat3": true,
+    "Glass3": true,
+    "Glass7": true,
+    "Glass8": true,
+    "Face3": true,
+    "Glass4": true,
+    "Hat2": true,
+    "Crown": true,
+    "Glass2": true,
+    "Face2": true
+  }
+}
