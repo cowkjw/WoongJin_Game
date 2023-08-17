@@ -22,6 +22,13 @@ namespace Contents
         Cat
     }
 
+   public enum StatType
+    {
+        SPEED,
+        HP,
+        SHIELD
+    }
+
     public class CharacterCustom
     {
         [JsonProperty("CustomList")]
@@ -79,6 +86,7 @@ namespace Contents
                 case 0:
                     if (_speed >= MAX_SPEED_HP)
                     {
+                       
 #if UNITY_EDITOR
                         Debug.LogWarning("더 이상 SPEED를 구매할 수 없습니다.");
 #endif  
@@ -89,6 +97,7 @@ namespace Contents
                 case 1:
                     if (_hp >= MAX_SPEED_HP)
                     {
+                       
 #if UNITY_EDITOR
                         Debug.LogWarning("더 이상 HP를 구매할 수 없습니다.");
 #endif
@@ -98,6 +107,7 @@ namespace Contents
                 case 2:
                     if (_shield >= MAX_SHIELD)
                     {
+                        
 #if UNITY_EDITOR
                         Debug.LogWarning("더 이상 SHIELD를 구매할 수 없습니다.");
 #endif

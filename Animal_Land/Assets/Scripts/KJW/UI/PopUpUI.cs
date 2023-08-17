@@ -22,7 +22,7 @@ public class PopUpUI : View
         }
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         if (blocker != null) // 이중으로 되어있을 경우를 위해서 추가
         {
