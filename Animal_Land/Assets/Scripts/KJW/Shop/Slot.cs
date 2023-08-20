@@ -17,9 +17,11 @@ public class Slot : MonoBehaviour, IPointerDownHandler
     public bool unLock { get; private set; } // 구매했는지   
     ItemType _itemType = ItemType.Face; // 아이템 타입 설정
     Image _itemImage;
+    GameObject _lock;
 
     void Start()
     {
+
         SlotIndex = transform.GetSiblingIndex();
         InitializeSlot(_itemType); // 기본은 얼굴 장식 Slot 초기화
         ShopManager.Instance.UpdateShopItemListAction += InitializeSlot; // 슬롯 초기화
@@ -29,7 +31,10 @@ public class Slot : MonoBehaviour, IPointerDownHandler
 
     void InitializeSlot(ItemType itemType) // 슬롯 정보 셋팅
     {
-
+        if (_lock == null)
+        {
+            _lock = transform.GetChild(0).gameObject;
+        }
         _itemType = itemType; // 현재 슬롯의 아이템 타입 설정
 
         var element = DataManager.Instance.PropsItemDict[itemType.ToString()].ElementAtOrDefault(SlotIndex); // 리스트에 해당 인덱스 데이터가 있다면
@@ -42,17 +47,20 @@ public class Slot : MonoBehaviour, IPointerDownHandler
             {
                 this.GetComponent<Image>().color = new Color(255, 255, 255, 1);
                 unLock = true;
+                _lock.gameObject?.SetActive(false); // 자물쇠 비활성화 
             }
             else
             {
                 this.GetComponent<Image>().color = new Color(0, 0, 0, 1);
                 unLock = false;
+                _lock.gameObject?.SetActive(true); // 자물쇠 활성화
             }
         }
         else
         {
             isCanClick = false;
             this.GetComponent<Image>().color = new Color(0, 0, 0, 0);// 굳이 이미지를 보여줄 필요 없음
+            _lock.gameObject?.SetActive(false); // 자물쇠 비활성화 
         }
 
         UpdateItemImage();
