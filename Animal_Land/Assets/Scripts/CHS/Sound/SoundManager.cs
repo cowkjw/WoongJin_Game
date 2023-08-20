@@ -44,5 +44,11 @@ public class SoundManager : MonoBehaviour
         
     }
 
-
+    public void SetVolume(float volume)
+    {
+        if (audioSource != null)
+        {
+            audioSource.volume = volume * 0.2f;
+        }
+    }
 }

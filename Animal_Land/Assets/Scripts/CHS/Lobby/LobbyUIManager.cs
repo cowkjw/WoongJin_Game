@@ -29,8 +29,6 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
 
     [Header("설정 패널 관련")]
     public GameObject       settingPanel;
-    public Button           openSettingButton;
-    public Button           exitSettingButton;
 
     [Header("매니저 클래스")]
     public LobbyManager     lobbyManager;
