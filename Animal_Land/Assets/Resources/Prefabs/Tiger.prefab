@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3997544883675994897}
   - component: {fileID: 7181068879828918683}
   m_Layer: 0
-  m_Name: Monster
+  m_Name: Tiger
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb842a04c258004687b5d0d2875a760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _monsterScore: 100
 --- !u!114 &7181068879828918683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +149,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 395f6b9556f14704790df6035be6ee3a, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.6981132, g: 0.18111429, b: 0.18111429, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

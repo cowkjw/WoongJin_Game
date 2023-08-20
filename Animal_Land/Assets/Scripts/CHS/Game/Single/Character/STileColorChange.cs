@@ -136,8 +136,14 @@ public class STileColorChange : MonoBehaviour
         GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
         foreach(GameObject monster in monsters)
         {
-            monster.GetComponent<SMonster>().AreaCheck();
+            if (monster.GetComponent<SMonster>() != null)
+            {
+                monster.GetComponent<SMonster>().AreaCheck();
+            }
         }
+
+        // TODO : 획득한 땅의 퍼센트 계산 (100%가 되면 게임 종료)
+        GameObject.Find("GameManager").GetComponent<SGameManager>().CalAreaScore();       
     }
 
     private bool isInMoveTileList(Vector3Int cellPosition)

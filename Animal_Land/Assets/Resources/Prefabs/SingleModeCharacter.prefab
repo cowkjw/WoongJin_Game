@@ -258,6 +258,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultInfo: {fileID: 0}
+  moveGuage: 10
+  moveGuageConsumption: 1
 --- !u!114 &7049138684979739233
 MonoBehaviour:
   m_ObjectHideFlags: 0

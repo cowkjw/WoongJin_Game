@@ -5,6 +5,9 @@ using UnityEngine.Tilemaps;
 
 public class SMonster : MonoBehaviour
 {
+    [Header("몬스터 정보")]
+    [SerializeField] private int _monsterScore = 100;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,19 @@ public class SMonster : MonoBehaviour
 
     private void Dead()
     {
+        // 점수 추가
+        GameObject.Find("GameManager").GetComponent<SGameManager>().AddMonsterScore(_monsterScore);
+
         GameObject.Destroy(this.gameObject);
+    }
+
+    public void StopMonster()
+    {
+
+    }
+
+    public void StartMonster()
+    {
+
     }
 }
