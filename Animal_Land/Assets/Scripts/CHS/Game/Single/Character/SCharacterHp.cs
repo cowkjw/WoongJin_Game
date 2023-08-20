@@ -7,12 +7,15 @@ using UnityEngine;
 
 public class SCharacterHp : MonoBehaviour
 {
-    private float _hp = 100f;
+    [SerializeField] private float _hp = 100f;
+    [SerializeField] private float _maxHp = 100f;
+
+    private SGameUIManager gameUIManager;
 
     void Start()
     {
         // TODO : 게임 UI상의 캐릭터 HP바와 연동
-
+        gameUIManager = GameObject.Find("UIManager").GetComponent<SGameUIManager>();
     }
 
     void Update()
@@ -28,11 +31,13 @@ public class SCharacterHp : MonoBehaviour
             newHp = 0;
 
             // TODO : 플레이어가 죽었다는 것에 대한 작업 처리
+            GameObject.Find("GameManager").GetComponent<SGameManager>().EndGame(false);
         }
         _hp = newHp;
         Debug.Log(_hp);
 
         // TODO : UI를 갱신한다.
-        
+        float value = _hp / _maxHp;
+        gameUIManager.UpdateHp(value);
     }
 }

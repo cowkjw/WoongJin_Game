@@ -1,15 +1,17 @@
+using Contents;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UserManager : MonoBehaviour
 {
-    private static UserManager       instance = null;
+    private static UserManager instance = null;
 
     // 총 4가지 종류의 캐릭터의 정보를 가지고 있다
-    private CharacterInfo[]         userInfos = new CharacterInfo[4];
-    public CharacterDefaultInfo[]   CharacterDefaultInfos = new CharacterDefaultInfo[4];
+    private CharacterInfo[] userInfos = new CharacterInfo[4];
+    public CharacterDefaultInfo[] CharacterDefaultInfos = new CharacterDefaultInfo[4];
 
+    public PlayerData PlayerData { get; private set; } = null; // 재화,아이템 구매 리스트
 
     // TODO : 클라이언트에 저장되어 있는 값을 붑러온다.
     private void Awake()
@@ -20,7 +22,7 @@ public class UserManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         else
-        { 
+        {
             Destroy(this.gameObject);
         }
 
@@ -29,14 +31,22 @@ public class UserManager : MonoBehaviour
 
     void LoadUserInfo()
     {
-        // 캐릭터 정보 로드
-        LoadCharcterInfo();
+        // 플레이어 정보 가져옴 
 
-        // 상점 정보 로드
-        LoadStoreInfo();
+        PlayerData playerData = DataManager.Instance.PlayerData;
+        if (playerData != null)
+        {
+            this.PlayerData = playerData;
+        }
 
-        // 재화 로드
-        LoadCreditInfo();
+        //// 캐릭터 정보 로드
+        //LoadCharcterInfo();
+
+        //// 상점 정보 로드
+        //LoadStoreInfo();
+
+        //// 재화 로드
+        //LoadCreditInfo();
     }
 
     void LoadCharcterInfo()
@@ -65,7 +75,7 @@ public class UserManager : MonoBehaviour
     public CharacterDefaultInfo GetCharcterDefaultInfo(int playerCount)
     {
         CharacterDefaultInfo characterDefaultInfo = CharacterDefaultInfos[playerCount - 1];
-        if(characterDefaultInfo != null)
+        if (characterDefaultInfo != null)
         {
             return characterDefaultInfo;
         }
@@ -78,11 +88,11 @@ public class UserManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        
+
     }
 }

@@ -2,7 +2,10 @@ using Contents;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static UnityEngine.UI.CanvasScaler;
 
 public class DataManager : MonoBehaviour
 {
@@ -27,12 +30,14 @@ public class DataManager : MonoBehaviour
 
 
     public IDictionary<string, CharacterCustom> CharacterCustomData => _characterCustomData;
-    public PlayerData PlayerData => _playerData;
+    public PlayerData PlayerData => _playerData;    
     public IDictionary<string,IList<ItemInfo>> PropsItemDict => _propsItemDict;
+    public Contents.PlayerStat PlayerStat = new Contents.PlayerStat(); // 게임 내에 쓰일 플레이어 스탯
 
     private void Awake()
     {
-        instance = this;
+
+        Init();
         //_playerData.Gold = 30000;
         //SaveData<PlayerData>(PlayerData, "PlayerData");
         //ItemInfo temp = new ItemInfo();
@@ -57,6 +62,12 @@ public class DataManager : MonoBehaviour
         _characterCustomData = LoadData<IDictionary<string, CharacterCustom>>("CustomData", _characterCustomData);
         _propsItemDict = LoadData<IDictionary<string, IList<ItemInfo>>>("ItemData", _propsItemDict);
         _playerData = LoadData<PlayerData>("PlayerData", _playerData);
+    }
+
+    void Init()
+    {
+        instance = this;
+        DontDestroyOnLoad(instance);
     }
 
     private string GetSavePath(string fileName)
@@ -112,5 +123,4 @@ public class DataManager : MonoBehaviour
         _propsItemDict = LoadData<IDictionary<string, IList<ItemInfo>>>("ItemData", _propsItemDict);
         _playerData = LoadData<PlayerData>("PlayerData", _playerData);
     }
-
 }

@@ -2,6 +2,7 @@ using Mono.Cecil.Cil;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // 캐릭터의 정보를 저장하는 스크립트
@@ -13,10 +14,19 @@ public class SCharacter : MonoBehaviour
     [SerializeField]
     CharacterInfo           _characterInfo;
 
+    [Header("이동 게이지")]
+    [SerializeField] private float _moveGuage = 10f;
+    [SerializeField] private float _maxMoveGuage = 10f;
+    [SerializeField] private float _moveGuageConsumption = 1f;
+
+    [SerializeField] private SGameUIManager _gameUIManager;
+
     private void Awake()
     {
         _defaultInfo = new CharacterDefaultInfo();
         _characterInfo = new CharacterInfo();
+
+        _gameUIManager = GameObject.Find("UIManager").GetComponent<SGameUIManager>();
     }
 
     // Start is called before the first frame update
@@ -35,13 +45,14 @@ public class SCharacter : MonoBehaviour
     // 클라이언트 접속 시, 실행되는 메소드
     public void SetupCharacter(int playerCount)
     {
-        if (GetUserManager() != null)
+        UserManager userManager = GetUserManager();
+        if (userManager != null)
         {
             // 입장 순서에 따라 디폴트 정보를 불러온다.
-            _defaultInfo = GetUserManager().GetCharcterDefaultInfo(playerCount);
+            _defaultInfo = userManager.GetCharcterDefaultInfo(playerCount);
 
             // 자신의 정보를 가져온다.
-            _characterInfo = GetUserManager().GetCharcterInfo(playerCount);
+            _characterInfo = userManager.GetCharcterInfo(playerCount);
 
             // 가진 정보를 이용하여 캐릭터 커스텀을 불러온다.
 
@@ -130,7 +141,60 @@ public class SCharacter : MonoBehaviour
             }
         }
 
+
         Debug.Log("User Manager is Null");
         return null;
+    }
+
+    public void StopPlayer()
+    {
+        StopMove();
+    }
+
+    private void SetMove(bool value)
+    {
+        // 조이스틱 
+        SJoyStick JoyStick = GameObject.FindGameObjectWithTag("GameController").GetComponent<SJoyStick>();
+        if (JoyStick != null)
+        {
+            if (JoyStick.IsGameStart() == value)
+            {
+                return;
+            }
+            else
+            {
+                JoyStick.SetIsGameStart(value);
+            }
+        }
+
+        this.GetComponent<Rigidbody2D>().velocity = Vector3.zero; 
+    }
+
+    public void StopMove()
+    {
+        SetMove(false);
+
+    }
+
+    public void StartPlayer()
+    {
+        SetMove(true);
+
+
+    }
+    public void ConsumeMoveGauge()
+    {
+        _moveGuage -= (_moveGuageConsumption * Time.deltaTime);
+
+        if(_moveGuage <= 0f)
+        {
+            StopMove();
+            _moveGuage = 0f;
+            _gameUIManager.UpdateGauge(0f);
+
+            return;
+        }
+
+        _gameUIManager.UpdateGauge( _moveGuage / _maxMoveGuage);
     }
 }
