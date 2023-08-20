@@ -5,16 +5,27 @@ using UnityEngine;
 
 public class SCharacterMove : MonoBehaviour
 {
+    SCharacter character;
     Vector3 curPos;
 
     void Update()
     {
         BorderCheck();
+
+        // TODO : CurPos를 체크하여 이동했을 경우에는 이동 게이지를 감소시킨다.
+        if(curPos != transform.position)
+        {
+            curPos = transform.position;
+            character.ConsumeMoveGauge();
+        }
     }
 
     public void Awake()
     {
+        character = GetComponent<SCharacter>();
 
+        // 초기 위치로 CurPos 초기화
+        curPos = transform.position;
     }
 
     private void BorderCheck()
