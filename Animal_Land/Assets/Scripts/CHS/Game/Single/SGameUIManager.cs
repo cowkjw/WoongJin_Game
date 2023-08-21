@@ -17,10 +17,12 @@ public class SGameUIManager : MonoBehaviour
     [Header("테스트 값")]
     [SerializeField] private float _addGaugeValue;
 
+    private DrawLine _line;
     private SGameManager _gameManager;
 
     private void Awake()
     {
+        _line = GetComponent<DrawLine>();
         _gameManager = GameObject.Find("GameManager").GetComponent<SGameManager>();
     }
 
@@ -44,6 +46,7 @@ public class SGameUIManager : MonoBehaviour
         _solveScreen.SetActive(false);
 
         _gameManager.StartGame();
+        _line.ClearLIne();
     }
 
     public void OpenResultPanel(bool gameClear, int score, int money, float gameTime)

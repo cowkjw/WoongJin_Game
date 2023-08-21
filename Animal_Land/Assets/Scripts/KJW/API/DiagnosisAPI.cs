@@ -97,6 +97,7 @@ public class DiagnosisAPI : MonoBehaviour
                 break;
             case "E":
                 Debug.Log("진단평가 끝! 학습 단계로 넘어갑니다.");
+                FindObjectOfType<DrawLine>()?.ClearLIne();
                 if (!PlayerPrefs.HasKey("Diagnosis")) // 진단 판단이 없으면
                 {
                     PlayerPrefs.SetInt("Diagnosis", System.Convert.ToInt16(0)); // 진단 필요하지 않음으로 설정
