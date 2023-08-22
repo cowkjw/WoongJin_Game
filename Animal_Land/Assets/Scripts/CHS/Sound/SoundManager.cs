@@ -14,6 +14,7 @@ public class SoundManager : MonoBehaviour
     public Slider EffectSound;
 
     private AudioSource audioSource;
+    UserManager userManager;
 
     private void Awake()
     {
@@ -30,6 +31,16 @@ public class SoundManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         audioSource.clip = BackGroundSound;
+
+        userManager = GameObject.Find("UserManager").GetComponent<UserManager>();
+        if(userManager != null )
+        {
+            audioSource.volume = userManager.GetSoundVolume();
+            if (BGSound != null)
+            {
+                BGSound.value = userManager.GetSoundVolume();
+            }
+        }
     }
 
     // Start is called before the first frame update
@@ -48,7 +59,11 @@ public class SoundManager : MonoBehaviour
     {
         if (audioSource != null)
         {
-            audioSource.volume = volume * 0.2f;
+            audioSource.volume = volume;
+            if(userManager != null)
+            {
+                userManager.SetSoundVolume(volume);
+            }
         }
     }
 }

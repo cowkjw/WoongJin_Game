@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 3299796306804675699}
   - component: {fileID: 1433805923343964162}
   - component: {fileID: 5131727638572049032}
+  - component: {fileID: 2639046711112233429}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Monster
@@ -173,6 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb842a04c258004687b5d0d2875a760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _monsterScore: 100
 --- !u!114 &5131727638572049032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,3 +188,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAreaColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &2639046711112233429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7145505444727508836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c77fca2b1d4daf846b1970acf4dc59ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackCoolTime: 0
+  _attackMaxCoolTime: 5
+  _attackDamage: 10
+  _attackRange: 50
+  _attackObject: {fileID: 1702643938520450096, guid: 7bf85527fe4df9149b14a0b39c1c0cdd, type: 3}
