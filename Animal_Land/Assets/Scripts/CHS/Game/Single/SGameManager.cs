@@ -110,7 +110,7 @@ public class SGameManager : MonoBehaviour
         {
             _canUseSpeedItem = true;
         }
-        if (_dataManager.PlayerStat.Shield >0)
+        if (_dataManager.PlayerStat.Energy >0)
         {
             _canUseGaugeItem = true;
         }
