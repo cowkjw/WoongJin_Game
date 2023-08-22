@@ -23,6 +23,26 @@ public class SCharacterHp : MonoBehaviour
 
     }
 
+    public float GetHp()
+    {
+        return _hp;
+    }
+
+    public void Heal(float val)
+    {
+        float newHp = _hp + val;
+        if(newHp > _maxHp)
+        {
+            newHp = _maxHp;
+        }
+
+        _hp = newHp;
+
+        // TODO : UI를 갱신한다.
+        float value = _hp / _maxHp;
+        gameUIManager.UpdateHp(value);
+    }
+
     public void Damage(float damage)
     {
         float newHp = _hp - damage;

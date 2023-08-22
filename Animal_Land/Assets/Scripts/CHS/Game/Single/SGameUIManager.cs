@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SGameUIManager : MonoBehaviour
 {
     [Header("화면")]
     [SerializeField] private GameObject _resultScreen;
     [SerializeField] private GameObject _solveScreen;
+    [SerializeField] private GameObject _settingScreen;
 
     [Header("슬라이더")]
     [SerializeField] private Slider _timeSlider;
@@ -46,6 +48,20 @@ public class SGameUIManager : MonoBehaviour
         _gameManager.StartGame();
     }
 
+    public void OpenSettingScreen()
+    {
+        _settingScreen.SetActive(true);
+
+        _gameManager.StopGame();
+    }
+
+    public void CloseSettingScreen()
+    {
+        _settingScreen.SetActive(false);
+
+        _gameManager.StartGame();
+    }
+
     public void OpenResultPanel(bool gameClear, int score, int money, float gameTime)
     {
         // Result Screen 활성화
@@ -67,9 +83,9 @@ public class SGameUIManager : MonoBehaviour
         _timeSlider.value = value;
     }
 
-    public void AddMoveGauge()
+    public void AddMoveGauge(float val)
     {
-        float value = _moveGaugeSlider.value + _addGaugeValue;
+        float value = _moveGaugeSlider.value + val;
 
         if(value > 1f)
         {
@@ -78,4 +94,24 @@ public class SGameUIManager : MonoBehaviour
 
         _moveGaugeSlider.value = value;
     }
+
+    public void BackToLobby()
+    {
+        // 로비로 이동
+        SceneManager.LoadScene("Lobby 1");
+    }
+
+    public void Restart()
+    {
+        // 재시작
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    public void Resume()
+    {
+        // 세팅 패널 비활성화
+        CloseSettingScreen();
+    }
 }
+
