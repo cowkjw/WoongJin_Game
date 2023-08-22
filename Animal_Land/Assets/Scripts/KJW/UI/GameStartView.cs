@@ -69,13 +69,13 @@ public class GameStartView : View
                     _playerStat.HP++;
                     break;
                 case 2: //Shield
-                    _playerStat.Shield++;
+                    _playerStat.Energy++;
                     break;
             }
             _gold += 50;
         }
 #if UNITY_EDITOR
-        Debug.Log($"Speed: {_playerStat.Speed} HP: {_playerStat.HP} Shield {_playerStat.Shield}");
+        Debug.Log($"Speed: {_playerStat.Speed} HP: {_playerStat.HP} Shield {_playerStat.Energy}");
 #endif 
     }
 
@@ -118,7 +118,7 @@ public class GameStartView : View
                 statType = StatType.HP;
                 break;
             case 2:
-                statType = StatType.SHIELD;
+                statType = StatType.ENERGY;
                 break;
         }
 

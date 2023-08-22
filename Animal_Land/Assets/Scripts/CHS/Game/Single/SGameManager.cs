@@ -26,7 +26,7 @@ public class SGameManager : MonoBehaviour
 
     [Header("UI")]
     public TextMeshProUGUI _playButton;
-    [SerializeField] private GameObject UIManager;
+    [SerializeField] private SGameUIManager UIManager;
 
     [Header("스코어")]
     [SerializeField] private int _areaScore;
@@ -46,10 +46,31 @@ public class SGameManager : MonoBehaviour
     [SerializeField] private bool _gameOver = false;
     [SerializeField] private bool _gameStop = false;
 
+    [Header("아이템 사용 가능 여부")]
+    [SerializeField] private bool _canUseHpItem = false;
+    [SerializeField] private bool _canUseSpeedItem = false;
+    [SerializeField] private bool _canUseGaugeItem = false;
+
+    [Header("아이템 효과 수치")]
+    [SerializeField] private float _hpItemValue;
+    [SerializeField] private float _speedItemValue;
+    [SerializeField] private float _gaugeItemValue;
+
+    DataManager _dataManager;
+
+    [Header("플레이어 오브젝트")]
+    [SerializeField] private GameObject _player;
+
     private void Awake()
     {
         // 게임 시작과 동시에 플레이어가 될 게임 오브젝트를 생성
         // TODO : 가져올 캐릭터의 종류 및 정보를 받아온다.
+        _dataManager = GameObject.Find("@DataManager").GetComponent<DataManager>();
+        if(_dataManager !=null)
+        {
+            Init();
+        }
+
         int playerCharacterNum = 1;
 
         GameObject user = SetUser(playerCharacterNum);
@@ -80,6 +101,22 @@ public class SGameManager : MonoBehaviour
 
     private void Init()
     {
+        // 아이템 갱신
+        if (_dataManager.PlayerStat.HP > 0)
+        {
+            _canUseHpItem = true;
+        }
+        if(_dataManager.PlayerStat.Speed >0)
+        {
+            _canUseSpeedItem = true;
+        }
+        if (_dataManager.PlayerStat.Energy >0)
+        {
+            _canUseGaugeItem = true;
+        }
+
+        // 플레이어 정보 갱신
+        
 
     }
 
@@ -100,7 +137,7 @@ public class SGameManager : MonoBehaviour
         if(_timeSlider != null)
         {
             float value = _gameTime / _maxGameTime;
-            UIManager.GetComponent<SGameUIManager>().UpdateTime(1f - value);
+            UIManager.UpdateTime(1f - value);
             // _timeSlider.value =  1f - value;
         }
 
@@ -124,9 +161,6 @@ public class SGameManager : MonoBehaviour
     {
         // 생성할 랜덤 위치 지정
         Vector2 SpawnPos = GetSpawnPos(playerCount);
-
-        // 플레이어 생성 순서에 따라 어떤 캐릭터의 정보를 들고올지 선택
-        
 
         GameObject Object = GameObject.FindGameObjectWithTag("Player").gameObject;
         return Object;
@@ -218,7 +252,7 @@ public class SGameManager : MonoBehaviour
         // TODO : _timeScore 갱신
 
 
-        UIManager.GetComponent<SGameUIManager>().OpenResultPanel(isGameover, GetTotalScore(), _money, _gameTime);
+        UIManager.OpenResultPanel(isGameover, GetTotalScore(), _money, _gameTime);
     }
 
     private UserManager GetUserManager()
@@ -327,5 +361,59 @@ public class SGameManager : MonoBehaviour
 
         // 반환
         return result;
+    }
+
+    public void UseItemHp()
+    {
+        // 사용 가능 여부 확인
+        if(_canUseHpItem == false)
+        {
+            return;
+        }
+        _canUseHpItem = false;
+
+        // Hp 회복
+        _player.GetComponent<SCharacterHp>().Heal(_hpItemValue);
+
+        // TODO : 아이템 비활성화
+
+
+    }
+
+    public void UseItemSpeed()
+    {
+        // 사용 가능 여부 확인
+        if (_canUseSpeedItem == false)
+        {
+            return;
+        }
+        _canUseSpeedItem = false;
+
+        // 스피드 상승
+
+
+        // 일정 시간 이후에 줄어든다.
+
+
+        // TODO : 아이템 비활성화
+    }
+
+    public void UseItemGauge()
+    {
+        // 사용 가능 여부 확인
+        if (_canUseGaugeItem == false)
+        {
+            return;
+        }
+        _canUseGaugeItem = false;
+
+        // 게이지 회복
+        _player.GetComponent<SCharacter>().AddMoveGauge(_gaugeItemValue);
+
+        // UI 갱신
+        UIManager.AddMoveGauge(_gaugeItemValue);
+
+        // TODO : 아이템 비활성화
+
     }
 }

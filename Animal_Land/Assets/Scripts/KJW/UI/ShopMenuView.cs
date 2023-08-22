@@ -49,7 +49,7 @@ public class ShopMenuView : View
 
     void UpdateGoldText() // 골드 업데이트 구매 시에 변경을 위함
     {
-        goldText.text = $"GOLD : {DataManager.Instance.PlayerData.Gold}";
+        goldText.text = $"{DataManager.Instance.PlayerData.Gold}";
     }
 
     #region UI_Buttons
@@ -77,6 +77,7 @@ public class ShopMenuView : View
     void OnPutOnButtonClicked()
     {
         CharacterType characterType = ShopManager.Instance.CharacterType;
+
 
 
         ShopManager.Instance.SetCharacterCustom(); // 선택 시에 만약 가지고 있는 아이템이라면

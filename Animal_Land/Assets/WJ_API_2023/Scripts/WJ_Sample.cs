@@ -97,7 +97,7 @@ public class WJ_Sample : MonoBehaviour
                 break;
         }
 
-        StartButton.gameObject.SetActive(false); // 게임시작 버튼 비활성화
+      //  StartButton.gameObject.SetActive(false); // 게임시작 버튼 비활성화 (나중에 다시 주석 풀기)
     }
 
     private void Update()
@@ -390,7 +390,7 @@ public class WJ_Sample : MonoBehaviour
     }
 
     #region Unity ButtonEvent
-    public void ButtonEvent_ChooseDifficulty(int a) // 진단평가 시 난이도 선택 버튼
+    public void ButtonEvent_ChooseDifficulty(int a) // 진단평가 시 난이도 선택 버튼(On Click에서 설정해줘야함)
     {
         if (wj_conn._needDiagnosis)
         {

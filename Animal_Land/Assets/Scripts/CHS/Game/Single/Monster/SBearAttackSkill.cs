@@ -30,6 +30,7 @@ public class SBearAttackSkill : MonoBehaviour
         if(player.tag == "Player")
         {
             player.GetComponent<SCharacterHp>().Damage(_damage);
+            player.GetComponent<STileColorChange>().ResetMoveTileList();
             Destroy(this.gameObject);
         }
     }
@@ -52,7 +53,23 @@ public class SBearAttackSkill : MonoBehaviour
     private void CheckBorder()
     {
         // TODO : 게임 밖으로 나가면 사라진다.
+        // Game Screen의 최대 크기
+        Vector3 lt = new Vector3(-8.05f, 2.28f, 0);
+        Vector3 rb = new Vector3(3.59f, -4.23f, 0);
 
+        Vector3 newPos = transform.position;
+
+        if (transform.position.x < lt.x
+            || transform.position.x > rb.x
+            || transform.position.y > lt.y
+            || transform.position.y < rb.y)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            return;
+        }
     }
 
     private void Move()

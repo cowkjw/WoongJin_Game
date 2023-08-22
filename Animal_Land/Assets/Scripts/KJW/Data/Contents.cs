@@ -26,7 +26,7 @@ namespace Contents
     {
         SPEED,
         HP,
-        SHIELD
+        ENERGY
     }
 
     public class CharacterCustom
@@ -53,30 +53,28 @@ namespace Contents
 
     public class PlayerStat
     {
-        private const int MAX_SPEED_HP = 10;
-        private const int MAX_SHIELD = 3;
-
+        private const int MAX_PURCHASE = 1;
 
         private int _hp = 0;
-        private int _shield = 0; // Key는 쉴드 횟수, Value는 현재 체력
+        private int _energy = 0; // Key는 쉴드 횟수, Value는 현재 체력
         private int _speed = 0;
 
         public int HP
         {
             get => _hp;
-            set => _hp = Math.Clamp(value, 0, MAX_SPEED_HP);
+            set => _hp = Math.Clamp(value, 0, MAX_PURCHASE);
         }
 
-        public int Shield
+        public int Energy
         {
-            get => _shield;
-            set => _shield = Math.Clamp(value, 0, MAX_SHIELD);
+            get => _energy;
+            set => _energy = Math.Clamp(value, 0, MAX_PURCHASE);
         }
 
         public int Speed
         {
             get => _speed;
-            set => _speed = Math.Clamp(value, 0, MAX_SPEED_HP);
+            set => _speed = Math.Clamp(value, 0, MAX_PURCHASE);
         }
 
         public bool CheckForPurchase(int index)
@@ -84,7 +82,7 @@ namespace Contents
             switch (index)
             {
                 case 0:
-                    if (_speed >= MAX_SPEED_HP)
+                    if (_speed >= MAX_PURCHASE)
                     {
                        
 #if UNITY_EDITOR
@@ -95,7 +93,7 @@ namespace Contents
                     break;
 
                 case 1:
-                    if (_hp >= MAX_SPEED_HP)
+                    if (_hp >= MAX_PURCHASE)
                     {
                        
 #if UNITY_EDITOR
@@ -105,11 +103,11 @@ namespace Contents
                     }
                         break;
                 case 2:
-                    if (_shield >= MAX_SHIELD)
+                    if (_energy >= MAX_PURCHASE)
                     {
                         
 #if UNITY_EDITOR
-                        Debug.LogWarning("더 이상 SHIELD를 구매할 수 없습니다.");
+                        Debug.LogWarning("더 이상 ENERGY를 구매할 수 없습니다.");
 #endif
                         return false;
                     }

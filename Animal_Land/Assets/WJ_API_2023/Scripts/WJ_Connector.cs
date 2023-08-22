@@ -63,7 +63,7 @@ public class WJ_Connector : MonoBehaviour
         }
         else
         {
-            _needDiagnosis = true;
+                _needDiagnosis = true;
         }
 
 #if UNITY_EDITOR
@@ -238,6 +238,7 @@ public class WJ_Connector : MonoBehaviour
             uwr.timeout = 5;
 
             yield return uwr.SendWebRequest();
+
 
             Debug.Log($"¡àRequest => {strBody}");
 

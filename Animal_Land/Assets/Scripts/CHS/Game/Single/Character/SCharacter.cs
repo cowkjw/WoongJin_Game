@@ -15,8 +15,8 @@ public class SCharacter : MonoBehaviour
     CharacterInfo           _characterInfo;
 
     [Header("이동 게이지")]
-    [SerializeField] private float _moveGuage = 10f;
-    [SerializeField] private float _maxMoveGuage = 10f;
+    [SerializeField] private float _moveGauge = 10f;
+    [SerializeField] private float _maxMoveGauge = 10f;
     [SerializeField] private float _moveGuageConsumption = 1f;
 
     [SerializeField] private SGameUIManager _gameUIManager;
@@ -184,17 +184,29 @@ public class SCharacter : MonoBehaviour
     }
     public void ConsumeMoveGauge()
     {
-        _moveGuage -= (_moveGuageConsumption * Time.deltaTime);
+        _moveGauge -= (_moveGuageConsumption * Time.deltaTime);
 
-        if(_moveGuage <= 0f)
+        if(_moveGauge <= 0f)
         {
             StopMove();
-            _moveGuage = 0f;
+            _moveGauge = 0f;
             _gameUIManager.UpdateGauge(0f);
 
             return;
         }
 
-        _gameUIManager.UpdateGauge( _moveGuage / _maxMoveGuage);
+        _gameUIManager.UpdateGauge( _moveGauge / _maxMoveGauge);
     }
+
+    public void AddMoveGauge(float value)
+    {
+        float newGaugeValue = _moveGauge + value;
+        if(newGaugeValue > _maxMoveGauge)
+        {
+            newGaugeValue = _maxMoveGauge;
+        }
+
+        _moveGauge = newGaugeValue;
+    }
+
 }
