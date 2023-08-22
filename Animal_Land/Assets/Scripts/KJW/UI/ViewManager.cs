@@ -111,10 +111,5 @@ public class ViewManager : MonoBehaviour
         {
             Show(Instance._viewHistory.Pop(), false);
         }
-        else
-        {
-            Instance._currentView.Hide(); // 현재 창은 숨긴다
-        }
-
     }
 }
