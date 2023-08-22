@@ -67,6 +67,30 @@ public class TitleUIManager : MonoBehaviour
     void GoToLobby()
     {
        // ChangeRoom("Lobby");
+       if(Application.internetReachability == NetworkReachability.NotReachable) // 데이터 다운로드 또는 인터넷 연결
+        {
+            TitlePopUp popUp = ViewManager.GetView<TitlePopUp>();
+            if(popUp!=null)
+            {
+                popUp.SetCheckMessage("인터넷 연결을 확인하세요.");
+                ViewManager.Show<TitlePopUp>(true, true);
+            }
+            Debug.LogError("인터넷 연결을 확인하세요.");
+            return;
+        }
+       if(DataManager.Instance.Downloader.isDownloading) // 데이터 다운로드 중
+        {
+            TitlePopUp popUp = ViewManager.GetView<TitlePopUp>();
+            if(popUp != null )
+            { 
+                popUp.SetCheckMessage("데이터를 다운받는 중입니다.");
+                ViewManager.Show<TitlePopUp>(true, true);
+            }
+           
+            Debug.LogError("데이터를 다운받는 중입니다.");
+            return;
+        }
+
         ChangeRoom("Lobby 1");
     }
 
