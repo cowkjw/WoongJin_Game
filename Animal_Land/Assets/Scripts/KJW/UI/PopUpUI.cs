@@ -11,7 +11,10 @@ public class PopUpUI : View
     public override void Initialize()
     {
         closeButton.onClick.AddListener(() => ViewManager.ShowLast()); // 마지막 창  
-        closeButton.onClick.AddListener(() => blocker?.gameObject.SetActive(false)); // OnDisable만 있을 때 테스트 해보기
+        if (blocker != null)
+        {
+            closeButton.onClick.AddListener(() => blocker?.gameObject.SetActive(false)); // OnDisable만 있을 때 테스트 해보기
+        }
     }
 
     private void OnEnable()

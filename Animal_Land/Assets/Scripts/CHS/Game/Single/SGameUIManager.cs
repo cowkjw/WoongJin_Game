@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class SGameUIManager : MonoBehaviour
 {
@@ -69,6 +70,14 @@ public class SGameUIManager : MonoBehaviour
     {
         // Result Screen 활성화
         _resultScreen.SetActive(true);
+
+        TextMeshProUGUI Score = _resultScreen.transform.GetChild(6).gameObject.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI Time = _resultScreen.transform.GetChild(7).gameObject.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI Gold = _resultScreen.transform.GetChild(8).gameObject.GetComponent<TextMeshProUGUI>();
+
+        Score.text = score.ToString();
+        Time.text = gameTime.ToString();
+        Gold.text = money.ToString();
     }
     
     public void UpdateHp(float value)
@@ -84,6 +93,11 @@ public class SGameUIManager : MonoBehaviour
     public void UpdateTime(float value)
     {
         _timeSlider.value = value;
+    }
+
+    public void TimeOver()
+    {
+        _timeSlider.gameObject.transform.GetChild(1).gameObject.SetActive(false);
     }
 
     public void AddMoveGauge(float val)
@@ -116,5 +130,7 @@ public class SGameUIManager : MonoBehaviour
         // 세팅 패널 비활성화
         CloseSettingScreen();
     }
+
+
 }
 

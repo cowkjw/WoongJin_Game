@@ -77,17 +77,34 @@ public class ShopMenuView : View
     void OnPutOnButtonClicked()
     {
         CharacterType characterType = ShopManager.Instance.CharacterType;
-
-
-
-        ShopManager.Instance.SetCharacterCustom(); // 선택 시에 만약 가지고 있는 아이템이라면
         PurchasePopUp popUp = ViewManager.GetView<PurchasePopUp>();
-        if (popUp != null)
+
+        if (popUp == null)
         {
-            popUp.SetCheckMessage("장착 완료!");
-            popUp.checkAction(false); // 완료 버튼만 뜨도록
-            ViewManager.Show<PurchasePopUp>(true, true);
+#if UNITY_EDITOR
+            Debug.LogError("PurchasePopUp이 ViewManager에 없습니다");
+#endif
+            return;
         }
+        if (ShopManager.Instance.ItemInfo == null)
+        {
+            popUp.SetCheckMessage("장착 할 아이템을 고르세요");
+        }
+        else
+        {
+            if (DataManager.Instance.PlayerData.ShoppingList.ContainsKey(ShopManager.Instance.ItemInfo.Name) == false) // 아이템 미보유
+            {
+                popUp.SetCheckMessage("보유하고 있지 않습니다!");
+            }
+            else
+            {
+                ShopManager.Instance.SetCharacterCustom(); // 선택 시에 만약 가지고 있는 아이템이라면
+                popUp.SetCheckMessage("장착 완료!");
+            }
+
+        }
+        popUp.checkAction(false); // 완료 버튼만 뜨도록
+        ViewManager.Show<PurchasePopUp>(true, true);
 
         // 데이터 매니저의 캐릭터 커스텀 데이터를 현재 상점 창의 캐릭터 커스텀으로 할당
         DataManager.Instance.CharacterCustomData[characterType.ToString()] = ShopManager.Instance.CharacterCustom;

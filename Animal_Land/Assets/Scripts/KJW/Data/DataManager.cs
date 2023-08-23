@@ -26,46 +26,23 @@ public class DataManager : MonoBehaviour
     private PlayerData _playerData = new PlayerData();
     private IDictionary<string, CharacterCustom> _characterCustomData = new Dictionary<string, CharacterCustom>();
     private IDictionary<string, IList<ItemInfo>> _propsItemDict = new Dictionary<string, IList<ItemInfo>>();
+    private JSONFileDownloader downloader;
 
-
-
+    public JSONFileDownloader Downloader=> downloader;
     public IDictionary<string, CharacterCustom> CharacterCustomData => _characterCustomData;
-    public PlayerData PlayerData => _playerData;    
-    public IDictionary<string,IList<ItemInfo>> PropsItemDict => _propsItemDict;
+    public PlayerData PlayerData => _playerData;
+    public IDictionary<string, IList<ItemInfo>> PropsItemDict => _propsItemDict;
     public Contents.PlayerStat PlayerStat = new Contents.PlayerStat(); // 게임 내에 쓰일 플레이어 스탯
 
     private void Awake()
     {
-
         Init();
-        //_playerData.Gold = 30000;
-        //SaveData<PlayerData>(PlayerData, "PlayerData");
-        //ItemInfo temp = new ItemInfo();
-        //ItemInfo temp2 = new ItemInfo();
-        //ItemInfo temp3 = new ItemInfo();
-        //ItemInfo temp4 = new ItemInfo();
-        //temp.Name = "Hat1";
-        //temp2.Name = "Hat2";
-        //temp3.Name = "Hat3";
-        //temp4.Name = "Hat4";
-        //temp.Price = 100000;
-        //temp2.Price = 500;
-        //temp3.Price = 300000;
-        //temp4.Price = 10000;
-
-        //_hatItemInfoList.Add(temp);
-        //_hatItemInfoList.Add(temp2);
-        //_hatItemInfoList.Add(temp3);
-        //_hatItemInfoList.Add(temp4);
-        //SaveData<IList<ItemInfo>>(_hatItemInfoList, "Item_Hat");
-
-        _characterCustomData = LoadData<IDictionary<string, CharacterCustom>>("CustomData", _characterCustomData);
-        _propsItemDict = LoadData<IDictionary<string, IList<ItemInfo>>>("ItemData", _propsItemDict);
-        _playerData = LoadData<PlayerData>("PlayerData", _playerData);
+        ReloadData();
     }
 
     void Init()
     {
+        downloader = GetComponent<JSONFileDownloader>();
         instance = this;
         DontDestroyOnLoad(instance);
     }
@@ -74,15 +51,20 @@ public class DataManager : MonoBehaviour
     {
         string filePath;
 #if UNITY_EDITOR
-        // For Unity Editor
         filePath = Path.Combine(Application.dataPath, $"StreamingAssets/Data/{fileName}.json");
-        //string filePath = Path.Combine(Application.streamingAssetsPath, $"StreamingAssets/Data/{fileName}.json");
 #elif UNITY_ANDROID
         filePath = Path.Combine(Application.persistentDataPath, $"Data/{fileName}.json");
 #endif
         if (!File.Exists(filePath))
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            if (fileName == "ItemData")
+            {
+                downloader.NeedDownload(filePath, fileName);
+            }
+            else
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            }
         }
 
         return filePath;
@@ -115,6 +97,13 @@ public class DataManager : MonoBehaviour
         {
             return defaultData;
         }
+    }
+
+    void SaveAllData()
+    {
+        SaveData<IDictionary<string, CharacterCustom>>(_characterCustomData,"CustomData");
+        SaveData<IDictionary<string, IList<ItemInfo>>>(_propsItemDict, "ItemData");
+        SaveData<PlayerData>(_playerData, "PlayerData");
     }
 
     public void ReloadData()

@@ -37,8 +37,10 @@ namespace Contents
 
     public class PlayerData
     {
+        [JsonProperty("Character")]
+        public string Character { get; set; } = "Bird";
         [JsonProperty("Gold")]
-        public int Gold { get; set; }
+        public int Gold { get; set; } = 0;
         [JsonProperty("ShoppingList")]
         public IDictionary<string, bool> ShoppingList { get; set; } = new Dictionary<string, bool>();
     }

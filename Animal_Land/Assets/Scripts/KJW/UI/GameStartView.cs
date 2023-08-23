@@ -108,6 +108,12 @@ public class GameStartView : View
             return;
         }
 
+        if(DataManager.Instance.PlayerData.Gold <50)
+        {
+            popUP.SetCheckMessage("골드가 부족하여 구매할 수 없습니다.");
+            return;
+        }
+
         StatType statType = StatType.SPEED;
         switch (index)
         {

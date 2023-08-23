@@ -38,8 +38,16 @@ public class STileColorChange : MonoBehaviour
         _playInfo = GetComponent<PlayInfo>();
         _updateTileList = new List<Vector3>();
 
-        Vector3Int cellPosition = GetTileMap().WorldToCell(transform.position);
-        UpdateTileColorToArea(cellPosition);
+       // Vector3Int cellPosition = GetTileMap().WorldToCell(transform.position);
+
+       for(int i = -45; i< -40; i++)
+        {
+            for(int j = 11; j < 16; j++)
+            {
+                Vector3Int cellPosition = new Vector3Int(i, j, 0);
+                UpdateTileColorToArea(cellPosition);
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
