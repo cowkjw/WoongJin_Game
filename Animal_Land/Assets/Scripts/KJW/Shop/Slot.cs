@@ -122,7 +122,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler
             }
         }
 
-        ShopManager.Instance.ItemInfo = SlotInfo;
+        ShopManager.Instance.ItemInfo = SlotInfo; // 상점에 선택 된 아이템 정보를 슬롯의 아이템 정보로 업데이트
         PurchasePopUp purchasePopUp = ViewManager.GetView<PurchasePopUp>();
         if (purchasePopUp != null)
         {
