@@ -131,6 +131,12 @@ public class SGameManager : MonoBehaviour
         if(_gameTime < _maxGameTime)
         {
             _gameTime += Time.deltaTime;
+
+            // TODO : 제한시간이 넘어가면 게임 종료
+            if (_gameTime + Time.deltaTime >= _maxGameTime)
+            {
+                EndGame(false);
+            }
         }
 
         // TODO : 제한시간 UI 업데이트
@@ -139,12 +145,6 @@ public class SGameManager : MonoBehaviour
             float value = _gameTime / _maxGameTime;
             UIManager.UpdateTime(1f - value);
             // _timeSlider.value =  1f - value;
-        }
-
-        // TODO : 제한시간이 넘어가면 게임 종료
-        if(_gameTime >= _maxGameTime)
-        {
-            EndGame(false);
         }
     }
 
@@ -253,6 +253,16 @@ public class SGameManager : MonoBehaviour
 
 
         UIManager.OpenResultPanel(isGameover, GetTotalScore(), _money, _gameTime);
+    }
+    public void TimeOver(float value)
+    {
+        if(value <= 0)
+        {
+            // TImeSlider의 FillArea를 비활성화
+
+
+            EndGame(false);
+        }
     }
 
     private UserManager GetUserManager()
@@ -376,8 +386,7 @@ public class SGameManager : MonoBehaviour
         _player.GetComponent<SCharacterHp>().Heal(_hpItemValue);
 
         // TODO : 아이템 비활성화
-
-
+        
     }
 
     public void UseItemSpeed()
@@ -396,6 +405,8 @@ public class SGameManager : MonoBehaviour
 
 
         // TODO : 아이템 비활성화
+
+
     }
 
     public void UseItemGauge()
@@ -408,10 +419,10 @@ public class SGameManager : MonoBehaviour
         _canUseGaugeItem = false;
 
         // 게이지 회복
-        _player.GetComponent<SCharacter>().AddMoveGauge(_gaugeItemValue);
+        float sliderValue = _player.GetComponent<SCharacter>().AddMoveGauge(_gaugeItemValue);
 
         // UI 갱신
-        UIManager.AddMoveGauge(_gaugeItemValue);
+        UIManager.AddMoveGauge(sliderValue);
 
         // TODO : 아이템 비활성화
 
