@@ -50,10 +50,10 @@ public class DataManager : MonoBehaviour
     private string GetSavePath(string fileName)
     {
         string filePath;
-#if UNITY_EDITOR
-        filePath = Path.Combine(Application.dataPath, $"StreamingAssets/Data/{fileName}.json");
-#elif UNITY_ANDROID
+#if UNITY_ANDROID
         filePath = Path.Combine(Application.persistentDataPath, $"Data/{fileName}.json");
+#else 
+        filePath = Path.Combine(Application.dataPath, $"StreamingAssets/Data/{fileName}.json");
 #endif
         if (!File.Exists(filePath))
         {

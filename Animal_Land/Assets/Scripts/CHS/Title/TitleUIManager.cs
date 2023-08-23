@@ -1,6 +1,3 @@
-using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -66,7 +63,6 @@ public class TitleUIManager : MonoBehaviour
 
     void GoToLobby()
     {
-       // ChangeRoom("Lobby");
        if(Application.internetReachability == NetworkReachability.NotReachable) // 데이터 다운로드 또는 인터넷 연결
         {
             TitlePopUp popUp = ViewManager.GetView<TitlePopUp>();
@@ -88,6 +84,12 @@ public class TitleUIManager : MonoBehaviour
             }
            
             Debug.LogError("데이터를 다운받는 중입니다.");
+            return;
+        }
+
+       if(DataManager.Instance.PropsItemDict.Count<=0) // 데이터가 안불러와진 경우
+        {
+            DataManager.Instance.ReloadData();
             return;
         }
 
