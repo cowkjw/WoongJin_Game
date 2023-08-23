@@ -41,13 +41,26 @@ public class SMonster : MonoBehaviour
         GameObject.Destroy(this.gameObject);
     }
 
+    public void SetMonster(bool val)
+    {
+        GetComponent<SMonsterMove>().enabled = val;
+        
+        // 곰 스킬 활성화 관련
+        if(GetComponent<SBearAttack>() != null)
+        {
+            GetComponent<SBearAttack>().enabled = val;
+        }
+        
+        // TODO : 사자 스킬 활성화 관련
+    }
+
     public void StopMonster()
     {
-
+        SetMonster(false);
     }
 
     public void StartMonster()
     {
-
+        SetMonster(true);
     }
 }

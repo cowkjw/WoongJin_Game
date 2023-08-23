@@ -2139,6 +2139,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1304289e446615b44b0c9ab956d63b98, type: 2}
   - {fileID: 11400000, guid: 5a47f3347f0424f43a3241ed63b0352e, type: 2}
   - {fileID: 11400000, guid: 081334abf5ca55948b4925fe3be1c5a8, type: 2}
+  _soundVolume: 0.25
 --- !u!1 &2021033018
 GameObject:
   m_ObjectHideFlags: 0

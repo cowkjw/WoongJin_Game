@@ -9,21 +9,24 @@ public class SMonsterMove : MonoBehaviour
     Color _playerAreaColor;
     Vector3 _dir = Vector3.zero;
 
-    float _speed = 1f;  
+    [SerializeField] float _speed;  
     float _maxDirChangeTime = 1f;
     float _dirChangeTime = 0f;
     bool _isInit = false;
 
     Tilemap _tilemap;
 
+    bool _canMove = true;
+
     void Start()
     {
-        
+        _speed = 1f;
     }
 
     void Update()
     {
-        if (_isInit == false)
+        if (_isInit == false
+            || _canMove == false)
         {
             return;
         }
@@ -56,6 +59,11 @@ public class SMonsterMove : MonoBehaviour
         {
             _dirChangeTime += Time.deltaTime;
         }
+    }
+
+    public void SetCanMove(bool canMove)
+    {
+        _canMove = canMove;
     }
 
     private void Move()
