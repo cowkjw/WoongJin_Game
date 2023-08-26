@@ -198,7 +198,7 @@ public class SCharacter : MonoBehaviour
         _gameUIManager.UpdateGauge( _moveGauge / _maxMoveGauge);
     }
 
-    public void AddMoveGauge(float value)
+    public float AddMoveGauge(float value)
     {
         float newGaugeValue = _moveGauge + value;
         if(newGaugeValue > _maxMoveGauge)
@@ -207,6 +207,8 @@ public class SCharacter : MonoBehaviour
         }
 
         _moveGauge = newGaugeValue;
+
+        return _moveGauge / _maxMoveGauge;
     }
 
 }

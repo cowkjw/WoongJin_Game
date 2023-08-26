@@ -59,7 +59,7 @@ public class SBearAttackSkill : MonoBehaviour
 
         Vector3 newPos = transform.position;
 
-        if (transform.position.x < lt.x
+        if (   transform.position.x < lt.x
             || transform.position.x > rb.x
             || transform.position.y > lt.y
             || transform.position.y < rb.y)
