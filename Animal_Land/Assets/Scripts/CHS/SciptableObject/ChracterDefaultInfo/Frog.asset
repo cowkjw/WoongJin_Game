@@ -19,9 +19,9 @@ MonoBehaviour:
   - 0.5
   _areaColor:
   - 0
-  - 1
   - 0
-  - 0.2
+  - 0
+  - 0
   _borderColor:
   - 1
   - 1

@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 5583139615298399503}
   - component: {fileID: 1849046621802010501}
   - component: {fileID: 1728771569}
+  - component: {fileID: 6483351709366042444}
   m_Layer: 0
   m_Name: Lion
   m_TagString: Monster
@@ -211,6 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAreaColor: {r: 0, g: 0, b: 0, a: 0}
+  _speed: 0
 --- !u!114 &1728771569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +229,26 @@ MonoBehaviour:
   _attackMaxCoolTime: 5
   _attackTime: 2
   _attackObject: {fileID: 116171627597990091}
+  _normal: {fileID: 21300000, guid: 04e7b3202e709a143b0c78e8965baaba, type: 3}
+  _attack: {fileID: 21300000, guid: bfac100c11702c24bb46b62052b191ec, type: 3}
+  Body: {fileID: 4447096093488733749}
+--- !u!114 &6483351709366042444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4447096093399546473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbea95dd36f1994f80052c7ceaa97e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Items:
+  - {fileID: 1337902953094809825, guid: 5f08e32d664deec429b0f8f8987dedc9, type: 3}
+  - {fileID: 1337902953094809825, guid: 5f08e32d664deec429b0f8f8987dedc9, type: 3}
+  - {fileID: 9125350727823802297, guid: 97e9df71baa5ab242a07efe437601a81, type: 3}
+  - {fileID: 2992657517255422673, guid: ddecdec6579412042b536c85ac12a7e6, type: 3}
 --- !u!1 &4447096093488733750
 GameObject:
   m_ObjectHideFlags: 0

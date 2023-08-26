@@ -1,3 +1,4 @@
+using Contents;
 using Mono.Cecil.Cil;
 using Photon.Pun;
 using System.Collections;
@@ -43,7 +44,7 @@ public class SCharacter : MonoBehaviour
 
     // 플레이어 카운트를 받아 해당 캐릭터로 업데이트한다. 
     // 클라이언트 접속 시, 실행되는 메소드
-    public void SetupCharacter(int playerCount)
+    public void SetupCharacter(int playerCount, string characterType)
     {
         UserManager userManager = GetUserManager();
         if (userManager != null)
@@ -55,6 +56,7 @@ public class SCharacter : MonoBehaviour
             _characterInfo = userManager.GetCharcterInfo(playerCount);
 
             // 가진 정보를 이용하여 캐릭터 커스텀을 불러온다.
+            Equipment(characterType);
 
             // 불러온 정보를 이용하여 캐릭터 정보를 업데이트 한다.
             UpdateCharacter(
@@ -85,7 +87,7 @@ public class SCharacter : MonoBehaviour
             _defaultInfo.SetCharacterSpriteName(sprieName);
 
             // 정보를 업데이트한다.
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            SpriteRenderer spriteRenderer = this.gameObject.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
             {
                 Sprite sprite = Resources.Load<Sprite>("Sprites/Characters/" + _defaultInfo.GetCharcterSpriteName());
@@ -140,8 +142,6 @@ public class SCharacter : MonoBehaviour
                 return userManager;
             }
         }
-
-
         Debug.Log("User Manager is Null");
         return null;
     }
@@ -182,6 +182,30 @@ public class SCharacter : MonoBehaviour
 
 
     }
+
+    private void Equipment(string type)
+    {
+        // 커스텀 장비를 장착한다.
+        Sprite Hat = this.gameObject.transform.Find("Hat").GetComponent<SpriteRenderer>().sprite;
+        Sprite Face = this.gameObject.transform.Find("Hat").GetComponent<SpriteRenderer>().sprite;
+        Sprite Glass = this.gameObject.transform.Find("Hat").GetComponent<SpriteRenderer>().sprite;
+        Sprite Necklace = this.gameObject.transform.Find("Hat").GetComponent<SpriteRenderer>().sprite;
+
+        DataManager _dataManager = GameObject.Find("@DataManager").GetComponent<DataManager>();
+        if(_dataManager != null )
+        {
+            CharacterCustom customData = _dataManager.CharacterCustomData[type];
+
+            // TODO : 여기서 스프라이트 name을 불러와서 파일에 접근한 뒤에 업데이트
+#if UNITY_EDITOR
+            if (customData.ItemDict["Hat"] != null)
+            {
+                Debug.Log(customData.ItemDict["Hat"]);
+            }
+#endif
+        }
+    }
+
     public void ConsumeMoveGauge()
     {
         _moveGauge -= (_moveGuageConsumption * Time.deltaTime);

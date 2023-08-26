@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Monster
   - paper
+  - Item
   layers:
   - Default
   - TransparentFX

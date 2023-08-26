@@ -151,7 +151,10 @@ public class STileColorChange : MonoBehaviour
         }
 
         // TODO : »πµÊ«— ∂•¿« ∆€ºæ∆Æ ∞ËªÍ (100%∞° µ«∏È ∞‘¿” ¡æ∑·)
-        GameObject.Find("GameManager").GetComponent<SGameManager>().CalAreaScore();       
+        GameObject.Find("GameManager").GetComponent<SGameManager>().CalAreaScore();
+
+        // ∂• »πµÊ ¿Ã∆Â∆Æ √‚∑¬
+        GameObject.Find("UIManager").GetComponent<SoundManager>().PlayEffect(Effect.Ground);
     }
 
     private bool isInMoveTileList(Vector3Int cellPosition)

@@ -13,6 +13,11 @@ public class SLionAttack : MonoBehaviour
     [Header("스킬")]
     [SerializeField] private GameObject _attackObject;
 
+    [Header("리소스")]
+    [SerializeField] private Sprite _normal;
+    [SerializeField] private Sprite _attack;
+    [SerializeField] private SpriteRenderer Body;
+
     SMonsterMove monsterMove;
 
     // Start is called before the first frame update
@@ -36,6 +41,8 @@ public class SLionAttack : MonoBehaviour
         _attackObject.SetActive(true);
         monsterMove.SetCanMove(false);
 
+        Body.sprite = _attack;
+
         // 일정 시간 이후 스킬 종료
         Invoke("SkillEnd", _attackTime);
     }
@@ -45,6 +52,8 @@ public class SLionAttack : MonoBehaviour
         // 스킬 비활성화 && 움직임 활성화
         _attackObject.SetActive(false);
         monsterMove.SetCanMove(true);
+
+        Body.sprite = _normal;
     }
 
     bool CheckCoolTime()
