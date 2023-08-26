@@ -43,8 +43,9 @@ public class SGameManager : MonoBehaviour
     [SerializeField] private Slider _timeSlider;
 
     [Header("게임 세팅")]
-    [SerializeField] private bool _gameOver = false;
-    [SerializeField] private bool _gameStop = false;
+    [SerializeField] private bool   _gameOver = false;
+    [SerializeField] private bool   _gameStop = false;
+    [SerializeField] private float  _stageBonus = 1f;   // 스테이지 별 점수 배율
 
     [Header("아이템 사용 가능 여부")]
     [SerializeField] private bool _canUseHpItem = false;
@@ -54,30 +55,37 @@ public class SGameManager : MonoBehaviour
     [Header("아이템 효과 수치")]
     [SerializeField] private float _hpItemValue;
     [SerializeField] private float _speedItemValue;
+    [SerializeField] private float _speedtimeValue;  // 지속 시간
     [SerializeField] private float _gaugeItemValue;
+    [SerializeField] private float _timeItemValue;
+
+    [Header("문제 풀이 관련")]
+    [SerializeField] private float _solveGaugeValue;
 
     DataManager _dataManager;
 
     [Header("플레이어 오브젝트")]
     [SerializeField] private GameObject _player;
+    private string _character;
+    
 
     private void Awake()
     {
         // 게임 시작과 동시에 플레이어가 될 게임 오브젝트를 생성
         // TODO : 가져올 캐릭터의 종류 및 정보를 받아온다.
+
+        int playerCharacterNum = 1;
         _dataManager = GameObject.Find("@DataManager").GetComponent<DataManager>();
         if(_dataManager !=null)
         {
-            Init();
+            playerCharacterNum = Init();
         }
-
-        int playerCharacterNum = 1;
 
         GameObject user = SetUser(playerCharacterNum);
         _localUser = user;
 
         // 유저 정보를 업데이트
-        UpdateUser(user, playerCharacterNum);
+        UpdateUser(user, playerCharacterNum, _character);
 
         // 몬스터에 정보를 업데이트
         UpdateMonsters();
@@ -99,7 +107,7 @@ public class SGameManager : MonoBehaviour
         StartGame();
     }
 
-    private void Init()
+    private int Init()
     {
         // 아이템 갱신
         if (_dataManager.PlayerStat.HP > 0)
@@ -116,8 +124,26 @@ public class SGameManager : MonoBehaviour
         }
 
         // 플레이어 정보 갱신
-        
+        int playerNum = 0;
+        _character = _dataManager.PlayerData.Character;
+        if (_character == "Bird")
+        {
+            playerNum = 1;
+        }
+        else if (_character == "Dog")
+        {
+            playerNum = 2;
+        }
+        else if (_character == "Frog")
+        {
+            playerNum = 3;
+        }
+        else
+        {
+            playerNum = 4;
+        }
 
+        return playerNum;
     }
 
     void UpdateTime()
@@ -166,7 +192,7 @@ public class SGameManager : MonoBehaviour
         return Object;
     }
 
-    private void UpdateUser(GameObject user, int playerCount)
+    private void UpdateUser(GameObject user, int playerCount, string characterType)
     {
         // 각자 클라이언트에서만 업데이트되어 다른 클라이언트로 정보를 뿌린다.
         SCharacter character = user.GetComponent<SCharacter>();
@@ -175,7 +201,7 @@ public class SGameManager : MonoBehaviour
         SetupJoyStick(user);
 
         // 캐릭터 정보 업데이트
-        character.SetupCharacter(playerCount);
+        character.SetupCharacter(playerCount, characterType);
     }
 
     private void SetupJoyStick(GameObject user)
@@ -214,7 +240,7 @@ public class SGameManager : MonoBehaviour
 
         if (!isGameover)
         {
-            _areaScore = (int)(wholeArea / _areaScore) * 10;
+            _areaScore = (int)(count / wholeArea) * 100;
         }
 
         // 100% 다 채운 경우
@@ -226,12 +252,12 @@ public class SGameManager : MonoBehaviour
 
     public void AddSolveScore(int count = 1)
     {
-        _solveScore += count * 100;
+        _solveScore += count * 5;
     }
 
     public int GetTotalScore()
     {
-        return _monsterScore + _areaScore + _timeScore + _solveScore;
+        return (int)((_areaScore + _timeScore + _solveScore) * _stageBonus);
     }
 
     // 게임 오버 처리
@@ -244,16 +270,27 @@ public class SGameManager : MonoBehaviour
         StopGame();
 
         // TODO : 게임 종료 패널과 함께 결과 창 출력 (획득 점수, 재화 등을 넘겨주기)
-        if(UIManager == null)
+        if (UIManager == null)
         {
             return;
         }
 
         // TODO : _timeScore 갱신
+        _timeScore = (int)(_maxGameTime - _gameTime);
 
-
+        // 획득 재화 계산
+        _money = GetTotalScore() / 5;   
+        
         UIManager.OpenResultPanel(isGameover, GetTotalScore(), _money, _gameTime);
+
+        // DataManager에 값 저장 (재화, 스코어, 클리어 정보 등)
+
+        // 획득 재화 계산
+        _money = GetTotalScore() / 5;
+        int newGold = _dataManager.PlayerData.Gold + _money;
+        _dataManager.PlayerData.Gold = newGold;
     }
+
     public void TimeOver(float value)
     {
         if(value <= 0)
@@ -284,16 +321,6 @@ public class SGameManager : MonoBehaviour
     public void StartGameBtn()
     {
         StartGame();
-    }
-
-    public void DropOutAllPlayerBtn()
-    {
-
-    }
-
-    void DropOutAllPlayer()
-    {
-
     }
 
     public void StartGame()
@@ -385,6 +412,9 @@ public class SGameManager : MonoBehaviour
         // Hp 회복
         _player.GetComponent<SCharacterHp>().Heal(_hpItemValue);
 
+        // 효과음 출력
+        UIManager.GetComponent<SoundManager>().PlayEffect(Effect.Button);
+
         // TODO : 아이템 비활성화
         
     }
@@ -398,15 +428,25 @@ public class SGameManager : MonoBehaviour
         }
         _canUseSpeedItem = false;
 
+        SJoyStick JoyStick = GameObject.FindGameObjectWithTag("GameController").GetComponent<SJoyStick>();
         // 스피드 상승
-
+        JoyStick.SpeedUp(_speedItemValue);
 
         // 일정 시간 이후에 줄어든다.
+        Invoke("SpeedDown", _speedtimeValue);
 
+        // 효과음 출력
+        UIManager.GetComponent<SoundManager>().PlayEffect(Effect.Button);
 
         // TODO : 아이템 비활성화
 
 
+    }
+
+    public void SpeedDown()
+    {
+        SJoyStick JoyStick = GameObject.FindGameObjectWithTag("GameController").GetComponent<SJoyStick>();
+        JoyStick.SpeedDown();
     }
 
     public void UseItemGauge()
@@ -424,7 +464,58 @@ public class SGameManager : MonoBehaviour
         // UI 갱신
         UIManager.AddMoveGauge(sliderValue);
 
+        // 효과음 출력
+        UIManager.GetComponent<SoundManager>().PlayEffect(Effect.Button);
+
         // TODO : 아이템 비활성화
 
+    }
+
+    public void Solve()
+    {
+        // 게이지 회복
+        float sliderValue = _player.GetComponent<SCharacter>().AddMoveGauge(_solveGaugeValue);
+
+        // UI 갱신
+        UIManager.AddMoveGauge(sliderValue);
+    }
+
+    public void DropItemHp()
+    {
+        _player.GetComponent<SCharacterHp>().Heal(_hpItemValue);
+    }
+
+    public void DropItemTime()
+    {
+        _gameTime -= _timeItemValue;
+        if(_gameTime < 0)
+        {
+            _gameTime = 0;
+        }
+        // TODO : 제한시간 UI 업데이트
+        if (_timeSlider != null)
+        {
+            float value = _gameTime / _maxGameTime;
+            UIManager.UpdateTime(1f - value);
+            // _timeSlider.value =  1f - value;
+        }
+
+    }
+    public void DropItemGauge()
+    {
+        // 게이지 회복
+        float sliderValue = _player.GetComponent<SCharacter>().AddMoveGauge(_gaugeItemValue);
+
+        // UI 갱신
+        UIManager.AddMoveGauge(sliderValue);
+    }
+    public void DropItemSpeed()
+    {
+        SJoyStick JoyStick = GameObject.FindGameObjectWithTag("GameController").GetComponent<SJoyStick>();
+        // 스피드 상승
+        JoyStick.SpeedUp(_speedItemValue);
+
+        // 일정 시간 이후에 줄어든다.
+        Invoke("SpeedDown", _speedtimeValue);
     }
 }

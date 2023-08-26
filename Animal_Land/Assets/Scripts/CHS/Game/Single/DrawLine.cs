@@ -107,6 +107,9 @@ public class DrawLine : MonoBehaviour
 
         if (line == null) return;
 
+        // 효과음 추가
+        GetComponent<SoundManager>().PlayEffect(Effect.Erase);
+
         GameObject.Destroy(line);
     }
 
@@ -118,5 +121,8 @@ public class DrawLine : MonoBehaviour
         {
             RevertLine();
         }
+
+        // 효과음 추가
+        GetComponent<SoundManager>().PlayEffect(Effect.Erase);
     }
 }

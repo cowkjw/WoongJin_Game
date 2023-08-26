@@ -13,7 +13,8 @@ public class UserManager : MonoBehaviour
 
     public PlayerData PlayerData { get; private set; } = null; // 재화,아이템 구매 리스트
 
-    [SerializeField] private float _soundVolume = 0.5f;
+    [SerializeField] private float _soundVolume = 0.2f;
+    [SerializeField] private float _effectVolume = 0.2f;
 
     // TODO : 클라이언트에 저장되어 있는 값을 붑러온다.
     private void Awake()
@@ -93,9 +94,18 @@ public class UserManager : MonoBehaviour
         return _soundVolume;
     }
 
+    public float GetEffectVolume()
+    {
+        return _effectVolume;
+    }
+
     public void SetSoundVolume(float value)
     {
         _soundVolume = value;
+    }
+    public void SetEffectVolume(float value)
+    {
+        _effectVolume = value;
     }
 
     void Start()

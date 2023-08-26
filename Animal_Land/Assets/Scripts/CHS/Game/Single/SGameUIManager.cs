@@ -22,11 +22,12 @@ public class SGameUIManager : MonoBehaviour
 
     private DrawLine _line;
     private SGameManager _gameManager;
-
+    private SoundManager _soundManager;
     private void Awake()
     {
         _line = GetComponent<DrawLine>();
         _gameManager = GameObject.Find("GameManager").GetComponent<SGameManager>();
+        _soundManager = GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -41,6 +42,8 @@ public class SGameUIManager : MonoBehaviour
         _solveScreen.SetActive(true);
 
         _gameManager.StopGame();
+
+        _soundManager.PlayEffect(Effect.Button);
     }
 
     public void CloseSolveScreen()
@@ -49,7 +52,10 @@ public class SGameUIManager : MonoBehaviour
         _solveScreen.SetActive(false);
 
         _gameManager.StartGame();
+
         _line.ClearLIne();
+
+        _soundManager.PlayEffect(Effect.Back);
     }
 
     public void OpenSettingScreen()
@@ -57,6 +63,8 @@ public class SGameUIManager : MonoBehaviour
         _settingScreen.SetActive(true);
 
         _gameManager.StopGame();
+
+        _soundManager.PlayEffect(Effect.Button);
     }
 
     public void CloseSettingScreen()
@@ -64,6 +72,8 @@ public class SGameUIManager : MonoBehaviour
         _settingScreen.SetActive(false);
 
         _gameManager.StartGame();
+
+        _soundManager.PlayEffect(Effect.Back);
     }
 
     public void OpenResultPanel(bool gameClear, int score, int money, float gameTime)
@@ -76,8 +86,11 @@ public class SGameUIManager : MonoBehaviour
         TextMeshProUGUI Gold = _resultScreen.transform.GetChild(8).gameObject.GetComponent<TextMeshProUGUI>();
 
         Score.text = score.ToString();
-        Time.text = gameTime.ToString();
+        Time.text = ((int)gameTime).ToString();
         Gold.text = money.ToString();
+
+        // 효과음 출력
+        _soundManager.PlayEffect(Effect.Gameover);
     }
     
     public void UpdateHp(float value)
@@ -116,6 +129,8 @@ public class SGameUIManager : MonoBehaviour
     {
         // 로비로 이동
         SceneManager.LoadScene("Lobby 1");
+
+        _soundManager.PlayEffect(Effect.Button);
     }
 
     public void Restart()
@@ -123,12 +138,16 @@ public class SGameUIManager : MonoBehaviour
         // 재시작
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
+
+        _soundManager.PlayEffect(Effect.Button);
     }
 
     public void Resume()
     {
         // 세팅 패널 비활성화
         CloseSettingScreen();
+
+        _soundManager.PlayEffect(Effect.Back);
     }
 
 

@@ -37,7 +37,10 @@ public class SMonster : MonoBehaviour
     {
         // 점수 추가
         GameObject.Find("GameManager").GetComponent<SGameManager>().AddMonsterScore(_monsterScore);
-
+        
+        // 아이템 드랍
+        this.GetComponent<SDropItem>().DropItem();
+        
         GameObject.Destroy(this.gameObject);
     }
 
