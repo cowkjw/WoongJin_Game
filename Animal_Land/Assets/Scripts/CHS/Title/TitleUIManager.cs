@@ -62,7 +62,7 @@ public class TitleUIManager : MonoBehaviour
         }
     }
 
-    void GoToLobby()
+    async void GoToLobby()
     {
         if (Application.internetReachability == NetworkReachability.NotReachable) // 데이터 다운로드 또는 인터넷 연결
         {
@@ -89,7 +89,7 @@ public class TitleUIManager : MonoBehaviour
             Debug.LogError("데이터를 다운받는 중입니다.");
             if (DatabaseManager.Instance != null)
             {
-              DatabaseManager.Instance.ReadDB(DataType.ItemData);
+              await DatabaseManager.Instance.ReadDB(DataType.ItemData);
             }
 
             return;
@@ -106,7 +106,7 @@ public class TitleUIManager : MonoBehaviour
 
             if (DatabaseManager.Instance != null)
             {
-                DatabaseManager.Instance.ReadDB(DataType.CustomData);
+                await DatabaseManager.Instance.ReadDB(DataType.CustomData);
             }
         }
 
@@ -120,16 +120,20 @@ public class TitleUIManager : MonoBehaviour
 
     void ChangeRoom(string roomName)
     {
+        GetComponent<SoundManager>().PlayEffect(Effect.Button);
+
         SceneManager.LoadScene(roomName);
     }
 
     public void OpenHowToPlay()
     {
+        GetComponent<SoundManager>().PlayEffect(Effect.Button);
         HowToPlayPanel.SetActive(true);
     }
 
     public void CloseHowToPlay()
     {
+        GetComponent<SoundManager>().PlayEffect(Effect.Button);
         HowToPlayPanel.SetActive(false);
     }
 }
