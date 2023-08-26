@@ -3,6 +3,7 @@ using Firebase.Database;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Rank
@@ -27,8 +28,9 @@ public enum DataType // 데이터 타입 enum
 
 public class DatabaseManager : MonoBehaviour
 {
+
+    public string USER_NAME { get; private set; } = string.Empty;
     public static DatabaseManager Instance => instance;
-    public bool isReadDB = true;
     public Dictionary<string,int> RankingList = new Dictionary<string, int>(); // 유저 랭킹 리스트 딕셔너리
     public DatabaseReference reference { get; set; }
     [SerializeField] private string DB_URL = "https://animalland-d2718-default-rtdb.firebaseio.com"; // DB URL
@@ -39,27 +41,47 @@ public class DatabaseManager : MonoBehaviour
     {
         instance = this;
         DontDestroyOnLoad(instance);
-        FirebaseApp.DefaultInstance.Options.DatabaseUrl = new Uri(DB_URL);
-        reference = FirebaseDatabase.DefaultInstance.RootReference;
-
-        WriteDB();
-        ReadDB(DataType.Users);
+        InitDBM();
     }
 
-    void WriteDB() // TODO : 자기 자신의 아이디와 닉네임으로 저장할 수 있는 함수 구현
+    async Task InitDBM()
     {
-        string uId = this.GetComponent<WJ_Connector>().UserID;
+        await FirebaseApp.CheckAndFixDependenciesAsync(); // 파베에 필요한 모든 종속 항목과 전제 조건 확인
+        FirebaseApp app = FirebaseApp.DefaultInstance;
+        app.Options.DatabaseUrl = new Uri(DB_URL); // URL 설정
+        reference = FirebaseDatabase.DefaultInstance.RootReference; // 루트로 설정
 
-        Rank rankDate = new Rank("Player" + uId.Substring(16, 4), 0);
-
-        string jsonData = JsonUtility.ToJson(rankDate);
-        reference.Child("Users").Child(uId).SetRawJsonValueAsync(jsonData);
-
-        //string js = JsonConvert.SerializeObject(DataManager.Instance.CharacterCustomData);
-        //reference.Child("CustomData").SetRawJsonValueAsync(js);
+        await ReadDB(DataType.Users); // 불러올 때까지 기다림
+        await WriteDB();
     }
 
-    public void ReadDB(DataType root) // DB 읽어오는 메소드
+
+    public async Task WriteDB(int score = 0)
+    {
+        string uId = this.GetComponent<WJ_Connector>().UserID; // 웅진 API 아이디
+
+        reference = FirebaseDatabase.DefaultInstance.RootReference; // DB 루트로 초기화
+
+        if (USER_NAME == string.Empty)
+        {
+            USER_NAME = "Player" + uId.Substring(16, 4);
+        }
+
+        int saveTotalScore = score;
+
+        if (RankingList.ContainsKey(USER_NAME)) // 이미 DB에 있는지 판단
+        {
+            saveTotalScore = RankingList[USER_NAME] + saveTotalScore;
+        }
+
+        Rank rankDate = new Rank(USER_NAME, saveTotalScore);
+        string jsonData = JsonUtility.ToJson(rankDate);
+        await reference.Child("Users").Child(uId).SetRawJsonValueAsync(jsonData);
+
+        await ReadDB(DataType.Users); // 데이터 다시 읽음
+    }
+
+    public async Task ReadDB(DataType root) // DB 읽어오는 메소드
     { 
         reference = FirebaseDatabase.DefaultInstance.GetReference(root.ToString());
 
@@ -68,13 +90,13 @@ public class DatabaseManager : MonoBehaviour
             switch(root)
             {
                 case DataType.Users: // 유저 정보
-                    ReadUsersData();
+                   await ReadUsersData();
                     break;
                 case DataType.ItemData: // 상점 아이템 정보
-                     ReadItemData();
+                    await ReadItemData();
                     break;
                 case DataType.CustomData: // 만약 처음 실행이라면 커스텀 목록 json 파일 형식 받아와서 저장
-                    ReadCustomData();
+                    await ReadCustomData();
                     break;
             }
         }
@@ -84,7 +106,7 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    async void ReadUsersData()
+    async Task ReadUsersData()
     {
         try
         {
@@ -102,7 +124,6 @@ public class DatabaseManager : MonoBehaviour
                     RankingList.Add(userInfo.Name, userInfo.Score);
                 }
             }
-            isReadDB = false;
         }
         catch (Exception e)
         {
@@ -110,7 +131,7 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    async void ReadItemData()
+    async Task ReadItemData()
     {
         try
         {
@@ -126,7 +147,7 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    async void ReadCustomData()
+    async Task ReadCustomData()
     {
         try
         {

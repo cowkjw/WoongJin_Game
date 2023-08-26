@@ -284,11 +284,17 @@ public class SGameManager : MonoBehaviour
         UIManager.OpenResultPanel(isGameover, GetTotalScore(), _money, _gameTime);
 
         // DataManager에 값 저장 (재화, 스코어, 클리어 정보 등)
+        int plusScore = GetTotalScore();
+        if (DatabaseManager.Instance != null)
+        {
+            DatabaseManager.Instance.WriteDB(plusScore);
+        }
 
         // 획득 재화 계산
         _money = GetTotalScore() / 5;
         int newGold = _dataManager.PlayerData.Gold + _money;
         _dataManager.PlayerData.Gold = newGold;
+        DataManager.Instance.SavePlayerData(); // 플레이어 데이터 저장
     }
 
     public void TimeOver(float value)
