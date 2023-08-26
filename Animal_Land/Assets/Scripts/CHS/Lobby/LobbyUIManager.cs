@@ -54,21 +54,29 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
 
     public void OpenSingleGamePanel()
     {
+        GetComponent<SoundManager>().PlayEffect(Effect.Button);
+
         singleGamePanel.SetActive(true);
     }
 
     public void CloseSingleGamePanel()
     {
+        GetComponent<SoundManager>().PlayEffect(Effect.Button);
+
         singleGamePanel.SetActive (false);
     }
 
     public void OpenSettingPanel()
     {
+        GetComponent<SoundManager>().PlayEffect(Effect.Button);
+
         settingPanel.SetActive(true);
     }
 
     public void CloseSettingPanel()
     {
+        GetComponent<SoundManager>().PlayEffect(Effect.Button);
+
         settingPanel.SetActive(false);
     }
 
@@ -82,6 +90,8 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
 
     public void ConnectSingleGame()
     {
+        GetComponent<SoundManager>().PlayEffect(Effect.Button);
+
         SceneManager.LoadScene(SStageInfo.StageName);
     }
 
@@ -110,6 +120,16 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
     {
         // TODO : 스테이지 이름을 넘겨준다.
         SStageInfo.StageName = stage;
+    }
+
+    public void ButtonSound()
+    {
+        GetComponent<SoundManager>().PlayEffect(Effect.Button);
+    }
+
+    public void BackSound()
+    {
+        GetComponent<SoundManager>().PlayEffect(Effect.Back);
     }
 
 }

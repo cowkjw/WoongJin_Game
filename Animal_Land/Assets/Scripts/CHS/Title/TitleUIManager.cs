@@ -120,16 +120,20 @@ public class TitleUIManager : MonoBehaviour
 
     void ChangeRoom(string roomName)
     {
+        GetComponent<SoundManager>().PlayEffect(Effect.Button);
+
         SceneManager.LoadScene(roomName);
     }
 
     public void OpenHowToPlay()
     {
+        GetComponent<SoundManager>().PlayEffect(Effect.Button);
         HowToPlayPanel.SetActive(true);
     }
 
     public void CloseHowToPlay()
     {
+        GetComponent<SoundManager>().PlayEffect(Effect.Button);
         HowToPlayPanel.SetActive(false);
     }
 }
