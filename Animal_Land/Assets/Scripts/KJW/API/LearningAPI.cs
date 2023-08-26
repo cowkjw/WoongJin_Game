@@ -60,7 +60,7 @@ public class LearningAPI : MonoBehaviour
 
     void Setup() // 문제 초기화
     {
-
+        wj_conn = FindObjectOfType<WJ_Connector>();
         if (wj_conn != null && !wj_conn._needDiagnosis)
         {
             currentStatus = CurrentStatus.LEARNING;
@@ -132,7 +132,7 @@ public class LearningAPI : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ColoringCorrectAnswer(textCn, qstCn, qstCransr, qstWransr, 0.5f));
+            StartCoroutine(ColoringCorrectAnswer(textCn, qstCn, qstCransr, qstWransr, 1.5f));
             _diagnosisIndex++;
         }
 
@@ -180,9 +180,19 @@ public class LearningAPI : MonoBehaviour
             case CurrentStatus.LEARNING:
                 isCorrect = textAnsr[_idx].text.CompareTo(wj_conn.cLearnSet.data.qsts[currentQuestionIndex].qstCransr) == 0 ? true : false;
                 ansrCwYn = isCorrect ? "Y" : "N";
+                //if (isCorrect)
+                //{
+                //    SGameManager sGameManager = GameObject.Find("GameManager").GetComponent<SGameManager>();
+                //    if (sGameManager != null)
+                //    {
+                //        sGameManager.Solve();
+                //    }
+                //}
 
                 isSolvingQuestion = false;
                 currentQuestionIndex++;
+                if (ansrCwYn == "Y") Debug.Log("정답");
+                else Debug.Log("오답");
 
                 wj_conn.Learning_SelectAnswer(currentQuestionIndex, textAnsr[_idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
 
@@ -202,7 +212,7 @@ public class LearningAPI : MonoBehaviour
                 }
                 else
                 {
-                    GetLearning(currentQuestionIndex);
+                    GetLearning(currentQuestionIndex); // 색깔 변경으로 진입
                 }
                 questionSolveTime = 0;
                 break;
@@ -254,7 +264,7 @@ public class LearningAPI : MonoBehaviour
 
     IEnumerator ColoringCorrectAnswer(string textCn, string qstCn, string qstCransr, string qstWransr, float delay) // 다음 문제 전 색상 표시
     {
-        int prevIndex = _correctAnswerRemind; // 이전 인덱스 저장
+        int prevIndex = _correctAnswerRemind; // 정답이었던 인덱스 저장 (다시 원래 색으로 돌리기 위해서)
         textAnsr[_correctAnswerRemind].color = new Color(1.0f, 0.0f, 0.0f); // 정답 인덱스 색상 변경
 
         yield return new WaitForSeconds(delay); // 딜레이

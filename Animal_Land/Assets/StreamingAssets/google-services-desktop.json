@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "186887714535",
+    "firebase_url": "https://animalland-d2718-default-rtdb.firebaseio.com",
+    "project_id": "animalland-d2718",
+    "storage_bucket": "animalland-d2718.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186887714535:android:d7f64289888fcb0c9dd442",
+        "android_client_info": {
+          "package_name": "com.defaultcompany.com.unity.template.mobile2D"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186887714535-8kdnqrucb2m0o314t94rra39t5ql6u7d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.defaultcompany.com.unity.template.mobile2D",
+            "certificate_hash": "967423321a3432208dc6e48ba8dbd6fd867f7587"
+          }
+        },
+        {
+          "client_id": "186887714535-eec8tjtvu2jmfeu6081fjcjv59g2rfg5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhFHBP6paz2wIhT_-JTm4BobWIxjbAD-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186887714535-eec8tjtvu2jmfeu6081fjcjv59g2rfg5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

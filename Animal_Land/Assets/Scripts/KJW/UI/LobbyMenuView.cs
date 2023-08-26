@@ -9,5 +9,9 @@ public class LobbyMenuView : View
     public override void Initialize()
     {
         shopButton.onClick.AddListener(() => ViewManager.Show<ShopMenuView>());
+        //if(DataManager.Instance!=null)
+        //{
+        //    shopButton.onClick.AddListener(() => DataManager.Instance.ReloadData());
+        //}
     }
 }

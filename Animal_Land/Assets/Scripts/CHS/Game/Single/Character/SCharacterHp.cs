@@ -56,6 +56,9 @@ public class SCharacterHp : MonoBehaviour
         _hp = newHp;
         Debug.Log(_hp);
 
+        // 효과음 출력
+        GameObject.Find("UIManager").GetComponent<SoundManager>().PlayEffect(Effect.Punch);
+
         // TODO : UI를 갱신한다.
         float value = _hp / _maxHp;
         gameUIManager.UpdateHp(value);

@@ -19,6 +19,7 @@ public class SJoyStick : MonoBehaviourPun, IDragHandler, IPointerDownHandler, IP
     private Vector3 _characterDirection;        // 캐릭터 이동 방향
     [SerializeField]
     private float _speed;                       // 캐릭터 스피드
+    private float _oldSpeed;                       // 캐릭터 스피드
     private float _rotateSpeed;                 // 회전 속도
     private Coroutine _runningCoroutine;        // 부드러운 회전 코루틴
     private bool _OnTouch;
@@ -34,6 +35,7 @@ public class SJoyStick : MonoBehaviourPun, IDragHandler, IPointerDownHandler, IP
     void Awake()
     {
         _speed = 1.5f;
+        _oldSpeed = 1.5f;
         _rotateSpeed = 5.0f;
         _OnTouch = false;
         _characterDirection = Vector3.zero;
@@ -178,5 +180,15 @@ public class SJoyStick : MonoBehaviourPun, IDragHandler, IPointerDownHandler, IP
     public void SetCheck(bool check)
     {
         _check = check;
+    }
+
+    public void SpeedUp(float val)
+    {
+        _speed += val;
+    }
+
+    public void SpeedDown()
+    {
+        _speed = _oldSpeed;
     }
 }

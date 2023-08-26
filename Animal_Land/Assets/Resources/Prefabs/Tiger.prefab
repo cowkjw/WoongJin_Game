@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 672439605970704224}
   - component: {fileID: 3997544883675994897}
   - component: {fileID: 7181068879828918683}
+  - component: {fileID: 3438614188201782668}
   m_Layer: 0
   m_Name: Tiger
   m_TagString: Monster
@@ -73,6 +74,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAreaColor: {r: 0, g: 0, b: 0, a: 0}
+  _speed: 0
+--- !u!114 &3438614188201782668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5167361979289881719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbea95dd36f1994f80052c7ceaa97e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Items:
+  - {fileID: 828913363779611672, guid: dec1f0b8b81c5e24abb0e1510d363ce6, type: 3}
+  - {fileID: 1337902953094809825, guid: 5f08e32d664deec429b0f8f8987dedc9, type: 3}
+  - {fileID: 9125350727823802297, guid: 97e9df71baa5ab242a07efe437601a81, type: 3}
+  - {fileID: 2992657517255422673, guid: ddecdec6579412042b536c85ac12a7e6, type: 3}
 --- !u!1 &5167361979368204328
 GameObject:
   m_ObjectHideFlags: 0
