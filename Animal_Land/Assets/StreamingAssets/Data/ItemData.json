@@ -1,102 +1,202 @@
 {
-  "Necklace": [
-    {
-      "Name": "Necklace1",
-      "Price": 100000
-    },
-    {
-      "Name": "Necklace2",
-      "Price": 500
-    },
-    {
-      "Name": "Necklace3",
-      "Price": 20000
-    },
-    {
-      "Name": "Necklace4",
-      "Price": 1000
-    },
-    {
-      "Name": "Necklace5",
-      "Price": 500000
-    },
-    {
-      "Name": "Necklace6",
-      "Price": 200
-    }
-  ],
   "Face": [
     {
-      "Name": "Face1",
-      "Price": 10
-    },
-    {
-      "Name": "Face2",
-      "Price": 500000
-    },
-    {
-      "Name": "Face3",
-      "Price": 20000
-    },
-    {
-      "Name": "Face4",
+      "Name": "blusher_cat",
       "Price": 100
-    }
-  ],
-  "Glass": [
-    {
-      "Name": "Glass1",
-      "Price": 100000
     },
     {
-      "Name": "Glass2",
+      "Name": "blusher_dog",
+      "Price": 100
+    },
+    {
+      "Name": "blusher_frog",
+      "Price": 100
+    },
+    {
+      "Name": "blusher_bird",
+      "Price": 100
+    },
+    {
+      "Name": "wink_cat",
+      "Price": 200
+    },
+    {
+      "Name": "wink_dog",
+      "Price": 200
+    },
+    {
+      "Name": "wink_frog",
+      "Price": 200
+    },
+    {
+      "Name": "wink_bird",
+      "Price": 200
+    },
+    {
+      "Name": "heart_cat",
+      "Price": 300
+    },
+    {
+      "Name": "heart_dog",
+      "Price": 300
+    },
+    {
+      "Name": "heart_frog",
+      "Price": 300
+    },
+    {
+      "Name": "heart_bird",
+      "Price": 300
+    },
+    {
+      "Name": "eyebrow_cat",
+      "Price": 150
+    },
+    {
+      "Name": "eyebrow_dog",
+      "Price": 150
+    },
+    {
+      "Name": "eyebrow_frog",
+      "Price": 150
+    },
+    {
+      "Name": "eyebrow_bird",
+      "Price": 150
+    },
+    {
+      "Name": "tongue_cat",
       "Price": 500
     },
     {
-      "Name": "Glass3",
-      "Price": 20000
+      "Name": "tongue_dog",
+      "Price": 500
     },
     {
-      "Name": "Glass4",
-      "Price": 1000
+      "Name": "tongue_frog",
+      "Price": 500
     },
     {
-      "Name": "Glass5",
-      "Price": 5000
+      "Name": "tongue_bird",
+      "Price": 500
+    }
+  ],
+  "Glasses": [
+    {
+      "Name": "glasses_cat",
+      "Price": 300
     },
     {
-      "Name": "Glass6",
-      "Price": 700000
+      "Name": "glasses_dog",
+      "Price": 300
     },
     {
-      "Name": "Glass7",
-      "Price": 1000
+      "Name": "glasses_frog",
+      "Price": 300
     },
     {
-      "Name": "Glass8",
-      "Price": 2000
+      "Name": "glasses_bird",
+      "Price": 300
+    },
+    {
+      "Name": "sunglasses_cat",
+      "Price": 400
+    },
+    {
+      "Name": "sunglasses_dog",
+      "Price": 400
+    },
+    {
+      "Name": "sunglasses_frog",
+      "Price": 400
+    },
+    {
+      "Name": "sunglasses_bird",
+      "Price": 400
     }
   ],
   "Hat": [
     {
-      "Name": "Crown",
-      "Price": 100000
+      "Name": "crown_cat",
+      "Price": 200
     },
     {
-      "Name": "Hat1",
+      "Name": "crown_dog",
+      "Price": 200
+    },
+    {
+      "Name": "crown_frog",
+      "Price": 200
+    },
+    {
+      "Name": "crown_bird",
+      "Price": 200
+    },
+    {
+      "Name": "party_cat",
+      "Price": 300
+    },
+    {
+      "Name": "party_dog",
+      "Price": 300
+    },
+    {
+      "Name": "party_frog",
+      "Price": 300
+    },
+    {
+      "Name": "party_bird",
+      "Price": 300
+    }
+  ],
+  "Etc": [
+    {
+      "Name": "ribbon_cat",
+      "Price": 250
+    },
+    {
+      "Name": "ribbon_dog",
+      "Price": 250
+    },
+    {
+      "Name": "ribbon_frog",
+      "Price": 250
+    },
+    {
+      "Name": "ribbon_bird",
+      "Price": 250
+    },
+    {
+      "Name": "angel_cat",
       "Price": 500
     },
     {
-      "Name": "Hat2",
-      "Price": 20000
+      "Name": "angel_dog",
+      "Price": 500
     },
     {
-      "Name": "Hat3",
-      "Price": 1000
+      "Name": "angel_frog",
+      "Price": 500
     },
     {
-      "Name": "Hat4",
-      "Price": 500000
+      "Name": "angel_bird",
+      "Price": 500
+    },
+    {
+      "Name": "devil_cat",
+      "Price": 500
+    },
+    {
+      "Name": "devil_dog",
+      "Price": 500
+    },
+    {
+      "Name": "devil_frog",
+      "Price": 500
+    },
+    {
+      "Name": "devil_bird",
+      "Price": 500
     }
   ]
 }

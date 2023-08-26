@@ -10,11 +10,10 @@ public class JSONFileDownloader : MonoBehaviour
     private const string itemDataFileURL = "https://docs.google.com/uc?id=1QPD8tKtIZ4yHys9GV-ksrj0XZ2lU0BiS&export=download"; // Replace this with the actual URL
     public void NeedDownload(string filePath,string fileName)
     {
-
-#if UNITY_EDITOR
-        localFilePath = Path.Combine(Application.dataPath, $"StreamingAssets/Data/{fileName}.json");
-#elif UNITY_ANDROID
+#if UNITY_ANDROID
         localFilePath = Path.Combine(Application.persistentDataPath, $"Data/{fileName}.json");
+#elif UNITY_EDITOR
+        localFilePath = Path.Combine(Application.dataPath, $"StreamingAssets/Data/{fileName}.json");
 #endif
         StartCoroutine(DownloadFile(filePath));
     }

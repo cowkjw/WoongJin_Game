@@ -2,10 +2,7 @@ using Contents;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using static UnityEngine.UI.CanvasScaler;
 
 public class DataManager : MonoBehaviour
 {
@@ -33,7 +30,6 @@ public class DataManager : MonoBehaviour
     public PlayerData PlayerData => _playerData;
     public IDictionary<string, IList<ItemInfo>> PropsItemDict => _propsItemDict;
     public Contents.PlayerStat PlayerStat = new Contents.PlayerStat(); // 게임 내에 쓰일 플레이어 스탯
-
     private void Awake()
     {
         Init();
@@ -47,24 +43,17 @@ public class DataManager : MonoBehaviour
         DontDestroyOnLoad(instance);
     }
 
-    private string GetSavePath(string fileName)
+    public string GetSavePath(string fileName)
     {
         string filePath;
-#if UNITY_EDITOR
-        filePath = Path.Combine(Application.dataPath, $"StreamingAssets/Data/{fileName}.json");
-#elif UNITY_ANDROID
+#if UNITY_ANDROID
         filePath = Path.Combine(Application.persistentDataPath, $"Data/{fileName}.json");
+#elif UNITY_EDITOR
+        filePath = Path.Combine(Application.dataPath, $"StreamingAssets/Data/{fileName}.json");
 #endif
         if (!File.Exists(filePath))
         {
-            if (fileName == "ItemData")
-            {
-                downloader.NeedDownload(filePath, fileName);
-            }
-            else
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-            }
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
         }
 
         return filePath;

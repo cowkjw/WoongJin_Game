@@ -115,7 +115,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler
         }
         else
         {
-            message = $"{SlotInfo.Price} Gold가 소모됩니다.\n{SlotInfo.Name}를 구매하시겠습니까?";
+            message = $"{SlotInfo.Price} 골드가 소모됩니다.\n구매 하시겠습니까?";
             if (shopMenu != null)
             {
                 shopMenu.canPutOn = false;

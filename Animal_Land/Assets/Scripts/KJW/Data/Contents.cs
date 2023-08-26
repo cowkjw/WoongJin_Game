@@ -9,9 +9,8 @@ namespace Contents
     {
         Face,
         Hat,
-        Necklace,
-        Glass,
-        Wing
+        Glasses,
+        Etc
     }
 
     public enum CharacterType
