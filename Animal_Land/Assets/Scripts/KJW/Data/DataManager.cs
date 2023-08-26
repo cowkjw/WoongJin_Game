@@ -95,6 +95,11 @@ public class DataManager : MonoBehaviour
         SaveData<PlayerData>(_playerData, "PlayerData");
     }
 
+    public void SavePlayerData()
+    {
+        DataManager.Instance.SaveData<PlayerData>(PlayerData, "PlayerData");
+    }
+
     public void ReloadData()
     {
         _characterCustomData = LoadData<IDictionary<string, CharacterCustom>>("CustomData", _characterCustomData);

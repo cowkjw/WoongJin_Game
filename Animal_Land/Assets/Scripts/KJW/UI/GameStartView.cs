@@ -95,7 +95,7 @@ public class GameStartView : View
             }
             DataManager.Instance.PlayerStat = _playerStat; // 꺼질 때 게임에 들어가서 사용 할 스탯을 데이터매니저에 넘겨줌
             DataManager.Instance.PlayerData.Gold -= _gold;
-            DataManager.Instance.SaveData<PlayerData>(DataManager.Instance.PlayerData, "PlayerData");
+            DataManager.Instance.SavePlayerData();
         }
         SceneManager.LoadScene(SStageInfo.StageName); // 싱글 룸으로 이동
     }
