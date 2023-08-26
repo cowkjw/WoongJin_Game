@@ -73,6 +73,11 @@ public class ViewManager : MonoBehaviour
                         Instance._viewHistory.Push(Instance._currentView); // stack에 삽입
                     }
 
+                    if(view is ShopMenuView)
+                    {
+                        popUpUI = false;
+                    }
+
                     if (!popUpUI) // popup이 아니면
                     {
                         Instance._currentView.Hide(); // 현재 창은 숨기기
@@ -85,8 +90,6 @@ public class ViewManager : MonoBehaviour
             }
         }
     }
-
-
 
     public static void Show(View view, bool remember = true)
     {

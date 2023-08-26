@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using System.Linq;
+using UnityEngine.SocialPlatforms;
 
 public class LobbyUIManager : MonoBehaviourPunCallbacks
 {

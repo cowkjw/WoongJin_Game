@@ -64,15 +64,18 @@ public class GameStartView : View
             {
                 case 0: // Speed
                     _playerStat.Speed++;
+                    _gold += 30;
                     break;
                 case 1: // HP
                     _playerStat.HP++;
+                    _gold += 20;
                     break;
                 case 2: //Shield
                     _playerStat.Energy++;
+                    _gold += 20;
                     break;
             }
-            _gold += 50;
+           
         }
 #if UNITY_EDITOR
         Debug.Log($"Speed: {_playerStat.Speed} HP: {_playerStat.HP} Shield {_playerStat.Energy}");
@@ -110,7 +113,8 @@ public class GameStartView : View
 
         if(DataManager.Instance.PlayerData.Gold <50)
         {
-            popUP.SetCheckMessage("골드가 부족하여 구매할 수 없습니다.");
+            popUP.SetCheckMessage("골드가 부족하여\n구매할 수 없습니다.");
+            ViewManager.Show<StatPurchasePopUp>(true, true); // 구매창 팝업
             return;
         }
 

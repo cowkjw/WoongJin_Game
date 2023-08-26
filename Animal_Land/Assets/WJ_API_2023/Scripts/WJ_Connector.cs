@@ -12,6 +12,8 @@ public class WJ_Connector : MonoBehaviour
     public string strGameCD;        //게임코드
     public string strGameKey;       //게임키(Api Key)
 
+    public string UserID => strMBR_ID;
+
     private string strAuthorization;
 
     private string strMBR_ID;       //멤버 ID
@@ -56,6 +58,7 @@ public class WJ_Connector : MonoBehaviour
         if (strOsScnCd.Length >= 15) strOsScnCd = strOsScnCd.Substring(0, 14);
 
         Make_MBR_ID();
+
 
         if (PlayerPrefs.HasKey("Diagnosis"))
         {

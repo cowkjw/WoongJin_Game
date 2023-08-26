@@ -56,7 +56,7 @@ public class DiagnosisAPI : MonoBehaviour
 
     void Setup()
     {
-
+        wj_conn = FindObjectOfType<WJ_Connector>();
         if (wj_conn != null)
         {
             if(!wj_conn._needDiagnosis)
@@ -154,7 +154,7 @@ public class DiagnosisAPI : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ColoringCorrectAnswer(textCn, qstCn, qstCransr, qstWransr, 0.5f));
+            StartCoroutine(ColoringCorrectAnswer(textCn, qstCn, qstCransr, qstWransr, 1.0f));
             _diagnosisIndex++;
         }
 
@@ -259,7 +259,8 @@ public class DiagnosisAPI : MonoBehaviour
                 ansrCwYn = isCorrect ? "Y" : "N";
 
                 isSolvingQuestion = false;
-
+                if (ansrCwYn == "Y") Debug.Log("정답");
+                else Debug.Log("오답");
                 wj_conn.Diagnosis_SelectAnswer(textAnsr[_idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
 
                 questionSolveTime = 0;

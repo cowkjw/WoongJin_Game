@@ -12,7 +12,7 @@ public class JSONFileDownloader : MonoBehaviour
     {
 #if UNITY_ANDROID
         localFilePath = Path.Combine(Application.persistentDataPath, $"Data/{fileName}.json");
-#else
+#elif UNITY_EDITOR
         localFilePath = Path.Combine(Application.dataPath, $"StreamingAssets/Data/{fileName}.json");
 #endif
         StartCoroutine(DownloadFile(filePath));

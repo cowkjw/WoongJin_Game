@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,19 +8,19 @@ public class TitleUIManager : MonoBehaviour
 {
     [Header("타이틀 텍스트 리스트")]
     [SerializeField]
-    private string          TestText = "Touch To Test";
+    private string TestText = "Touch To Test";
     [SerializeField]
-    private string          GoToLobbyText = "Go To Lobby";
+    private string GoToLobbyText = "Go To Lobby";
 
     [Header("버튼")]
-    public Button           BtChangeScene;
-    public TextMeshProUGUI  BtText;
+    public Button BtChangeScene;
+    public TextMeshProUGUI BtText;
 
     [Header("패널")]
-    public GameObject       HowToPlayPanel;
+    public GameObject HowToPlayPanel;
 
     // 멤버 변수
-    private bool            _isCanMoveToLobby = false;
+    private bool _isCanMoveToLobby = false;
 
 
     void Start()
@@ -29,7 +30,7 @@ public class TitleUIManager : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void SetCanMoveToLobby(bool value)
@@ -51,7 +52,7 @@ public class TitleUIManager : MonoBehaviour
 
     void ChangeButtonText(bool isCanMoveToLobby)
     {
-        if(isCanMoveToLobby)
+        if (isCanMoveToLobby)
         {
             BtText.text = GoToLobbyText;
         }
@@ -63,10 +64,10 @@ public class TitleUIManager : MonoBehaviour
 
     void GoToLobby()
     {
-       if(Application.internetReachability == NetworkReachability.NotReachable) // 데이터 다운로드 또는 인터넷 연결
+        if (Application.internetReachability == NetworkReachability.NotReachable) // 데이터 다운로드 또는 인터넷 연결
         {
             TitlePopUp popUp = ViewManager.GetView<TitlePopUp>();
-            if(popUp!=null)
+            if (popUp != null)
             {
                 popUp.SetCheckMessage("인터넷 연결을 확인하세요.");
                 ViewManager.Show<TitlePopUp>(true, true);
@@ -74,23 +75,39 @@ public class TitleUIManager : MonoBehaviour
             Debug.LogError("인터넷 연결을 확인하세요.");
             return;
         }
-       if(DataManager.Instance.Downloader.isDownloading) // 데이터 다운로드 중
+
+        if (DataManager.Instance.PropsItemDict.Count <= 0) // 데이터가 안불러와진 경우
         {
+
             TitlePopUp popUp = ViewManager.GetView<TitlePopUp>();
-            if(popUp != null )
-            { 
+            if (popUp != null)
+            {
                 popUp.SetCheckMessage("데이터를 다운받는 중입니다.");
                 ViewManager.Show<TitlePopUp>(true, true);
             }
-           
+
             Debug.LogError("데이터를 다운받는 중입니다.");
+            if (DatabaseManager.Instance != null)
+            {
+              DatabaseManager.Instance.ReadDB(DataType.ItemData);
+            }
+
             return;
         }
 
-       if(DataManager.Instance.PropsItemDict.Count<=0) // 데이터가 안불러와진 경우
+        if(DataManager.Instance.CharacterCustomData.Count <= 0)
         {
-            DataManager.Instance.ReloadData();
-            return;
+            TitlePopUp popUp = ViewManager.GetView<TitlePopUp>();
+            if (popUp != null)
+            {
+                popUp.SetCheckMessage("데이터를 다운받는 중입니다.");
+                ViewManager.Show<TitlePopUp>(true, true);
+            }
+
+            if (DatabaseManager.Instance != null)
+            {
+                DatabaseManager.Instance.ReadDB(DataType.CustomData);
+            }
         }
 
         ChangeRoom("Lobby 1");
