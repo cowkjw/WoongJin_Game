@@ -114,6 +114,15 @@ public class SoundManager : MonoBehaviour
 
     public void SetVolume(float volume)
     {
+        if(volume < 0.05f)
+        {
+            volume = 0.05f;
+            BGSound.value = volume;
+        }
+
+        // ÃÖ¼Ú °ª º¸Á¤
+        volume -= 0.05f;
+
         if (audioSource != null)
         {
             audioSource.volume = volume;
@@ -126,6 +135,15 @@ public class SoundManager : MonoBehaviour
 
     public void SetEffectVolume(float volume)
     {
+        if (volume < 0.05f)
+        {
+            volume = 0.05f;
+            EffectSound.value = volume;
+        }
+
+        // ÃÖ¼Ú °ª º¸Á¤
+        volume -= 0.05f;
+
         if (userManager != null)
         {
             userManager.SetSoundVolume(volume);

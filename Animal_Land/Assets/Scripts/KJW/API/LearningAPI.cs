@@ -180,14 +180,14 @@ public class LearningAPI : MonoBehaviour
             case CurrentStatus.LEARNING:
                 isCorrect = textAnsr[_idx].text.CompareTo(wj_conn.cLearnSet.data.qsts[currentQuestionIndex].qstCransr) == 0 ? true : false;
                 ansrCwYn = isCorrect ? "Y" : "N";
-                //if (isCorrect)
-                //{
-                //    SGameManager sGameManager = GameObject.Find("GameManager").GetComponent<SGameManager>();
-                //    if (sGameManager != null)
-                //    {
-                //        sGameManager.Solve();
-                //    }
-                //}
+                if (isCorrect)
+                {
+                    SGameManager sGameManager = GameObject.Find("GameManager").GetComponent<SGameManager>();
+                    if (sGameManager != null)
+                    {
+                        sGameManager.Solve();
+                    }
+                }
 
                 isSolvingQuestion = false;
                 currentQuestionIndex++;

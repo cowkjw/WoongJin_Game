@@ -96,7 +96,7 @@ public class SGameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             //TODO : 설정 창 키기
-
+            UIManager.OpenSettingScreen();
         }
 
         UpdateTime();
