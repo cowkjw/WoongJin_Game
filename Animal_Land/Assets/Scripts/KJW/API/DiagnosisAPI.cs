@@ -19,6 +19,7 @@ public class DiagnosisAPI : MonoBehaviour
     float questionSolveTime;
 
     [SerializeField] TEXDraw textEquation;           //문제 텍스트(TextDraw로 변경 했음)
+    [SerializeField] TEXDraw textDescription;           //문제 설명
     [SerializeField] Button[] btAnsr = new Button[4]; //정답 버튼들
     TEXDraw[] textAnsr;                  //정답 버튼들 텍스트(TextDraw로 변경 했음)
 
@@ -146,6 +147,19 @@ public class DiagnosisAPI : MonoBehaviour
         // 첫번째 진단 문제이거나 첫번째 학습문제일때만
         bool isFirstQuestion = (_diagnosisIndex == 0 && currentStatus == CurrentStatus.DIAGNOSIS) ||
             (currentQuestionIndex == 0 && currentStatus == CurrentStatus.LEARNING);
+
+        textDescription.text = textCn;
+
+        if (textCn.Contains("최대공약수") && textCn.Contains("최대공약수"))
+        {
+            ProblemConverter converter = new ProblemConverter();
+            qstCn = converter.ProblemConvert(qstCn, ProblemType.A);
+        }
+        else if (textCn.Contains("방정식"))
+        {
+            ProblemConverter converter = new ProblemConverter();
+            qstCn = converter.ProblemConvert(qstCn, ProblemType.B);
+        }
 
         if (isFirstQuestion)
         {

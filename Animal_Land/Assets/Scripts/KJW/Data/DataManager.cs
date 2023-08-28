@@ -88,7 +88,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    void SaveAllData()
+    public void SaveAllData()
     {
         SaveData<IDictionary<string, CharacterCustom>>(_characterCustomData,"CustomData");
         SaveData<IDictionary<string, IList<ItemInfo>>>(_propsItemDict, "ItemData");
