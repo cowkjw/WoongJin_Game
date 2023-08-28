@@ -546,7 +546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveColor: {r: 0, g: 0, b: 0, a: 0}
   _areaColor: {r: 0, g: 0, b: 0, a: 0}
-  _borderColor: {r: 0, g: 0, b: 0, a: 0}
+  _borderColor: {r: 0.30980393, g: 0.19215688, b: 0.24705884, a: 1}
 --- !u!114 &8551084344505454602
 MonoBehaviour:
   m_ObjectHideFlags: 0
