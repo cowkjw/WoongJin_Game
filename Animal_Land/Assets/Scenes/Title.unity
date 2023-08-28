@@ -335,7 +335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab6b9093e6e195e48b9010c4c77e86c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReadDB: 1
   DB_URL: https://animalland-d2718-default-rtdb.firebaseio.com
 --- !u!4 &244047045
 Transform:
@@ -3256,8 +3255,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1304289e446615b44b0c9ab956d63b98, type: 2}
   - {fileID: 11400000, guid: 5a47f3347f0424f43a3241ed63b0352e, type: 2}
   - {fileID: 11400000, guid: 081334abf5ca55948b4925fe3be1c5a8, type: 2}
-  _soundVolume: 0.1
-  _effectVolume: 0.1
+  _soundVolume: 0.2
+  _effectVolume: 0.2
 --- !u!1 &2021033018
 GameObject:
   m_ObjectHideFlags: 0

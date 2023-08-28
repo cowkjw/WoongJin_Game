@@ -46,19 +46,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     // 룸 접속 시도
     public void Connect()
     {
-        Debug.Log("TryToConnectGame");
-        // 마스터 서버에 접속 중이라면
-        if (PhotonNetwork.IsConnected)
-        {
-            // 룸 접속 실행
-            lobbyUIManager.SetJoinToRoomText();
-            PhotonNetwork.JoinRandomRoom();
-        }
-        else
-        {
-            lobbyUIManager.SetConnectText();
-            PhotonNetwork.ConnectUsingSettings();
-        }
+
     }
 
     // (빈 방이 없어) 랜덤 룸 참가에 실패한 경우 자동 실행
