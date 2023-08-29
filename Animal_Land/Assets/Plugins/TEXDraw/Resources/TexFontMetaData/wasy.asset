@@ -2551,8 +2551,8 @@ MonoBehaviour:
         character: 0
       horizontal: 0
   - characterIndex: 120
-    symbol: dispvariint
     type: 7
+    symbol: dispvariint
     larger:
       font: 
       character: 0
@@ -2572,8 +2572,8 @@ MonoBehaviour:
         character: 0
       horizontal: 0
   - characterIndex: 121
-    symbol: dispvariiint
     type: 7
+    symbol: dispvariiint
     larger:
       font: 
       character: 0
@@ -2614,8 +2614,8 @@ MonoBehaviour:
         character: 0
       horizontal: 0
   - characterIndex: 123
-    symbol: dispvaroiint
     type: 7
+    symbol: dispvaroiint
     larger:
       font: 
       character: 0
