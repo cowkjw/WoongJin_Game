@@ -9934,7 +9934,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1709189147}
-  - component: {fileID: 1709189146}
   - component: {fileID: 1709189145}
   m_Layer: 0
   m_Name: API
@@ -9970,59 +9969,6 @@ MonoBehaviour:
   - {fileID: 10213001}
   - {fileID: 857777042}
   - {fileID: 730829335}
---- !u!114 &1709189146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709189144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddb3664b4ffee2b4399e95fb8b9fabc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  strGameCD: E16
-  strGameKey: ZiiiOlV8rDqmufLYJ8wuu_n7HxUNcY-m_4Yk7Awi3IU
-  _needDiagnosis: 0
-  cDiagnotics:
-    result: 0
-    msg: 
-    data:
-      sid: 0
-      prgsCd: 
-      qstCd: 
-      qstCn: 
-      textCn: 
-      qstCransr: 
-      qstWransr: 
-      accuracy: 0
-      estQstNowNo: 0
-      estPreStgCd: 
-  cLearnSet:
-    result: 0
-    msg: 
-    data:
-      sid: 0
-      bgnDt: 
-      qsts: []
-  cLearnProg:
-    result: 0
-    msg: 
-    data:
-      explSpedCd: 
-      explSped: 0
-      lrnPrgsStsCd: 
-      acrcyCd: 
-      explAcrcyRt: 0
-  cMyAnsrs: []
-  qstCransr: 
-  onGetDiagnosis:
-    m_PersistentCalls:
-      m_Calls: []
-  onGetLearning:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &1709189147
 Transform:
   m_ObjectHideFlags: 0

@@ -251,10 +251,6 @@ public class LearningAPI : MonoBehaviour
     {
         string correctAnswer;
         string[] wrongAnswers;
-
-        textDescription.text = textCn;
-        textEquation.text = qstCn;
-
         correctAnswer = qstCransr;
         wrongAnswers = qstWransr.Split(',');
 
@@ -282,6 +278,8 @@ public class LearningAPI : MonoBehaviour
                 textAnsr[i].text = wrongAnswers[q];
         }
         isSolvingQuestion = true;
+        textDescription.text = textCn;
+        textEquation.text = qstCn;
     }
 
     IEnumerator ColoringCorrectAnswer(string textCn, string qstCn, string qstCransr, string qstWransr, float delay) // 다음 문제 전 색상 표시
