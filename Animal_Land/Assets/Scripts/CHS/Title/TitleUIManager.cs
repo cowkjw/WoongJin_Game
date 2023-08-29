@@ -133,7 +133,7 @@ public class TitleUIManager : MonoBehaviour
 
     public void CloseHowToPlay()
     {
-        GetComponent<SoundManager>().PlayEffect(Effect.Button);
+        GetComponent<SoundManager>().PlayEffect(Effect.Back);
         HowToPlayPanel.SetActive(false);
     }
 }
