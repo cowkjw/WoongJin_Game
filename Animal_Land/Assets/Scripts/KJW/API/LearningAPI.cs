@@ -24,6 +24,8 @@ public class LearningAPI : MonoBehaviour
     TEXDraw[] textAnsr;                  //정답 버튼들 텍스트(TextDraw로 변경 했음)
 
     [SerializeField] SGameUIManager uIManager;
+    [SerializeField] Image ansCheckImage;
+    [SerializeField] List<Sprite> checkList;
 
     private const int SOLVE_TIME = 15; // 문제 풀이 시간
     private int _correctAnswerRemind; // 정답 인덱스 저장
@@ -38,7 +40,7 @@ public class LearningAPI : MonoBehaviour
 
             textAnsr[i] = btAnsr[i].GetComponentInChildren<TEXDraw>();
 
-     
+
         _correctAnswerRemind = 0;
         _diagnosisIndex = 0;
         _correctAnswers = 0;
@@ -73,7 +75,7 @@ public class LearningAPI : MonoBehaviour
         }
         switch (currentStatus)
         {
-           
+
             case CurrentStatus.LEARNING:
                 {
                     if (wj_conn != null)
@@ -89,9 +91,6 @@ public class LearningAPI : MonoBehaviour
     void SetLearning()
     {
         currentStatus = CurrentStatus.LEARNING;
-     //   panel_question.SetActive(false); // 새로운 문제를 받기 위해서 비활성화
-        //getLearningButton.gameObject.SetActive(true); // 진단이 끝나면 문제 풀이 버튼 활성화
-        //getLearningButton.interactable = true;
         _correctAnswers = 0;
     }
 
@@ -125,7 +124,7 @@ public class LearningAPI : MonoBehaviour
         bool isFirstQuestion = (_diagnosisIndex == 0 && currentStatus == CurrentStatus.DIAGNOSIS) ||
             (currentQuestionIndex == 0 && currentStatus == CurrentStatus.LEARNING);
 
-        
+
 
         if (textCn.Contains("최대공약수") && textCn.Contains("최대공약수"))
         {
@@ -170,8 +169,6 @@ public class LearningAPI : MonoBehaviour
 
                     if (currentQuestionIndex >= 2) // 문제 개수
                     {
-                        //  panel_question.SetActive(false);
-
                         uIManager.CloseSolveScreen();
                     }
                     else
@@ -186,7 +183,6 @@ public class LearningAPI : MonoBehaviour
 
         bool isCorrect = false;
         string ansrCwYn = "N";
-        // StopAllCoroutines();
 
         switch (currentStatus)
         {
@@ -204,24 +200,37 @@ public class LearningAPI : MonoBehaviour
 
                 isSolvingQuestion = false;
                 currentQuestionIndex++;
-                if (ansrCwYn == "Y") Debug.Log("정답");
-                else Debug.Log("오답");
+                if (ansrCwYn == "Y")
+                {
+                    if (ansCheckImage != null && checkList != null)
+                    {
+                        ansCheckImage.sprite = checkList[0];
+
+                    }
+                    Debug.Log("정답");
+                }
+                else
+                {
+                    if (ansCheckImage != null && checkList != null)
+                    {
+                        ansCheckImage.sprite = checkList[1];
+                    }
+                    Debug.Log("오답");
+                }
+
 
                 wj_conn.Learning_SelectAnswer(currentQuestionIndex, textAnsr[_idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
 
                 if (currentQuestionIndex >= 2) // 문제 개수
                 {
-                   // panel_question.SetActive(false);
-                    uIManager.CloseSolveScreen();
+                    StartCoroutine(ColoringCorrectAnswer(1.5f));
+                    //uIManager.CloseSolveScreen();
 
                     if (_timerCoroutine != null)
                     {
                         StopCoroutine(_timerCoroutine);
                         _timerCoroutine = null;
                     }
-
-                    //getLearningButton.gameObject.SetActive(true); // 진단이 끝나면 문제 풀이 버튼 활성화
-                    //getLearningButton.interactable = true;
                 }
                 else
                 {
@@ -279,11 +288,28 @@ public class LearningAPI : MonoBehaviour
     {
         int prevIndex = _correctAnswerRemind; // 정답이었던 인덱스 저장 (다시 원래 색으로 돌리기 위해서)
         textAnsr[_correctAnswerRemind].color = new Color(1.0f, 0.0f, 0.0f); // 정답 인덱스 색상 변경
-
+        ansCheckImage.gameObject.SetActive(true);
         yield return new WaitForSeconds(delay); // 딜레이
 
         textAnsr[prevIndex].color = new Color(0.0f, 0.0f, 0.0f); // 이전 정답 인덱스 다시 색상 되돌리기
+        ansCheckImage.gameObject.SetActive(false); 
+        if (currentQuestionIndex >= 2) // 문제 개수
+        {
+            yield return null;
+        }
         SetupQuestion(textCn, qstCn, qstCransr, qstWransr);
+    }
+
+    IEnumerator ColoringCorrectAnswer(float delay) // 2문제이상 일때
+    {
+        int prevIndex = _correctAnswerRemind; // 정답이었던 인덱스 저장 (다시 원래 색으로 돌리기 위해서)
+        textAnsr[_correctAnswerRemind].color = new Color(1.0f, 0.0f, 0.0f); // 정답 인덱스 색상 변경
+        ansCheckImage.gameObject.SetActive(true);
+        yield return new WaitForSeconds(delay); // 딜레이
+
+        textAnsr[prevIndex].color = new Color(0.0f, 0.0f, 0.0f); // 이전 정답 인덱스 다시 색상 되돌리기
+        ansCheckImage.gameObject.SetActive(false);
+        uIManager.CloseSolveScreen();
     }
 
 

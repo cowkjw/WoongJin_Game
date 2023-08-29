@@ -18,6 +18,8 @@ public class DiagnosisAPI : MonoBehaviour
     bool isSolvingQuestion;
     float questionSolveTime;
 
+    [SerializeField] Image ansCheckImage;
+    [SerializeField] List<Sprite> checkList;
     [SerializeField] TEXDraw textEquation;           //문제 텍스트(TextDraw로 변경 했음)
     [SerializeField] TEXDraw textDescription;           //문제 설명
     [SerializeField] Button[] btAnsr = new Button[4]; //정답 버튼들
@@ -107,7 +109,8 @@ public class DiagnosisAPI : MonoBehaviour
 #endif
                 }
                 currentStatus = CurrentStatus.LEARNING;
-                panel_question.SetActive(false); // 새로운 문제를 받기 위해서 비활성화
+
+                StartCoroutine(ColoringCorrectAnswer(1.5f));
                 _correctAnswers = 0;
                 break;
         }
@@ -214,11 +217,23 @@ public class DiagnosisAPI : MonoBehaviour
     {
         int prevIndex = _correctAnswerRemind; // 이전 인덱스 저장
         textAnsr[_correctAnswerRemind].color = new Color(1.0f, 0.0f, 0.0f); // 정답 인덱스 색상 변경
+        ansCheckImage.gameObject.SetActive(true);
+        yield return new WaitForSeconds(delay); // 딜레이
+        textAnsr[prevIndex].color = new Color(0.0f, 0.0f, 0.0f); // 이전 정답 인덱스 다시 색상 되돌리기
+        ansCheckImage.gameObject.SetActive(false);
+        SetupQuestion(textCn, qstCn, qstCransr, qstWransr);
+    }
 
+    IEnumerator ColoringCorrectAnswer(float delay) // 진단평가 끝
+    {
+        int prevIndex = _correctAnswerRemind; // 정답이었던 인덱스 저장 (다시 원래 색으로 돌리기 위해서)
+        textAnsr[_correctAnswerRemind].color = new Color(1.0f, 0.0f, 0.0f); // 정답 인덱스 색상 변경
+        ansCheckImage.gameObject.SetActive(true);
         yield return new WaitForSeconds(delay); // 딜레이
 
         textAnsr[prevIndex].color = new Color(0.0f, 0.0f, 0.0f); // 이전 정답 인덱스 다시 색상 되돌리기
-        SetupQuestion(textCn, qstCn, qstCransr, qstWransr);
+        ansCheckImage.gameObject.SetActive(false);
+        panel_question.SetActive(false);
     }
 
     /// <summary>
@@ -238,33 +253,12 @@ public class DiagnosisAPI : MonoBehaviour
 
                     questionSolveTime = 0;
                     break;
-
-                case CurrentStatus.LEARNING:
-
-                    isSolvingQuestion = false;
-                    currentQuestionIndex++;
-
-                    wj_conn.Learning_SelectAnswer(currentQuestionIndex, "-1", "N", (int)(questionSolveTime * 1000));
-
-        
-
-                    if (currentQuestionIndex >= 2) // 문제 개수
-                    {
-                        panel_question.SetActive(false);
-                    }
-                    else
-                    {
-                        GetLearning(currentQuestionIndex);
-                    }
-                    questionSolveTime = 0;
-                    break;
             }
             return;
         }
 
         bool isCorrect = false;
         string ansrCwYn = "N";
-        // StopAllCoroutines();
 
         switch (currentStatus)
         {
@@ -273,8 +267,23 @@ public class DiagnosisAPI : MonoBehaviour
                 ansrCwYn = isCorrect ? "Y" : "N";
 
                 isSolvingQuestion = false;
-                if (ansrCwYn == "Y") Debug.Log("정답");
-                else Debug.Log("오답");
+                if (ansrCwYn == "Y")
+                {
+                    if (ansCheckImage != null && checkList != null)
+                    {
+                        ansCheckImage.sprite = checkList[0];
+
+                    }
+                    Debug.Log("정답");
+                }
+                else
+                {
+                    if (ansCheckImage != null && checkList != null)
+                    {
+                        ansCheckImage.sprite = checkList[1];
+                    }
+                    Debug.Log("오답");
+                }
                 wj_conn.Diagnosis_SelectAnswer(textAnsr[_idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
 
                 questionSolveTime = 0;

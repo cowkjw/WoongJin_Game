@@ -12,19 +12,23 @@ public class ShopMenuView : View
     [SerializeField] private Button backButton; // 뒤로가기 버튼
     [SerializeField] private Button buyButton; // 구매 버튼
     [SerializeField] private Button putOnButton; // 장착 버튼
+    [SerializeField] private Button representButton; // 장착 버튼
     [SerializeField] private List<Button> categoryBtns; // 아이템 카테고리 버튼들
     [SerializeField] private List<Button> selectCharaceterBtns; // 캐릭터 선택 버튼
+    [SerializeField] private List<Sprite> representCharaceterSprites; // 캐릭터 선택 버튼
+    [SerializeField] private List<Sprite> defaultCharaceterSprites; // 캐릭터 선택 버튼
     [SerializeField] private Image characterChangeImage; // 바뀔 캐릭터 이미지
     [SerializeField] private List<Sprite> characterSprites; // 캐릭터 스프라이트들
     [SerializeField] private Text goldText;
     [SerializeField] private Text buyText;
 
+  CharacterType characterType;
+
     public override void Initialize()
     {
-        backButton?.onClick.AddListener(() => ViewManager.ShowLast()); // 마지막 창  
-        buyButton?.onClick.AddListener(() => OnBuyButtonClicked()); // 구매창 활성화
-        putOnButton?.onClick.AddListener(() => OnPutOnButtonClicked()); // 캐릭터 커스텀 저장 버튼
-
+        InitButtons();
+        characterType =(CharacterType)Enum.Parse(typeof(CharacterType),DataManager.Instance.PlayerData.Character); // 대표 캐릭터 설정 저장
+        selectCharaceterBtns[(int)characterType].image.sprite = representCharaceterSprites[(int)characterType]; // 캐릭터 선택 이미지 대표 캐릭터로 변경
         OnShopClick += UpdateShopInterface;
         OnShopClick?.Invoke(); ; // 골드 UI Text 업데이트
 
@@ -39,6 +43,16 @@ public class ShopMenuView : View
             Contents.ItemType itemType = (Contents.ItemType)i; // 아이템 타입으로 변환
             categoryBtns[i]?.onClick.AddListener(() => OnItemCategoryButtonClicked(itemType));
         }
+    }
+
+    void InitButtons()
+    {
+        backButton?.onClick.AddListener(() => ViewManager.ShowLast()); // 마지막 창 
+        buyButton?.onClick.AddListener(() => OnBuyButtonClicked()); // 구매창 활성화
+        putOnButton?.onClick.AddListener(() => OnPutOnButtonClicked()); // 캐릭터 커스텀 저장 버튼
+        representButton?.onClick.AddListener(() => DataManager.Instance.PlayerData.Character = ShopManager.Instance.CharacterType.ToString());
+        representButton?.onClick.AddListener(() => DataManager.Instance.SavePlayerData());
+        representButton?.onClick.AddListener(() => OnRepresentativeCharacterImageChange());
     }
 
     void UpdateShopInterface() // 상점 업데이트를 위함
@@ -58,9 +72,25 @@ public class ShopMenuView : View
     {
         if (characterChangeImage != null && characterSprites.Count > 0)
         {
-            characterChangeImage.sprite = characterSprites[characterIndex];
-            ShopManager.Instance.CharacterType = (CharacterType)characterIndex;
+            characterChangeImage.sprite = characterSprites[characterIndex]; // 큰 캐릭터 이미지 변경
+            ShopManager.Instance.CharacterType = (CharacterType)characterIndex; // 상점에 커스텀 할 캐릭터 변경
             ShopManager.Instance.LoadCharacterCustom();
+            characterType = (CharacterType)characterIndex; 
+        }
+    }
+
+    void OnRepresentativeCharacterImageChange()
+    {
+        for(int i = 0;i< selectCharaceterBtns.Count;i++)
+        {
+            if((int)characterType==i)
+            {
+                selectCharaceterBtns[i].image.sprite = representCharaceterSprites[i];
+            }
+            else
+            {
+                selectCharaceterBtns[i].image.sprite = defaultCharaceterSprites[i];
+            }
         }
     }
 
