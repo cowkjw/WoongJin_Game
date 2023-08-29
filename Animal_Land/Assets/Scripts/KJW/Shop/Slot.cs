@@ -51,7 +51,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler
             }
             else
             {
-                this.GetComponent<Image>().color = new Color(0, 0, 0, 1);
+                this.GetComponent<Image>().color = new Color(255, 255, 255, 1);
                 unLock = false;
                 _lock.gameObject?.SetActive(true); // 자물쇠 활성화
             }
@@ -100,13 +100,13 @@ public class Slot : MonoBehaviour, IPointerDownHandler
     {
         if (!isCanClick) return; // 선택을 못하는 슬롯이라면 
 
-        ClickSlotAction?.Invoke(SlotIndex);
         string message; // 전달 할 메시지
         bool notHave = true; // 가지고 있는 아이템인지
         ShopMenuView shopMenu = ViewManager.GetView<ShopMenuView>();
         if (DataManager.Instance.PlayerData.ShoppingList.ContainsKey(SlotInfo.Name)) // 이미 구입한 아이템이라면
         {
             message = "이미 구매한 아이템입니다.";
+            
             notHave = false;
             if (shopMenu != null)
             {
@@ -122,7 +122,10 @@ public class Slot : MonoBehaviour, IPointerDownHandler
             }
         }
 
+        ClickSlotAction?.Invoke(SlotIndex);
         ShopManager.Instance.ItemInfo = SlotInfo; // 상점에 선택 된 아이템 정보를 슬롯의 아이템 정보로 업데이트
+        ShopManager.Instance.SetCharacterCustom(); // 현재 누른 아이템을 캐릭터에 임시로 장착
+        ShopManager.Instance.cManager.ChangeCharacterSpecificPartsSprite(_itemType); // 스프라이트 변경
         PurchasePopUp purchasePopUp = ViewManager.GetView<PurchasePopUp>();
         if (purchasePopUp != null)
         {
@@ -130,6 +133,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler
             purchasePopUp.SetCheckMessage(message); // 메시지 넘기기
         }
 
+        
 
 #if UNITY_EDITOR
         Debug.Log($"{SlotIndex} 번째 슬롯 클릭");

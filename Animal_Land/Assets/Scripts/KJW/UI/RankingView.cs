@@ -10,6 +10,7 @@ public class RankingView : PopUpUI
     [SerializeField] private Button rankButton;
     [SerializeField] private Transform pScrollCotnet;
     [SerializeField] private GameObject Rank;
+    [SerializeField] private List<Sprite> RankSprites;
 
     public override void Initialize()
     {
@@ -36,6 +37,23 @@ public class RankingView : PopUpUI
                 rank.transform.Find("Ranking").GetComponent<TextMeshProUGUI>().text = $"{i + 1}";
                 rank.transform.Find("Score").GetComponent<TextMeshProUGUI>().text = $"{data.Value}";
                 rank.transform.Find("NickName").GetComponent<TextMeshProUGUI>().text = data.Key;
+
+                Image topRank = rank.transform.Find("TopRank").GetComponent<Image>();
+                if (i==0) // 1µî
+                {
+                    topRank.gameObject.SetActive(true);
+                    topRank.sprite = RankSprites[i];
+                }
+                else if(i==1)  // 2µî
+                {
+                    topRank.gameObject.SetActive(true);
+                    topRank.sprite = RankSprites[i];
+                }
+                else if (i==2) //3µî
+                {
+                    topRank.gameObject.SetActive(true);
+                    topRank.sprite = RankSprites[i];
+                }
                 i++;
             }
         }

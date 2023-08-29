@@ -103,7 +103,8 @@ public class DataManager : MonoBehaviour
     public void ReloadData()
     {
         _characterCustomData = LoadData<IDictionary<string, CharacterCustom>>("CustomData", _characterCustomData);
-        _propsItemDict = LoadData<IDictionary<string, IList<ItemInfo>>>("ItemData", _propsItemDict);
+      //  _propsItemDict = LoadData<IDictionary<string, IList<ItemInfo>>>("ItemData", _propsItemDict);
+        _propsItemDict = LoadData<IDictionary<string, IList<ItemInfo>>>("ItemData1", _propsItemDict);
         _playerData = LoadData<PlayerData>("PlayerData", _playerData);
     }
 }

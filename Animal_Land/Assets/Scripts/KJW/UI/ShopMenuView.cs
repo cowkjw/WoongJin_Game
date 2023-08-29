@@ -27,7 +27,7 @@ public class ShopMenuView : View
     public override void Initialize()
     {
         InitButtons();
-        characterType =(CharacterType)Enum.Parse(typeof(CharacterType),DataManager.Instance.PlayerData.Character); // 대표 캐릭터 설정 저장
+        RepresentCharacter();
         selectCharaceterBtns[(int)characterType].image.sprite = representCharaceterSprites[(int)characterType]; // 캐릭터 선택 이미지 대표 캐릭터로 변경
         OnShopClick += UpdateShopInterface;
         OnShopClick?.Invoke(); ; // 골드 UI Text 업데이트
@@ -43,6 +43,12 @@ public class ShopMenuView : View
             Contents.ItemType itemType = (Contents.ItemType)i; // 아이템 타입으로 변환
             categoryBtns[i]?.onClick.AddListener(() => OnItemCategoryButtonClicked(itemType));
         }
+    }
+
+    void RepresentCharacter()
+    {
+        characterType = (CharacterType)Enum.Parse(typeof(CharacterType), DataManager.Instance.PlayerData.Character); // 대표 캐릭터 설정 
+        characterChangeImage.sprite = characterSprites[(int)characterType];
     }
 
     void InitButtons()
@@ -101,6 +107,13 @@ public class ShopMenuView : View
 
     void OnBuyButtonClicked()
     {
+        PurchasePopUp popUp = ViewManager.GetView<PurchasePopUp>();
+
+        if (ShopManager.Instance.ItemInfo == null)
+        {
+            popUp.SetCheckMessage("구매 할 아이템을 고르세요");
+            popUp.checkAction(false); // 완료 버튼만 뜨도록
+        }
         ViewManager.Show<PurchasePopUp>(true, true);
     }
 
@@ -108,7 +121,7 @@ public class ShopMenuView : View
     {
         CharacterType characterType = ShopManager.Instance.CharacterType;
         PurchasePopUp popUp = ViewManager.GetView<PurchasePopUp>();
-
+        
         if (popUp == null)
         {
 #if UNITY_EDITOR
@@ -125,13 +138,14 @@ public class ShopMenuView : View
             if (DataManager.Instance.PlayerData.ShoppingList.ContainsKey(ShopManager.Instance.ItemInfo.Name) == false) // 아이템 미보유
             {
                 popUp.SetCheckMessage("보유하고 있지 않습니다!");
+                ShopManager.Instance.ItemInfo = null;
             }
             else
             {
                 ShopManager.Instance.SetCharacterCustom(); // 선택 시에 만약 가지고 있는 아이템이라면
                 popUp.SetCheckMessage("장착 완료!");
+                ShopManager.Instance.ItemInfo = null;
             }
-
         }
         popUp.checkAction(false); // 완료 버튼만 뜨도록
         ViewManager.Show<PurchasePopUp>(true, true);

@@ -5,13 +5,12 @@ public class LobbyMenuView : View
 {
     [SerializeField]
     private Button shopButton;
+    [SerializeField]
+    ShopMenuView shopMenuView;
 
     public override void Initialize()
     {
         shopButton.onClick.AddListener(() => ViewManager.Show<ShopMenuView>());
-        //if(DataManager.Instance!=null)
-        //{
-        //    shopButton.onClick.AddListener(() => DataManager.Instance.ReloadData());
-        //}
+        shopButton.onClick.AddListener(() => shopMenuView?.OnShopClick());
     }
 }
