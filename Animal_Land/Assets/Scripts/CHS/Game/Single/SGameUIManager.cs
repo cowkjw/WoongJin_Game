@@ -81,12 +81,10 @@ public class SGameUIManager : MonoBehaviour
         // Result Screen 활성화
         _resultScreen.SetActive(true);
 
-        TextMeshProUGUI Score = _resultScreen.transform.GetChild(6).gameObject.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI Time = _resultScreen.transform.GetChild(7).gameObject.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI Score = _resultScreen.transform.GetChild(7).gameObject.GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI Gold = _resultScreen.transform.GetChild(8).gameObject.GetComponent<TextMeshProUGUI>();
 
         Score.text = score.ToString();
-        Time.text = ((int)gameTime).ToString();
         Gold.text = money.ToString();
 
         // 효과음 출력

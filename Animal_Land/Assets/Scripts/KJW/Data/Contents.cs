@@ -15,10 +15,10 @@ namespace Contents
 
     public enum CharacterType
     {
-        Frog,
         Bird,
+        Cat,
         Dog,
-        Cat
+        Frog
     }
 
    public enum StatType
