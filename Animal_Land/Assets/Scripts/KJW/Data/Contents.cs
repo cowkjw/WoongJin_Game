@@ -68,19 +68,19 @@ namespace Contents
         public int HP
         {
             get => _hp;
-            set => _hp = Math.Clamp(value, 0, MAX_PURCHASE);
+            set => _hp = value;
         }
 
         public int Energy
         {
             get => _energy;
-            set => _energy = Math.Clamp(value, 0, MAX_PURCHASE);
+            set => _energy = value;
         }
 
         public int Speed
         {
             get => _speed;
-            set => _speed = Math.Clamp(value, 0, MAX_PURCHASE);
+            set => _speed = value;
         }
 
         public bool CheckForPurchase(int index)

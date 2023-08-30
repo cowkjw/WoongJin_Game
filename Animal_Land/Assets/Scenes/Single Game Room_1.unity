@@ -916,7 +916,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Alignment: {x: 0.5, y: 0.5}
-  m_Text: $$TEXDraw$$
+  m_Text: 
   m_Size: 25
   m_ScrollArea:
     serializedVersion: 2

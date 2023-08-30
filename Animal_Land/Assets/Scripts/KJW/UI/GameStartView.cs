@@ -134,7 +134,7 @@ public class GameStartView : View
 
         if (DataManager.Instance.PlayerData.Gold < needGold)
         {
-            popUP.SetCheckMessage("골드가 부족하여 구매할 수 없습니다.");
+            popUP.SetCheckMessage("골드가 부족합니다.");
             ViewManager.GetView<StatPurchasePopUp>()?.OnOkayButton(true);
             ViewManager.Show<StatPurchasePopUp>(true, true); // 구매창 팝업
             return;
@@ -163,7 +163,7 @@ public class GameStartView : View
         else
         {
             ViewManager.GetView<StatPurchasePopUp>()?.OnOkayButton(true);
-            popUP.SetCheckMessage($"더 이상 구매할 수 없습니다.");
+            popUP.SetCheckMessage($"더 구매할 수 없습니다.");
         }
     }
     #endregion
