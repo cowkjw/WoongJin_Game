@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ShopMenuView : View
 {
     public Action OnShopClick; // 상점 클릭에 대한 업데이트 델리게이트
+    public Action OnChangeCharacterAction = null;
     public bool canPutOn;
 
     [SerializeField] private Button backButton; // 뒤로가기 버튼
@@ -86,6 +87,7 @@ public class ShopMenuView : View
             ShopManager.Instance.CharacterType = (CharacterType)characterIndex; // 상점에 커스텀 할 캐릭터 변경
             ShopManager.Instance.LoadCharacterCustom();
             characterType = (CharacterType)characterIndex;
+            OnChangeCharacterAction?.Invoke();
         }
     }
 

@@ -9,7 +9,7 @@ public class ShopManager : MonoBehaviour
     public Action<Contents.ItemType> UpdateShopItemListAction = null;
     public Action<int> ChangeSlotStatusAction = null;
     public ItemInfo ItemInfo { get; set; } = null;
-    public CharacterType CharacterType { get; set; } = CharacterType.Frog; // 현재 상점 창의 캐릭터
+    public CharacterType CharacterType { get; set; } = CharacterType.Bird; // 현재 상점 창의 캐릭터
     public ItemType ItemType { get; set; } = ItemType.Face; // 현재 상점 창의 아이템 카테고리
 
     public CharacterCustom CharacterCustom { get; set; }
