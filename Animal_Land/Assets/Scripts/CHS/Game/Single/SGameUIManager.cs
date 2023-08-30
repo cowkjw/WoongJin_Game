@@ -17,6 +17,11 @@ public class SGameUIManager : MonoBehaviour
     [SerializeField] private Slider _moveGaugeSlider;
     [SerializeField] private Slider _hpSlider;
 
+    [Header("버튼")]
+    [SerializeField] private GameObject _hpItems;
+    [SerializeField] private GameObject _speedItems;
+    [SerializeField] private GameObject _gaugeItems;
+
     [Header("테스트 값")]
     [SerializeField] private float _addGaugeValue;
 
@@ -148,6 +153,41 @@ public class SGameUIManager : MonoBehaviour
         _soundManager.PlayEffect(Effect.Back);
     }
 
-
+    public void ActiveButton(string name, bool value)
+    {
+        if (name == "Hp")
+        {
+            if (value == false)
+            {
+                _hpItems.GetComponent<Image>().color = Color.gray;
+            }
+            else
+            {
+                _hpItems.GetComponent<Image>().color = Color.white;
+            }
+        }
+        else if (name == "Gauge")
+        {
+            if (value == false)
+            {
+                _gaugeItems.GetComponent<Image>().color = Color.gray;
+            }
+            else
+            {
+                _gaugeItems.GetComponent<Image>().color = Color.white;
+            }
+        }
+        else if (name == "Speed")
+        {
+            if (value == false)
+            {
+                _speedItems.GetComponent<Image>().color = Color.gray;
+            }
+            else
+            {
+                _speedItems.GetComponent<Image>().color = Color.white;
+            }
+        }
+    }
 }
 

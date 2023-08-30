@@ -20,7 +20,7 @@ public class SMonsterMove : MonoBehaviour
 
     void Start()
     {
-        _speed = 1f;
+        _speed = 0.5f;
     }
 
     void Update()
