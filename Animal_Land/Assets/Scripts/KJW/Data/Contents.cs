@@ -21,7 +21,7 @@ namespace Contents
         Frog
     }
 
-   public enum StatType
+    public enum StatType
     {
         SPEED,
         HP,
@@ -30,6 +30,11 @@ namespace Contents
 
     public class CharacterCustom
     {
+        public CharacterCustom(CharacterCustom characterCustom)
+        {
+            this.ItemDict = new Dictionary<string, string>(characterCustom.ItemDict);
+        }
+        public CharacterCustom() { }
         [JsonProperty("CustomList")]
         public IDictionary<string, string> ItemDict { get; set; } = new Dictionary<string, string>(); // Key : 아이템 타입, Vlaue : 아이템 이름
     }
@@ -85,7 +90,7 @@ namespace Contents
                 case 0:
                     if (_speed >= MAX_PURCHASE)
                     {
-                       
+
 #if UNITY_EDITOR
                         Debug.LogWarning("더 이상 SPEED를 구매할 수 없습니다.");
 #endif  
@@ -96,17 +101,17 @@ namespace Contents
                 case 1:
                     if (_hp >= MAX_PURCHASE)
                     {
-                       
+
 #if UNITY_EDITOR
                         Debug.LogWarning("더 이상 HP를 구매할 수 없습니다.");
 #endif
                         return false;
                     }
-                        break;
+                    break;
                 case 2:
                     if (_energy >= MAX_PURCHASE)
                     {
-                        
+
 #if UNITY_EDITOR
                         Debug.LogWarning("더 이상 ENERGY를 구매할 수 없습니다.");
 #endif
