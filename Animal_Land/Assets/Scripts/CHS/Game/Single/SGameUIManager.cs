@@ -58,7 +58,7 @@ public class SGameUIManager : MonoBehaviour
 
         _gameManager.StartGame();
 
-        _line.ClearLIne();
+        _line.ClearLine();
 
         _soundManager.PlayEffect(Effect.Back);
     }

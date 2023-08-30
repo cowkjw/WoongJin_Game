@@ -114,14 +114,14 @@ public class SoundManager : MonoBehaviour
 
     public void SetVolume(float volume)
     {
-        if(volume < 0.05f)
+        if(volume < 0.06f)
         {
-            volume = 0.05f;
+            volume = 0.06f;
             BGSound.value = volume;
         }
 
         // ÃÖ¼Ú °ª º¸Á¤
-        volume -= 0.05f;
+        volume -= 0.06f;
 
         if (audioSource != null)
         {
@@ -176,10 +176,6 @@ public class SoundManager : MonoBehaviour
         {
             return;
         }
-
-#if UNITY_EDITOR
-        Debug.Log(effect);
-#endif
 
         switch(effect)
         {

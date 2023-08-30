@@ -150,7 +150,7 @@ public class ShopMenuView : View
         }
         else
         {
-            if (DataManager.Instance.PlayerData.ShoppingList.ContainsKey(ShopManager.Instance.ItemInfo.Name) == false) // 아이템 미보유
+            if (DataManager.Instance.PlayerData.ShoppingList.Contains(ShopManager.Instance.ItemInfo.Name) == false) // 아이템 미보유
             {
                 popUp.SetCheckMessage("보유하고 있지 않습니다!");
                 ShopManager.Instance.ItemInfo = null;

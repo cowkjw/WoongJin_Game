@@ -8,8 +8,8 @@ namespace Contents
     public enum ItemType
     {
         Face,
-        Hat,
         Glasses,
+        Hat,
         Etc
     }
 
@@ -46,7 +46,7 @@ namespace Contents
         [JsonProperty("Gold")]
         public int Gold { get; set; } = 0;
         [JsonProperty("ShoppingList")]
-        public IDictionary<string, bool> ShoppingList { get; set; } = new Dictionary<string, bool>();
+        public HashSet<string> ShoppingList { get; set; } = new HashSet<string>();
     }
 
     public class ItemInfo

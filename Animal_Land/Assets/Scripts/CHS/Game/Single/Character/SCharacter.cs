@@ -202,38 +202,22 @@ public class SCharacter : MonoBehaviour
             // TODO : 여기서 스프라이트 name을 불러와서 파일에 접근한 뒤에 업데이트
             if (customData.ItemDict["Hat"] != null)
             {
-                string HatItem = RemoveSubstring(customData.ItemDict["Hat"], "_" + type);
-#if UNITY_EDITOR
-                Debug.Log(HatItem);
-#endif
-                Hat.sprite = Resources.Load<Sprite>("Sprites/Items/Hat/" + HatItem);
+                Hat.sprite = Resources.Load<Sprite>("Sprites/Items/Hat/" + customData.ItemDict["Hat"]);
             }
 
             if (customData.ItemDict["Face"] != null)
             {
-                string FaceItem = RemoveSubstring(customData.ItemDict["Face"], "_" + type);
-#if UNITY_EDITOR
-                Debug.Log(customData.ItemDict["Face"]);
-#endif
                 Face.sprite = Resources.Load<Sprite>("Sprites/Items/Face/" + customData.ItemDict["Face"]);
             }
 
             if (customData.ItemDict["Glasses"] != null)
             {
-                string GlassesItem = RemoveSubstring(customData.ItemDict["Glasses"], "_" + type);
-#if UNITY_EDITOR
-                Debug.Log(GlassesItem);
-#endif
-                Glasses.sprite = Resources.Load<Sprite>("Sprites/Items/Glasses/" + GlassesItem);
+                Glasses.sprite = Resources.Load<Sprite>("Sprites/Items/Glasses/" + customData.ItemDict["Glasses"]);
             }
 
             if (customData.ItemDict["Etc"] != null)
             {
-                string EtcItem = RemoveSubstring(customData.ItemDict["Etc"], "_" + type);
-#if UNITY_EDITOR
-                Debug.Log(EtcItem);
-#endif
-                Etc.sprite = Resources.Load<Sprite>("Sprites/Items/Hat/" + EtcItem);
+                Etc.sprite = Resources.Load<Sprite>("Sprites/Items/Hat/" + customData.ItemDict["Etc"]);
             }
         }
     }

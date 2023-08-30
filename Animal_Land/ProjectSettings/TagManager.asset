@@ -53,3 +53,9 @@ TagManager:
   - name: Screen
     uniqueID: 614208847
     locked: 0
+  - name: Memo
+    uniqueID: 4207230511
+    locked: 0
+  - name: OX
+    uniqueID: 2377099153
+    locked: 0

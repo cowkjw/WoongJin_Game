@@ -33,6 +33,11 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
     public GameObject       settingPanel;
     public GameObject       exitPanel;
 
+    [Header("스테이지")]
+    [SerializeField] Image _stage;
+    [SerializeField]
+    Sprite[] _stageSprites = new Sprite[5]; 
+
     [Header("매니저 클래스")]
     public LobbyManager     lobbyManager;
 
@@ -160,5 +165,12 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
         // 빌드된 런타임에서는 어플리케이션을 종료합니다.
         Application.Quit();
 #endif
+    }
+
+    public void ChangeStageSprite(int num)
+    {
+        _stage.sprite = _stageSprites[num - 1];
+        Debug.Log(num + "변경");
+
     }
 }
