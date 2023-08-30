@@ -22,7 +22,7 @@ public class ShopMenuView : View
     [SerializeField] private Text goldText;
     [SerializeField] private Text buyText;
 
-  CharacterType characterType;
+    CharacterType characterType;
 
     public override void Initialize()
     {
@@ -43,6 +43,9 @@ public class ShopMenuView : View
             Contents.ItemType itemType = (Contents.ItemType)i; // 아이템 타입으로 변환
             categoryBtns[i]?.onClick.AddListener(() => OnItemCategoryButtonClicked(itemType));
         }
+
+
+        categoryBtns[(int)ItemType.Face].image.color = Color.white; // 처음 켜질 때 얼굴 카테고리 버튼만 밝게
     }
 
     void RepresentCharacter()
@@ -81,15 +84,15 @@ public class ShopMenuView : View
             characterChangeImage.sprite = characterSprites[characterIndex]; // 큰 캐릭터 이미지 변경
             ShopManager.Instance.CharacterType = (CharacterType)characterIndex; // 상점에 커스텀 할 캐릭터 변경
             ShopManager.Instance.LoadCharacterCustom();
-            characterType = (CharacterType)characterIndex; 
+            characterType = (CharacterType)characterIndex;
         }
     }
 
     void OnRepresentativeCharacterImageChange()
     {
-        for(int i = 0;i< selectCharaceterBtns.Count;i++)
+        for (int i = 0; i < selectCharaceterBtns.Count; i++)
         {
-            if((int)characterType==i)
+            if ((int)characterType == i)
             {
                 selectCharaceterBtns[i].image.sprite = representCharaceterSprites[i];
             }
@@ -103,6 +106,18 @@ public class ShopMenuView : View
     void OnItemCategoryButtonClicked(Contents.ItemType itemType) // 아이템 카테고리 변경
     {
         ShopManager.Instance.CheckItemList(itemType);
+
+        for (int i = 0; i < categoryBtns.Count; i++) // 클릭된 카테고리를 제외하고는 어둡게 처리
+        {
+            if ((int)itemType != i)
+            {
+                categoryBtns[i].image.color = Color.gray;
+            }
+            else
+            {
+                categoryBtns[i].image.color = Color.white;
+            }
+        }
     }
 
     void OnBuyButtonClicked()
@@ -121,7 +136,7 @@ public class ShopMenuView : View
     {
         CharacterType characterType = ShopManager.Instance.CharacterType;
         PurchasePopUp popUp = ViewManager.GetView<PurchasePopUp>();
-        
+
         if (popUp == null)
         {
 #if UNITY_EDITOR

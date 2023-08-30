@@ -117,7 +117,8 @@ public class Slot : MonoBehaviour, IPointerDownHandler
         {
             message = $"{SlotInfo.Price} 골드가 소모됩니다.\n구매 하시겠습니까?";
             if (shopMenu != null)
-            {
+       
+     {
                 shopMenu.canPutOn = false;
             }
         }
