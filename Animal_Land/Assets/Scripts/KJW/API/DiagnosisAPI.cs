@@ -104,6 +104,7 @@ public class DiagnosisAPI : MonoBehaviour
                 if (!PlayerPrefs.HasKey("Diagnosis")) // 진단 판단이 없으면
                 {
                     PlayerPrefs.SetInt("Diagnosis", System.Convert.ToInt16(0)); // 진단 필요하지 않음으로 설정
+                    wj_conn._needDiagnosis = false;
 #if UNITY_EDITOR
                     Debug.LogWarning("진단 완료");
 #endif
@@ -151,7 +152,7 @@ public class DiagnosisAPI : MonoBehaviour
         bool isFirstQuestion = (_diagnosisIndex == 0 && currentStatus == CurrentStatus.DIAGNOSIS) ||
             (currentQuestionIndex == 0 && currentStatus == CurrentStatus.LEARNING);
 
-        textDescription.text = textCn;
+
 
         if (textCn.Contains("최대공약수") && textCn.Contains("최대공약수"))
         {
@@ -182,8 +183,6 @@ public class DiagnosisAPI : MonoBehaviour
         string correctAnswer;
         string[] wrongAnswers;
 
-        textEquation.text = qstCn;
-
         correctAnswer = qstCransr;
         wrongAnswers = qstWransr.Split(',');
 
@@ -211,6 +210,8 @@ public class DiagnosisAPI : MonoBehaviour
                 textAnsr[i].text = wrongAnswers[q];
         }
         isSolvingQuestion = true;
+        textEquation.text = qstCn;
+        textDescription.text = textCn;
     }
 
     IEnumerator ColoringCorrectAnswer(string textCn, string qstCn, string qstCransr, string qstWransr, float delay) // 다음 문제 전 색상 표시

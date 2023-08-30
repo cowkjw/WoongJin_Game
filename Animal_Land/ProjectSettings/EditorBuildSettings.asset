@@ -29,6 +29,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TestShop.unity
     guid: b25c4d727631c044391e1d5b9878c169
+  - enabled: 1
+    path: Assets/Scenes/Single Game Room_2.unity
+    guid: 12572d763836c9d47bfef2c3685ae411
+  - enabled: 1
+    path: Assets/Scenes/Single Game Room_3.unity
+    guid: f8b7c05e1a7445a4b8a604fe7114ba0e
+  - enabled: 1
+    path: Assets/Scenes/Single Game Room_4.unity
+    guid: 34c61b02ae1085146a7cc8c619deba8f
+  - enabled: 1
+    path: Assets/Scenes/Single Game Room_5.unity
+    guid: 10ce6b7b2e021974fb00c432c157e04c
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 1a0e80bdcae5707448891d21126339df, type: 2}
     com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: baa81e5716610ea4291e4e1a26ee3c4b, type: 2}

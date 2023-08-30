@@ -22,12 +22,12 @@ public class ShopMenuView : View
     [SerializeField] private Text goldText;
     [SerializeField] private Text buyText;
 
-  CharacterType characterType;
+    CharacterType characterType;
 
     public override void Initialize()
     {
         InitButtons();
-        characterType =(CharacterType)Enum.Parse(typeof(CharacterType),DataManager.Instance.PlayerData.Character); // 대표 캐릭터 설정 저장
+        RepresentCharacter();
         selectCharaceterBtns[(int)characterType].image.sprite = representCharaceterSprites[(int)characterType]; // 캐릭터 선택 이미지 대표 캐릭터로 변경
         OnShopClick += UpdateShopInterface;
         OnShopClick?.Invoke(); ; // 골드 UI Text 업데이트
@@ -43,6 +43,15 @@ public class ShopMenuView : View
             Contents.ItemType itemType = (Contents.ItemType)i; // 아이템 타입으로 변환
             categoryBtns[i]?.onClick.AddListener(() => OnItemCategoryButtonClicked(itemType));
         }
+
+
+        categoryBtns[(int)ItemType.Face].image.color = Color.white; // 처음 켜질 때 얼굴 카테고리 버튼만 밝게
+    }
+
+    void RepresentCharacter()
+    {
+        characterType = (CharacterType)Enum.Parse(typeof(CharacterType), DataManager.Instance.PlayerData.Character); // 대표 캐릭터 설정 
+        characterChangeImage.sprite = characterSprites[(int)characterType];
     }
 
     void InitButtons()
@@ -75,15 +84,15 @@ public class ShopMenuView : View
             characterChangeImage.sprite = characterSprites[characterIndex]; // 큰 캐릭터 이미지 변경
             ShopManager.Instance.CharacterType = (CharacterType)characterIndex; // 상점에 커스텀 할 캐릭터 변경
             ShopManager.Instance.LoadCharacterCustom();
-            characterType = (CharacterType)characterIndex; 
+            characterType = (CharacterType)characterIndex;
         }
     }
 
     void OnRepresentativeCharacterImageChange()
     {
-        for(int i = 0;i< selectCharaceterBtns.Count;i++)
+        for (int i = 0; i < selectCharaceterBtns.Count; i++)
         {
-            if((int)characterType==i)
+            if ((int)characterType == i)
             {
                 selectCharaceterBtns[i].image.sprite = representCharaceterSprites[i];
             }
@@ -97,10 +106,29 @@ public class ShopMenuView : View
     void OnItemCategoryButtonClicked(Contents.ItemType itemType) // 아이템 카테고리 변경
     {
         ShopManager.Instance.CheckItemList(itemType);
+
+        for (int i = 0; i < categoryBtns.Count; i++) // 클릭된 카테고리를 제외하고는 어둡게 처리
+        {
+            if ((int)itemType != i)
+            {
+                categoryBtns[i].image.color = Color.gray;
+            }
+            else
+            {
+                categoryBtns[i].image.color = Color.white;
+            }
+        }
     }
 
     void OnBuyButtonClicked()
     {
+        PurchasePopUp popUp = ViewManager.GetView<PurchasePopUp>();
+
+        if (ShopManager.Instance.ItemInfo == null)
+        {
+            popUp.SetCheckMessage("구매 할 아이템을 고르세요");
+            popUp.checkAction(false); // 완료 버튼만 뜨도록
+        }
         ViewManager.Show<PurchasePopUp>(true, true);
     }
 
@@ -125,13 +153,14 @@ public class ShopMenuView : View
             if (DataManager.Instance.PlayerData.ShoppingList.ContainsKey(ShopManager.Instance.ItemInfo.Name) == false) // 아이템 미보유
             {
                 popUp.SetCheckMessage("보유하고 있지 않습니다!");
+                ShopManager.Instance.ItemInfo = null;
             }
             else
             {
                 ShopManager.Instance.SetCharacterCustom(); // 선택 시에 만약 가지고 있는 아이템이라면
                 popUp.SetCheckMessage("장착 완료!");
+                ShopManager.Instance.ItemInfo = null;
             }
-
         }
         popUp.checkAction(false); // 완료 버튼만 뜨도록
         ViewManager.Show<PurchasePopUp>(true, true);

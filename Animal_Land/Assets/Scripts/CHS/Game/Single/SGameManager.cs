@@ -113,14 +113,17 @@ public class SGameManager : MonoBehaviour
         if (_dataManager.PlayerStat.HP > 0)
         {
             _canUseHpItem = true;
+            UIManager.ActiveButton("Hp", true);
         }
         if(_dataManager.PlayerStat.Speed >0)
         {
             _canUseSpeedItem = true;
+            UIManager.ActiveButton("Speed", true);
         }
         if (_dataManager.PlayerStat.Energy >0)
         {
             _canUseGaugeItem = true;
+            UIManager.ActiveButton("Gauge", true);
         }
 
         // 플레이어 정보 갱신
@@ -142,6 +145,9 @@ public class SGameManager : MonoBehaviour
         {
             playerNum = 4;
         }
+
+        // 아이템 정보 갱신    
+
 
         return playerNum;
     }
@@ -277,6 +283,10 @@ public class SGameManager : MonoBehaviour
 
         // TODO : _timeScore 갱신
         _timeScore = (int)(_maxGameTime - _gameTime);
+        if(isGameover == false)
+        {
+            _timeScore = 0;
+        }
 
         // 획득 재화 계산
         _money = GetTotalScore() / 5;   
@@ -422,7 +432,7 @@ public class SGameManager : MonoBehaviour
         UIManager.GetComponent<SoundManager>().PlayEffect(Effect.Button);
 
         // TODO : 아이템 비활성화
-        
+        UIManager.ActiveButton("Hp", false);
     }
 
     public void UseItemSpeed()
@@ -445,7 +455,7 @@ public class SGameManager : MonoBehaviour
         UIManager.GetComponent<SoundManager>().PlayEffect(Effect.Button);
 
         // TODO : 아이템 비활성화
-
+        UIManager.ActiveButton("Speed", false);
 
     }
 
@@ -474,7 +484,7 @@ public class SGameManager : MonoBehaviour
         UIManager.GetComponent<SoundManager>().PlayEffect(Effect.Button);
 
         // TODO : 아이템 비활성화
-
+        UIManager.ActiveButton("Gauge", false);
     }
 
     public void Solve()
