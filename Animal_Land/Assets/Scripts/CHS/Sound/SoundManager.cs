@@ -61,8 +61,11 @@ public class SoundManager : MonoBehaviour
     private void Init()
     {
         audioSource = GetComponent<AudioSource>();
-
         audioSource.clip = BackGroundSound;
+
+#if UNITY_EDITOR
+        Debug.Log("사운드 값 초기화");
+#endif
 
         userManager = GameObject.Find("UserManager").GetComponent<UserManager>();
         if(userManager != null )
@@ -135,18 +138,18 @@ public class SoundManager : MonoBehaviour
 
     public void SetEffectVolume(float volume)
     {
-        if (volume < 0.05f)
+        if (volume < 0.06f)
         {
-            volume = 0.05f;
+            volume = 0.06f;
             EffectSound.value = volume;
         }
 
         // 최솟 값 보정
-        volume -= 0.05f;
+        volume -= 0.06f;
 
         if (userManager != null)
         {
-            userManager.SetSoundVolume(volume);
+            userManager.SetEffectVolume(volume);
         }
 
         if (_effectSource != null)
