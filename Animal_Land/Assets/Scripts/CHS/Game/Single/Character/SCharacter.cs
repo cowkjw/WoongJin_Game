@@ -4,7 +4,9 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+
 
 // 캐릭터의 정보를 저장하는 스크립트
 // 캐릭터 프리팹에 컴포넌트로 추가하여 캐릭터의 정보를 저장한다.
@@ -35,6 +37,7 @@ public class SCharacter : MonoBehaviour
     {
 
     }
+
 
     // Update is called once per frame
     void Update()
@@ -186,10 +189,10 @@ public class SCharacter : MonoBehaviour
     private void Equipment(string type)
     {
         // 커스텀 장비를 장착한다.
-        Sprite Hat = this.gameObject.transform.Find("Hat").GetComponent<SpriteRenderer>().sprite;
-        Sprite Face = this.gameObject.transform.Find("Hat").GetComponent<SpriteRenderer>().sprite;
-        Sprite Glass = this.gameObject.transform.Find("Hat").GetComponent<SpriteRenderer>().sprite;
-        Sprite Necklace = this.gameObject.transform.Find("Hat").GetComponent<SpriteRenderer>().sprite;
+        SpriteRenderer Hat = this.gameObject.transform.Find("Hat").GetComponent<SpriteRenderer>();
+        SpriteRenderer Face = this.gameObject.transform.Find("Face").GetComponent<SpriteRenderer>();
+        SpriteRenderer Glasses = this.gameObject.transform.Find("Glass").GetComponent<SpriteRenderer>();
+        SpriteRenderer Etc = this.gameObject.transform.Find("Necklace").GetComponent<SpriteRenderer>();
 
         DataManager _dataManager = GameObject.Find("@DataManager").GetComponent<DataManager>();
         if(_dataManager != null )
@@ -197,12 +200,41 @@ public class SCharacter : MonoBehaviour
             CharacterCustom customData = _dataManager.CharacterCustomData[type];
 
             // TODO : 여기서 스프라이트 name을 불러와서 파일에 접근한 뒤에 업데이트
-#if UNITY_EDITOR
             if (customData.ItemDict["Hat"] != null)
             {
-                Debug.Log(customData.ItemDict["Hat"]);
-            }
+                string HatItem = RemoveSubstring(customData.ItemDict["Hat"], "_" + type);
+#if UNITY_EDITOR
+                Debug.Log(HatItem);
 #endif
+                Hat.sprite = Resources.Load<Sprite>("Sprites/Items/Hat/" + HatItem);
+            }
+
+            if (customData.ItemDict["Face"] != null)
+            {
+                string FaceItem = RemoveSubstring(customData.ItemDict["Face"], "_" + type);
+#if UNITY_EDITOR
+                Debug.Log(customData.ItemDict["Face"]);
+#endif
+                Face.sprite = Resources.Load<Sprite>("Sprites/Items/Face/" + customData.ItemDict["Face"]);
+            }
+
+            if (customData.ItemDict["Glasses"] != null)
+            {
+                string GlassesItem = RemoveSubstring(customData.ItemDict["Glasses"], "_" + type);
+#if UNITY_EDITOR
+                Debug.Log(GlassesItem);
+#endif
+                Glasses.sprite = Resources.Load<Sprite>("Sprites/Items/Glasses/" + GlassesItem);
+            }
+
+            if (customData.ItemDict["Etc"] != null)
+            {
+                string EtcItem = RemoveSubstring(customData.ItemDict["Etc"], "_" + type);
+#if UNITY_EDITOR
+                Debug.Log(EtcItem);
+#endif
+                Etc.sprite = Resources.Load<Sprite>("Sprites/Items/Hat/" + EtcItem);
+            }
         }
     }
 
@@ -234,5 +266,16 @@ public class SCharacter : MonoBehaviour
 
         return _moveGauge / _maxMoveGauge;
     }
+
+    string RemoveSubstring(string original, string substring)
+    {
+        int index = original.IndexOf(substring);
+        if (index >= 0)
+        {
+            return original.Substring(0, index);
+        }
+        return original;
+    }
+
 
 }

@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Lobby 1.unity
     guid: ec9d7d800af3ad241a5d00d77b866f94
   - enabled: 1
-    path: Assets/Scenes/Single Game Room.unity
+    path: Assets/Scenes/Single Game Room_1.unity
     guid: 9ec9ff960dafa1f4faf171b7c6ffc709
   - enabled: 0
     path: Assets/Scenes/Multi Game Room.unity
