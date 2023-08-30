@@ -64,10 +64,11 @@ public class ShopMenuView : View
         representButton?.onClick.AddListener(() => OnRepresentativeCharacterImageChange());
     }
 
-    void UpdateShopInterface() // 상점 업데이트를 위함
+    void UpdateShopInterface() // 상점 업데이트를 위함 (킬 때마다)
     {
         DataManager.Instance.ReloadData();
         UpdateGoldText();
+        RepresentCharacter(); // 대표 캐릭터로 초기화
     }
 
     void UpdateGoldText() // 골드 업데이트 구매 시에 변경을 위함
@@ -146,7 +147,15 @@ public class ShopMenuView : View
         }
         if (ShopManager.Instance.ItemInfo == null)
         {
-            popUp.SetCheckMessage("장착 할 아이템을 고르세요");
+            if (ShopManager.Instance.CharacterCustom.ItemDict[ShopManager.Instance.ItemType.ToString()] == " ") // 기본 셋팅일때
+            {
+                popUp.SetCheckMessage("장착 완료!");
+            }
+            else // 아무것도 고르지 않았을 때
+            {
+                popUp.SetCheckMessage("장착 할 아이템을 고르세요");
+            }
+           
         }
         else
         {

@@ -47,6 +47,16 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        if (cManager != null) // 캐릭터 커스텀 매니저가 null이 아니면
+        {
+            cManager.CharacterOriginPartsSprite();// 캐릭터 파츠 로컬 저장으로 전부 다시 변경
+        }
+        CharacterType = (CharacterType)Enum.Parse(typeof(CharacterType), DataManager.Instance.PlayerData.Character); // 캐릭터타입을 다시 대표 캐릭터로 설정
+                                                                                                                     // 초기화 안하면 엉뚱한 캐릭터 스프라이트로 입혀짐
+    }
+
     public void InitSlotClicked()
     {
         if (slots.Count == 0)
@@ -66,7 +76,6 @@ public class ShopManager : MonoBehaviour
 
     public void SetCharacterCustom() // 장착완료 시에 임시 캐릭터 커스텀에 해당 아이템을 설정해두기 위한 함수
     {
-        // CharacterCustom.ItemDict[ItemType.ToString()] = ItemInfo.Name;
         CharacterCustom.ItemDict[ItemType.ToString()] = ItemInfo.Name + "_" + CharacterType.ToString();  // 아이템 이름 + 캐릭터 타입
     }
 
