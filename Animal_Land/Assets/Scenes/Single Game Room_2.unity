@@ -338,7 +338,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -859,7 +859,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Alignment: {x: 0.5, y: 0.5}
-  m_Text: $$TEXDraw$$
+  m_Text: 
   m_Size: 25
   m_ScrollArea:
     serializedVersion: 2
@@ -37405,7 +37405,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 31344906}
         m_TargetAssemblyTypeName: DrawLine, Assembly-CSharp
-        m_MethodName: ClearLIne
+        m_MethodName: ClearLine
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -42612,7 +42612,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4497439}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 0.5
   m_WholeNumbers: 0
   m_Value: 1
   m_OnValueChanged:
