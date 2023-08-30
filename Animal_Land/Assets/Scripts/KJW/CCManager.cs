@@ -1,4 +1,5 @@
 using Contents;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,6 +52,28 @@ public class CCManager : MonoBehaviour
         {
             Parts[(int)type].sprite = null;
             Parts[(int)type].color = new Color(0, 0, 0, 0);
+        }
+    }
+
+
+    public void CharacterOriginPartsSprite()
+    {
+        CharacterType characterType = (CharacterType)Enum.Parse(typeof(CharacterType), DataManager.Instance.PlayerData.Character); // 대표 캐릭터 설정 
+        CharacterCustom characterCustom = DataManager.Instance.CharacterCustomData[characterType.ToString()];
+
+        foreach (ItemType itemType in System.Enum.GetValues(typeof(ItemType)))
+        {
+            Sprite tempSprite = Resources.Load<Sprite>($"Sprites/Items/{itemType}/{characterCustom.ItemDict[itemType.ToString()]}");
+            if (tempSprite != null)
+            {
+                Parts[(int)itemType].sprite = tempSprite;
+                Parts[(int)itemType].color = new Color(255, 255, 255, 255);
+            }
+            else
+            {
+                Parts[(int)itemType].sprite = null;
+                Parts[(int)itemType].color = new Color(0, 0, 0, 0);
+            }
         }
     }
 }

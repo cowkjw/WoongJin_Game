@@ -15,10 +15,10 @@ public class Slot : MonoBehaviour, IPointerDownHandler
     public Action<int> ClickSlotAction = null;
     public bool isCanClick { get; private set; } // 클릭할 수 있는지   
     public bool unLock { get; private set; } // 구매했는지   
+    public bool IsClicked { get; set; } = false;
     ItemType _itemType = ItemType.Face; // 아이템 타입 설정
     Image _itemImage;
     GameObject _lock;
-
     void Start()
     {
 
@@ -64,6 +64,8 @@ public class Slot : MonoBehaviour, IPointerDownHandler
         }
 
         UpdateItemImage();
+
+        IsClicked = false;
     }
 
     void UpdateItemImage() // 슬롯 아이템의 이미지 업데이트
@@ -124,17 +126,26 @@ public class Slot : MonoBehaviour, IPointerDownHandler
         }
 
         ClickSlotAction?.Invoke(SlotIndex);
-        ShopManager.Instance.ItemInfo = SlotInfo; // 상점에 선택 된 아이템 정보를 슬롯의 아이템 정보로 업데이트
-        ShopManager.Instance.SetCharacterCustom(); // 현재 누른 아이템을 캐릭터에 임시로 장착
-        ShopManager.Instance.cManager.ChangeCharacterSpecificPartsSprite(_itemType); // 스프라이트 변경
+        if(SlotInfo==ShopManager.Instance.ItemInfo) // 지금 상점에서 이미 장착하고 있는거라면
+        {
+            ShopManager.Instance.ItemInfo = null; // 아이템 정보를 null로
+            ShopManager.Instance.CharacterCustom.ItemDict[ShopManager.Instance.ItemType.ToString()] = " "; // 임시 커스텀에 공백으로 처리
+            ShopManager.Instance.cManager.ChangeCharacterSpecificPartsSprite(_itemType); // 특정 아이템 스프라이트 변경
+            this.GetComponent<Image>().color = Color.white;
+        }
+        else
+        {
+            ShopManager.Instance.ItemInfo = SlotInfo; // 상점에 선택 된 아이템 정보를 슬롯의 아이템 정보로 업데이트
+            ShopManager.Instance.SetCharacterCustom(); // 현재 누른 아이템을 캐릭터에 임시로 장착
+            ShopManager.Instance.cManager.ChangeCharacterSpecificPartsSprite(_itemType); // 특정 아이템 스프라이트 변경
+        }
+       
         PurchasePopUp purchasePopUp = ViewManager.GetView<PurchasePopUp>();
         if (purchasePopUp != null)
         {
             purchasePopUp.checkAction?.Invoke(notHave);
             purchasePopUp.SetCheckMessage(message); // 메시지 넘기기
         }
-
-        
 
 #if UNITY_EDITOR
         Debug.Log($"{SlotIndex} 번째 슬롯 클릭");
