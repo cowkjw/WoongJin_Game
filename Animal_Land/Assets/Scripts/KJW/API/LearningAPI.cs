@@ -156,6 +156,16 @@ public class LearningAPI : MonoBehaviour
     /// </summary>
     public void SelectAnswer(int _idx = -1)
     {
+        // 메모장 초기화
+        GameObject UIManager = GameObject.Find("UIManager");
+        if (UIManager != null)
+        {
+            if (UIManager.GetComponent<DrawLine>() != null)
+            {
+                UIManager.GetComponent<DrawLine>().ClearLineNS();
+            } 
+        }
+
         if (_idx == -1) // 시간초과 시
         {
             switch (currentStatus)
