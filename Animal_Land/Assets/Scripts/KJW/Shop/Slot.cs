@@ -43,7 +43,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler
         {
             SlotInfo = element;
             isCanClick = true;
-            if (DataManager.Instance.PlayerData.ShoppingList.Count > 0 && DataManager.Instance.PlayerData.ShoppingList.ContainsKey(SlotInfo.Name)) // 이미 구입한 상품이라면
+            if (DataManager.Instance.PlayerData.ShoppingList.Count > 0 && DataManager.Instance.PlayerData.ShoppingList.Contains(SlotInfo.Name)) // 이미 구입한 상품이라면
             {
                 this.GetComponent<Image>().color = new Color(255, 255, 255, 1);
                 unLock = true;
@@ -103,7 +103,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler
         string message; // 전달 할 메시지
         bool notHave = true; // 가지고 있는 아이템인지
         ShopMenuView shopMenu = ViewManager.GetView<ShopMenuView>();
-        if (DataManager.Instance.PlayerData.ShoppingList.ContainsKey(SlotInfo.Name)) // 이미 구입한 아이템이라면
+        if (DataManager.Instance.PlayerData.ShoppingList.Contains(SlotInfo.Name)) // 이미 구입한 아이템이라면
         {
             message = "이미 구매한 아이템입니다.";
             
