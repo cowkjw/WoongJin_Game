@@ -2,6 +2,7 @@ using Contents;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class GameStartView : View
     [SerializeField] private List<Button> statButtons;
     [SerializeField] private Button gameStartButton;
     [SerializeField] private Button closeButton;
+    [SerializeField] private TextMeshProUGUI goldText;
 
     private PlayerStat _playerStat = new PlayerStat();
     private int _gold = 0; // 저장해뒀다 창을 닫으면 골드 돌려주기 위함
@@ -29,12 +31,20 @@ public class GameStartView : View
             int index = i;
             statButtons[index].onClick.AddListener(() => OnStatPurchaseButton(index));
         }
+
     }
 
     private void OnEnable()
     {
-        _playerStat = new PlayerStat(); // 켜질 때 새로 스텟을 초기화 하기 위해서
+       _playerStat = new PlayerStat(); // 켜질 때 새로 스텟을 초기화 하기 위해서
+        UpdateGoldText();
     }
+
+    public void UpdateGoldText()
+    {
+        goldText.text = (DataManager.Instance.PlayerData.Gold - _gold).ToString();
+    }
+
 
     #region GAME_PANEL_BUTTONS
 
@@ -43,7 +53,6 @@ public class GameStartView : View
         if (DataManager.Instance != null)
         {
             DataManager.Instance.PlayerStat = new PlayerStat(); // 꺼질 때 게임에 들어가서 사용 할 스탯을 데이터매니저에 넘겨줌
-            DataManager.Instance.PlayerData.Gold += _gold; // 골드 되돌려놓기
         }
         _gold = 0; // 다시 0으로 초기화
     }
@@ -51,7 +60,7 @@ public class GameStartView : View
     IEnumerator WaitForClosePopUP(StatPurchasePopUp popUP, int index, StatType statType) // 구매 팝업 종료까지 기다리기 위한 코루틴
     {
 
-        popUP?.SetCheckMessage($"{statType.ToString()}를\n구매하시겠습니까?");
+        popUP?.SetCheckMessage($"{statType.ToString()}를 구매하시겠습니까?");
 
         while (popUP.gameObject.activeSelf) // 팝업창이 종료될 때까지
         {
@@ -75,7 +84,7 @@ public class GameStartView : View
                     _gold += 20;
                     break;
             }
-
+            UpdateGoldText();
         }
 #if UNITY_EDITOR
         Debug.Log($"Speed: {_playerStat.Speed} HP: {_playerStat.HP} Shield {_playerStat.Energy}");
@@ -125,7 +134,8 @@ public class GameStartView : View
 
         if (DataManager.Instance.PlayerData.Gold < needGold)
         {
-            popUP.SetCheckMessage("골드가 부족하여\n구매할 수 없습니다.");
+            popUP.SetCheckMessage("골드가 부족하여 구매할 수 없습니다.");
+            ViewManager.GetView<StatPurchasePopUp>()?.OnOkayButton(true);
             ViewManager.Show<StatPurchasePopUp>(true, true); // 구매창 팝업
             return;
         }
@@ -145,13 +155,15 @@ public class GameStartView : View
         }
 
         ViewManager.Show<StatPurchasePopUp>(true, true); // 구매창 팝업
+            ViewManager.GetView<StatPurchasePopUp>()?.OnOkayButton(false);
         if (_playerStat.CheckForPurchase(index))
         {
             StartCoroutine(WaitForClosePopUP(popUP, index, statType));
         }
         else
         {
-            popUP.SetCheckMessage($"더 이상 {statType.ToString()}를\n구매할 수 없습니다.");
+            ViewManager.GetView<StatPurchasePopUp>()?.OnOkayButton(true);
+            popUP.SetCheckMessage($"더 이상 구매할 수 없습니다.");
         }
     }
     #endregion

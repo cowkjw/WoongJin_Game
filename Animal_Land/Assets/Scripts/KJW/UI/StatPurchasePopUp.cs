@@ -1,20 +1,23 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StatPurchasePopUp :PopUpUI, IStatusCheckPopUP
 {
-
-
     [SerializeField] private Text noticeText;
     [SerializeField] private Button purchaseButton;
+    [SerializeField] private Button okayButton;
+
 
     bool clickedPurchase = false;
     
 
     void Start()
     {
-        ViewManager.GetView<GameStartView>().ClickPurcahseAction +=(()=> clickedPurchase);
-        purchaseButton.onClick.AddListener(() => OnPurchaseButton());
+        GameStartView gameStartView = ViewManager.GetView<GameStartView>();
+        gameStartView.ClickPurcahseAction +=(()=> clickedPurchase);
+        purchaseButton?.onClick.AddListener(() => OnPurchaseButton());
+        okayButton?.onClick.AddListener(() => ViewManager.ShowLast());
     }
 
     public void SetCheckMessage(string message)
@@ -33,4 +36,12 @@ public class StatPurchasePopUp :PopUpUI, IStatusCheckPopUP
         base.OnDisable(); 
         clickedPurchase = false; // 구매 창이 종료 됐으니 다시 false로 설정
     }
+
+    public void OnOkayButton(bool flag)
+    {
+        okayButton?.gameObject.SetActive(flag);
+        purchaseButton?.gameObject.SetActive(!flag);
+        closeButton?.gameObject.SetActive(!flag);
+    }
+
 }
