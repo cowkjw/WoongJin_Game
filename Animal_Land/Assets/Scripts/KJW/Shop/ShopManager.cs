@@ -15,6 +15,7 @@ public class ShopManager : MonoBehaviour
     public CharacterCustom CharacterCustom { get; set; } = new CharacterCustom();
 
     [SerializeField] private List<Slot> slots; // 슬롯 이미지들
+    public CCManager cManager { get; private set; }
 
     private static ShopManager instance;
     public static ShopManager Instance
@@ -36,6 +37,8 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
+        cManager = GetComponent<CCManager>();
+        CharacterType = (CharacterType)Enum.Parse(typeof(CharacterType), DataManager.Instance.PlayerData.Character);
         LoadCharacterCustom();
 
         for (int i = 0; i < slots.Count; i++)
@@ -44,14 +47,27 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    public void InitSlotClicked()
+    {
+        if (slots.Count == 0)
+            return;
+
+        for (int i = 0; i < slots.Count;i++)
+        {
+            slots[i].GetComponent<Image>().color = Color.white;
+        }
+    }
+
     public void LoadCharacterCustom()
     {
         CharacterCustom = DataManager.Instance.CharacterCustomData[CharacterType.ToString()];
+        cManager.ChangeCharacterPartsSprite();
     }
 
     public void SetCharacterCustom() // 장착완료 시에 임시 캐릭터 커스텀에 해당 아이템을 설정해두기 위한 함수
     {
-        CharacterCustom.ItemDict[ItemType.ToString()] = ItemInfo.Name;
+       // CharacterCustom.ItemDict[ItemType.ToString()] = ItemInfo.Name;
+       CharacterCustom.ItemDict[ItemType.ToString()] = ItemInfo.Name+"_"+ CharacterType.ToString();  // 아이템 이름 + 캐릭터 타입
     }
 
     public void CheckItemList(Contents.ItemType itemType) // 아이템 리스트 불러올 때 사용
@@ -71,11 +87,11 @@ public class ShopManager : MonoBehaviour
             {
                 if (slots[i].SlotIndex == slotIndex)
                 {
-                    slotImage.color = Color.red;
+                    slotImage.color = Color.gray;
                 }
                 else
                 {
-                    slotImage.color = slots[i].unLock ? Color.white : Color.black; // 구입한지 안한지에 따라 흰 검  
+                    slotImage.color =Color.white; //slots[i].unLock ? Color.white : Color.black; // 구입한지 안한지에 따라 흰 검  
                 }
             }
         }

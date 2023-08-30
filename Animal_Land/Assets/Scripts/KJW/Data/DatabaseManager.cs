@@ -1,5 +1,8 @@
+using Contents;
 using Firebase;
 using Firebase.Database;
+using Google.MiniJSON;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -54,7 +57,6 @@ public class DatabaseManager : MonoBehaviour
         await ReadDB(DataType.Users); // 불러올 때까지 기다림
         await WriteDB();
     }
-
 
     public async Task WriteDB(int score = 0)
     {

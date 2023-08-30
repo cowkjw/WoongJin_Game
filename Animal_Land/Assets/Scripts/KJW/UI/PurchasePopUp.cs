@@ -11,7 +11,8 @@ public class PurchasePopUp : PopUpUI, IStatusCheckPopUP
 
     [SerializeField] private List<Button> selectBtns;
     [SerializeField] private Text checkMessage;
-
+    [SerializeField] List<Sprite> checkSprites;
+    Image image;
     public override void Initialize()
     {
         base.Initialize();
@@ -22,8 +23,10 @@ public class PurchasePopUp : PopUpUI, IStatusCheckPopUP
         {
             int index = i; // 변수를 캡쳐하기 때문에 i를 안넣고 로컬로 따로 변수에 할당해서 사용
             selectBtns[i].onClick.AddListener(() => OnSelectPurchase(index));
+            selectBtns[i].onClick.AddListener(() => ShopManager.Instance.InitSlotClicked());
             selectBtns[i].gameObject.SetActive(false);
         }
+        closeButton?.onClick.AddListener(() => ShopManager.Instance.InitSlotClicked());
     }
 
     void ActivateButtons(bool flag) // 버튼들 활성화
@@ -87,6 +90,4 @@ public class PurchasePopUp : PopUpUI, IStatusCheckPopUP
     {
         checkMessage.text = message;
     }
-
-
 }
