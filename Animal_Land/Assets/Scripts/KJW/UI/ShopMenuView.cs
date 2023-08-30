@@ -154,6 +154,9 @@ public class ShopMenuView : View
             {
                 popUp.SetCheckMessage("보유하고 있지 않습니다!");
                 ShopManager.Instance.ItemInfo = null;
+                popUp.checkAction(false); // 완료 버튼만 뜨도록
+                ViewManager.Show<PurchasePopUp>(true, true);
+                return;
             }
             else
             {

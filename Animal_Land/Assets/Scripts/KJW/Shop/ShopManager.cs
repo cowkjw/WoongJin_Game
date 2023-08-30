@@ -12,7 +12,7 @@ public class ShopManager : MonoBehaviour
     public CharacterType CharacterType { get; set; } = CharacterType.Frog; // 현재 상점 창의 캐릭터
     public ItemType ItemType { get; set; } = ItemType.Face; // 현재 상점 창의 아이템 카테고리
 
-    public CharacterCustom CharacterCustom { get; set; } = new CharacterCustom();
+    public CharacterCustom CharacterCustom { get; set; }
 
     [SerializeField] private List<Slot> slots; // 슬롯 이미지들
     public CCManager cManager { get; private set; }
@@ -52,7 +52,7 @@ public class ShopManager : MonoBehaviour
         if (slots.Count == 0)
             return;
 
-        for (int i = 0; i < slots.Count;i++)
+        for (int i = 0; i < slots.Count; i++)
         {
             slots[i].GetComponent<Image>().color = Color.white;
         }
@@ -60,14 +60,14 @@ public class ShopManager : MonoBehaviour
 
     public void LoadCharacterCustom()
     {
-        CharacterCustom = DataManager.Instance.CharacterCustomData[CharacterType.ToString()];
+        CharacterCustom = new CharacterCustom(DataManager.Instance.CharacterCustomData[CharacterType.ToString()]); // 복사 생성자 깊은 복사
         cManager.ChangeCharacterPartsSprite();
     }
 
     public void SetCharacterCustom() // 장착완료 시에 임시 캐릭터 커스텀에 해당 아이템을 설정해두기 위한 함수
     {
-       // CharacterCustom.ItemDict[ItemType.ToString()] = ItemInfo.Name;
-       CharacterCustom.ItemDict[ItemType.ToString()] = ItemInfo.Name+"_"+ CharacterType.ToString();  // 아이템 이름 + 캐릭터 타입
+        // CharacterCustom.ItemDict[ItemType.ToString()] = ItemInfo.Name;
+        CharacterCustom.ItemDict[ItemType.ToString()] = ItemInfo.Name + "_" + CharacterType.ToString();  // 아이템 이름 + 캐릭터 타입
     }
 
     public void CheckItemList(Contents.ItemType itemType) // 아이템 리스트 불러올 때 사용
@@ -91,7 +91,7 @@ public class ShopManager : MonoBehaviour
                 }
                 else
                 {
-                    slotImage.color =Color.white; //slots[i].unLock ? Color.white : Color.black; // 구입한지 안한지에 따라 흰 검  
+                    slotImage.color = Color.white; //slots[i].unLock ? Color.white : Color.black; // 구입한지 안한지에 따라 흰 검  
                 }
             }
         }
