@@ -113,7 +113,7 @@ public class DrawLine : MonoBehaviour
         GameObject.Destroy(line);
     }
 
-    public void ClearLIne()
+    public void ClearLineNS()
     {
         if (Stack_Line == null || Stack_Line.Count == 0) return;
 
@@ -121,6 +121,11 @@ public class DrawLine : MonoBehaviour
         {
             RevertLine();
         }
+    }
+
+    public void ClearLine()
+    {
+        ClearLineNS();
 
         // 효과음 추가
         GetComponent<SoundManager>().PlayEffect(Effect.Erase);
