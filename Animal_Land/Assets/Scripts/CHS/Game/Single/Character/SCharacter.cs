@@ -18,8 +18,8 @@ public class SCharacter : MonoBehaviour
     CharacterInfo           _characterInfo;
 
     [Header("이동 게이지")]
-    [SerializeField] private float _moveGauge = 10f;
-    [SerializeField] private float _maxMoveGauge = 10f;
+    [SerializeField] private float _moveGauge = 20f;
+    [SerializeField] private float _maxMoveGauge = 20f;
     [SerializeField] private float _moveGuageConsumption = 1f;
 
     [SerializeField] private SGameUIManager _gameUIManager;
