@@ -24,8 +24,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip BackGroundSound;
 
     [Header("º≥¡§")]
-    public Slider BGSound;
-    public Slider EffectSound;
+    public Slider BGSoundSlider;
+    public Slider EffectSoundSlider;
 
     [Header("¿Ã∆Â∆Æ")]
     [SerializeField] private AudioSource _effectSource;
@@ -71,14 +71,14 @@ public class SoundManager : MonoBehaviour
         if(userManager != null )
         {
             audioSource.volume = userManager.GetSoundVolume();
-            if (BGSound != null)
+            if (BGSoundSlider != null)
             {
-                BGSound.value = userManager.GetSoundVolume();
+                BGSoundSlider.value = userManager.GetSoundVolume();
             }
 
-            if (EffectSound != null)
+            if (EffectSoundSlider != null)
             {
-                EffectSound.value = userManager.GetEffectVolume();
+                EffectSoundSlider.value = userManager.GetEffectVolume();
             }
 
             if (_effectSource != null)
@@ -120,7 +120,7 @@ public class SoundManager : MonoBehaviour
         if(volume < 0.06f)
         {
             volume = 0.06f;
-            BGSound.value = volume;
+            BGSoundSlider.value = volume;
         }
 
         // √÷º⁄ ∞™ ∫∏¡§
@@ -141,7 +141,7 @@ public class SoundManager : MonoBehaviour
         if (volume < 0.06f)
         {
             volume = 0.06f;
-            EffectSound.value = volume;
+            EffectSoundSlider.value = volume;
         }
 
         // √÷º⁄ ∞™ ∫∏¡§
