@@ -306,6 +306,7 @@ public class DiagnosisAPI : MonoBehaviour
         // TODO : 정답을 확인하고 알맞는 효과음 재생
         {
             SoundManager soundManager = GameObject.Find("UIManager").GetComponent<SoundManager>();
+            SGameManager gameManager = GameObject.Find("GameManager").GetComponent<SGameManager>();
             if (soundManager == null)
             {
                 return;
@@ -313,6 +314,7 @@ public class DiagnosisAPI : MonoBehaviour
 
             if (isCorrect)
             {
+                gameManager.AddSolveScore();
                 soundManager.PlayEffect(Effect.Correct);
             }
             else

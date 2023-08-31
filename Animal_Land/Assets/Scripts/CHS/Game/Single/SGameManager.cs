@@ -30,7 +30,6 @@ public class SGameManager : MonoBehaviour
 
     [Header("스코어")]
     [SerializeField] private int _areaScore;
-    [SerializeField] private int _monsterScore;
     [SerializeField] private int _timeScore;
     [SerializeField] private int _solveScore;
 
@@ -232,11 +231,7 @@ public class SGameManager : MonoBehaviour
     // 점수를 추가하고 UI 갱신
     public void AddMonsterScore(int score)
     {
-        // 게임 오버가 아닌 상태에서만 점수 증가 가능
-        if (!isGameover)
-        {
-            _monsterScore += score;
-        }
+
     }
 
     public void SetAreaScore(int count)
@@ -246,7 +241,10 @@ public class SGameManager : MonoBehaviour
 
         if (!isGameover)
         {
-            _areaScore = (int)(count / wholeArea) * 100;
+            _areaScore = (int)((count / wholeArea) * 100);
+#if UNITY_EDITOR
+            Debug.Log("areaScore  : " + _areaScore);
+#endif
         }
 
         // 100% 다 채운 경우
@@ -256,9 +254,9 @@ public class SGameManager : MonoBehaviour
         }
     }
 
-    public void AddSolveScore(int count = 1)
+    public void AddSolveScore()
     {
-        _solveScore += count * 5;
+        _solveScore += 5;
     }
 
     public int GetTotalScore()
@@ -281,7 +279,7 @@ public class SGameManager : MonoBehaviour
             return;
         }
 
-        // TODO : _timeScore 갱신
+        // TODO : _timeScore 갱신 (게임 오버 시, 시간 점수 X)
         _timeScore = (int)(_maxGameTime - _gameTime);
         if(isGameover == false)
         {
@@ -476,6 +474,7 @@ public class SGameManager : MonoBehaviour
 
         // 게이지 회복
         float sliderValue = _player.GetComponent<SCharacter>().AddMoveGauge(_gaugeItemValue);
+        _player.GetComponent<SCharacter>().StartPlayer();
 
         // UI 갱신
         UIManager.AddMoveGauge(sliderValue);
