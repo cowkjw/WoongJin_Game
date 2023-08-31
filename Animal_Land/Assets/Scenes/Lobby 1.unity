@@ -192,7 +192,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAC8C\uC784\uC744 \uC885\uB8CC\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
+  m_text: Quit the game?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1da6f0d7862b46740a7ffac7403cdbd8, type: 2}
   m_sharedMaterial: {fileID: -5131027871326955410, guid: 1da6f0d7862b46740a7ffac7403cdbd8, type: 2}
@@ -2007,7 +2007,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -46}
+  m_AnchoredPosition: {x: 0, y: -34}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &268146418
@@ -2032,7 +2032,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 26c3103a1fee44640b431b420775d1c9, type: 3}
-    m_FontSize: 19
+    m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -2043,7 +2043,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1.3
-  m_Text: "\uB367\uC148\uACFC \uBE84\uC148\uC744\n\uD560 \uC218 \uC788\uC5B4\uC694\n"
+  m_Text: "Can addition \nand subtraction"
 --- !u!222 &268146419
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3097,7 +3097,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 26c3103a1fee44640b431b420775d1c9, type: 3}
-    m_FontSize: 18
+    m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -3108,7 +3108,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1.3
-  m_Text: "\uBD84\uC218\uC640 \uC18C\uC218\uB97C\n\uC54C\uACE0 \uC788\uC5B4\uC694"
+  m_Text: "Know fractions \nand decimals"
 --- !u!222 &437596633
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11408,7 +11408,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1.3
-  m_Text: "\uC218\uB97C\n\uC140 \uC218 \uC788\uC5B4\uC694"
+  m_Text: Can count
 --- !u!222 &1778824401
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12210,8 +12210,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 12800000, guid: 26c3103a1fee44640b431b420775d1c9, type: 3}
     - target: {fileID: 8791535110845239980, guid: 62c7d73d706941b4d92d51cc084a3a59, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8791535110845239980, guid: 62c7d73d706941b4d92d51cc084a3a59, type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 67
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 8791535110845239980, guid: 62c7d73d706941b4d92d51cc084a3a59, type: 3}
       propertyPath: m_FontData.m_FontStyle
@@ -13519,7 +13523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -34}
+  m_AnchoredPosition: {x: 0, y: -33.2}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2077524832
@@ -13544,7 +13548,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 26c3103a1fee44640b431b420775d1c9, type: 3}
-    m_FontSize: 18
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -13555,7 +13559,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1.3
-  m_Text: "\uACF1\uC148\uACFC \uB098\uB217\uC148\uC744\n\uD560 \uC218 \uC788\uC5B4\uC694"
+  m_Text: 'Can multiplication
+
+    and division'
 --- !u!222 &2077524833
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class PurchasePopUp : PopUpUI, IStatusCheckPopUP
     {
         base.Initialize();
 
-        SetCheckMessage("구매 아이템을 선택해주세요."); // 기본 메시지
+        SetCheckMessage("Choose the purchase item"); // 기본 메시지
         checkAction += ActivateButtons; // 델리게이트에 버튼 활성화/비활성화 함수 추가
         for (int i = 0; i < selectBtns.Count; i++)
         {
@@ -77,12 +77,12 @@ public class PurchasePopUp : PopUpUI, IStatusCheckPopUP
             DataManager.Instance.SavePlayerData(); // 플레이어 데이터 저장
             ViewManager.GetView<ShopMenuView>().OnPurchaseAction?.Invoke(); // 상점 UI 업데이트
 
-            return "구매 완료!";
+            return "Complete purchase!";
         }
         else
         {
             int difference = Math.Abs(playerGold - price); // 부족한 금액
-            return $"{difference} 골드가 부족합니다."; 
+            return $"You ard {difference} Gold short"; 
         }
     }
 
