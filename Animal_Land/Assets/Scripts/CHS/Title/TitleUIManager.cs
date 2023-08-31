@@ -82,7 +82,7 @@ public class TitleUIManager : MonoBehaviour
             TitlePopUp popUp = ViewManager.GetView<TitlePopUp>();
             if (popUp != null)
             {
-                popUp.SetCheckMessage("데이터를 다운받는 중입니다.");
+                popUp.SetCheckMessage("땅을 그리고 있는 중...");
                 ViewManager.Show<TitlePopUp>(true, true);
             }
 
@@ -100,7 +100,7 @@ public class TitleUIManager : MonoBehaviour
             TitlePopUp popUp = ViewManager.GetView<TitlePopUp>();
             if (popUp != null)
             {
-                popUp.SetCheckMessage("데이터를 다운받는 중입니다.");
+                popUp.SetCheckMessage("거의 다 그렸어요!!");
                 ViewManager.Show<TitlePopUp>(true, true);
             }
 

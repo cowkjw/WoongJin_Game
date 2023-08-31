@@ -75,7 +75,7 @@ public class PurchasePopUp : PopUpUI, IStatusCheckPopUP
             DataManager.Instance.PlayerData.Gold -= price; // 골드 차감
             DataManager.Instance.PlayerData.ShoppingList.Add(ShopManager.Instance.ItemInfo.Name); // 구매 리스트에 추가
             DataManager.Instance.SavePlayerData(); // 플레이어 데이터 저장
-            ViewManager.GetView<ShopMenuView>().OnShopClick?.Invoke(); // 상점 Gold UI 업데이트
+            ViewManager.GetView<ShopMenuView>().OnPurchaseAction?.Invoke(); // 상점 UI 업데이트
 
             return "구매 완료!";
         }
