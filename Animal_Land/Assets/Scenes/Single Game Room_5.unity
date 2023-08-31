@@ -308,8 +308,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackGroundSound: {fileID: 8300000, guid: c1e5c4c7f68753b4b9be8cbbd502c04a, type: 3}
-  BGSound: {fileID: 1705229906}
-  EffectSound: {fileID: 1695297934}
+  BGSoundSlider: {fileID: 1705229906}
+  EffectSoundSlider: {fileID: 1695297934}
   _effectSource: {fileID: 469331812}
   _playerSource: {fileID: 185393703}
   _monsterSource: {fileID: 909274144}
@@ -37224,7 +37224,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 80, y: -23.38}
-  m_SizeDelta: {x: 28, y: 28}
+  m_SizeDelta: {x: 20, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &630209798
 MonoBehaviour:
@@ -41975,7 +41975,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -162.7, y: -6}
-  m_SizeDelta: {x: 55, y: 55}
+  m_SizeDelta: {x: 40, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1592255717
 MonoBehaviour:

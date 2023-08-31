@@ -261,7 +261,7 @@ public class DiagnosisAPI : MonoBehaviour
         {
             if(UIManager.GetComponent<DrawLine>() != null)
             {
-                UIManager.GetComponent<DrawLine>().ClearLine();
+                UIManager.GetComponent<DrawLine>().ClearLineNS();
             }
         }
 
@@ -301,6 +301,24 @@ public class DiagnosisAPI : MonoBehaviour
         if (isCorrect)
         {
             _correctAnswers += 1;
+        }
+
+        // TODO : 정답을 확인하고 알맞는 효과음 재생
+        {
+            SoundManager soundManager = GameObject.Find("UIManager").GetComponent<SoundManager>();
+            if (soundManager == null)
+            {
+                return;
+            }
+
+            if (isCorrect)
+            {
+                soundManager.PlayEffect(Effect.Correct);
+            }
+            else
+            {
+                soundManager.PlayEffect(Effect.Wrong);
+            }
         }
     }
 

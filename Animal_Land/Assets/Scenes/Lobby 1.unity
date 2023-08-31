@@ -11609,8 +11609,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackGroundSound: {fileID: 8300000, guid: a3779ab7b2c3819408b404788bd1900b, type: 3}
-  BGSound: {fileID: 960836369}
-  EffectSound: {fileID: 349827569}
+  BGSoundSlider: {fileID: 960836369}
+  EffectSoundSlider: {fileID: 349827569}
   _effectSource: {fileID: 1681135773}
   _playerSource: {fileID: 123108204}
   _monsterSource: {fileID: 142213263}
