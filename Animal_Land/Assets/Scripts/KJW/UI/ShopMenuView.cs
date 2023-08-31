@@ -6,14 +6,15 @@ using UnityEngine.UI;
 
 public class ShopMenuView : View
 {
-    public Action OnShopClick; // 상점 클릭에 대한 업데이트 델리게이트
+    public Action OnShopClick = null; // 상점 클릭에 대한 업데이트 델리게이트
+    public Action OnPurchaseAction = null; // 구매해 대한 슬롯 및 저장 델리게이트
     public Action OnChangeCharacterAction = null;
     public bool canPutOn;
 
     [SerializeField] private Button backButton; // 뒤로가기 버튼
     [SerializeField] private Button buyButton; // 구매 버튼
     [SerializeField] private Button putOnButton; // 장착 버튼
-    [SerializeField] private Button representButton; // 장착 버튼
+    [SerializeField] private Button representButton; // 대표지정 버튼
     [SerializeField] private List<Button> categoryBtns; // 아이템 카테고리 버튼들
     [SerializeField] private List<Button> selectCharaceterBtns; // 캐릭터 선택 버튼
     [SerializeField] private List<Sprite> representCharaceterSprites; // 캐릭터 선택 버튼
@@ -32,6 +33,8 @@ public class ShopMenuView : View
         selectCharaceterBtns[(int)characterType].image.sprite = representCharaceterSprites[(int)characterType]; // 캐릭터 선택 이미지 대표 캐릭터로 변경
         OnShopClick += UpdateShopInterface;
         OnShopClick?.Invoke(); ; // 골드 UI Text 업데이트
+        OnPurchaseAction += DataManager.Instance.ReloadData;
+        OnPurchaseAction += UpdateGoldText;
 
         for (int i = 0; i < selectCharaceterBtns.Count; i++) // 캐릭터 선택 버튼들 초기화
         {
@@ -63,6 +66,17 @@ public class ShopMenuView : View
         representButton?.onClick.AddListener(() => DataManager.Instance.PlayerData.Character = ShopManager.Instance.CharacterType.ToString());
         representButton?.onClick.AddListener(() => DataManager.Instance.SavePlayerData());
         representButton?.onClick.AddListener(() => OnRepresentativeCharacterImageChange());
+
+        GameObject profile = GameObject.FindWithTag("Profile");
+        if (profile!=null)
+        {
+           ProfileSetting profileSetting = profile.GetComponent<ProfileSetting>();
+            if (profileSetting != null)
+            {
+                putOnButton.onClick.AddListener(() => profileSetting.OnChanageProfileAction?.Invoke());
+                representButton.onClick.AddListener(() => profileSetting.OnChanageProfileAction?.Invoke());
+            }
+        }
     }
 
     void UpdateShopInterface() // 상점 업데이트를 위함 (킬 때마다)
@@ -157,7 +171,7 @@ public class ShopMenuView : View
             {
                 popUp.SetCheckMessage("장착 할 아이템을 고르세요");
             }
-           
+
         }
         else
         {

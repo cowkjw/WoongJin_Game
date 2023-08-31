@@ -28,6 +28,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler
         ShopMenuView shopMenuView = ViewManager.GetView<ShopMenuView>();
         if(shopMenuView != null )
         {
+            shopMenuView.OnPurchaseAction += ResetSlot;
             shopMenuView.OnShopClick += ResetSlot;
             shopMenuView.OnChangeCharacterAction += UpdateItemImage;
         }
