@@ -25,7 +25,13 @@ public class Slot : MonoBehaviour, IPointerDownHandler
         SlotIndex = transform.GetSiblingIndex();
         InitializeSlot(_itemType); // 기본은 얼굴 장식 Slot 초기화
         ShopManager.Instance.UpdateShopItemListAction += InitializeSlot; // 슬롯 초기화
-        ViewManager.GetView<ShopMenuView>().OnShopClick += ResetSlot;
+        ShopMenuView shopMenuView = ViewManager.GetView<ShopMenuView>();
+        if(shopMenuView != null )
+        {
+            shopMenuView.OnPurchaseAction += ResetSlot;
+            shopMenuView.OnShopClick += ResetSlot;
+            shopMenuView.OnChangeCharacterAction += UpdateItemImage;
+        }
     }
 
 
@@ -38,20 +44,19 @@ public class Slot : MonoBehaviour, IPointerDownHandler
         _itemType = itemType; // 현재 슬롯의 아이템 타입 설정
 
         var element = DataManager.Instance.PropsItemDict[itemType.ToString()].ElementAtOrDefault(SlotIndex); // 리스트에 해당 인덱스 데이터가 있다면
-
+        
         if (element != default)
         {
             SlotInfo = element;
             isCanClick = true;
+            this.GetComponent<Image>().color = new Color(255, 255, 255, 1);
             if (DataManager.Instance.PlayerData.ShoppingList.Count > 0 && DataManager.Instance.PlayerData.ShoppingList.Contains(SlotInfo.Name)) // 이미 구입한 상품이라면
             {
-                this.GetComponent<Image>().color = new Color(255, 255, 255, 1);
                 unLock = true;
                 _lock.gameObject?.SetActive(false); // 자물쇠 비활성화 
             }
             else
             {
-                this.GetComponent<Image>().color = new Color(255, 255, 255, 1);
                 unLock = false;
                 _lock.gameObject?.SetActive(true); // 자물쇠 활성화
             }
@@ -78,7 +83,32 @@ public class Slot : MonoBehaviour, IPointerDownHandler
             _itemImage = GetComponent<Image>();
         }
 
-        Sprite itemSprite = Resources.Load<Sprite>($"Sprites/Items/{_itemType.ToString()}/{SlotInfo.Name}");
+        Sprite itemSprite = null;
+        if (_itemType==ItemType.Face) // 얼굴일 때만 각자 캐릭터 얼굴 띄우기
+        {
+            string ch = string.Empty; // 캐릭터 앞 철자만 따오기
+            switch (ShopManager.Instance.CharacterType)
+            {
+                case CharacterType.Bird:
+                    ch = "b";
+                    break;
+                case CharacterType.Cat:
+                    ch = "c";
+                    break;
+                case CharacterType.Dog:
+                    ch = "d";
+                    break;
+                case CharacterType.Frog:
+                    ch = "f";
+                    break;
+            }
+            itemSprite = Resources.Load<Sprite>($"Sprites/Items/{_itemType.ToString()}/{ch + SlotInfo.Name}");
+        }
+        else
+        {
+            itemSprite = Resources.Load<Sprite>($"Sprites/Items/{_itemType.ToString()}/{SlotInfo.Name}");
+        }
+
         if (itemSprite != null)
         {
             _itemImage.sprite = itemSprite;

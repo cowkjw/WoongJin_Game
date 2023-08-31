@@ -1979,8 +1979,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 19.74, y: 9}
-  m_SizeDelta: {x: 310.04, y: 30}
+  m_AnchoredPosition: {x: 17.73, y: 11.69}
+  m_SizeDelta: {x: 357.03, y: 35.37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1260208670
 MonoBehaviour:
@@ -1995,7 +1995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.3773585, g: 0.29725882, b: 0.2999288, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2003,9 +2003,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 27bfda5758a3bbf49bb3d176cd39fa37, type: 3}
+    m_Font: {fileID: 12800000, guid: 26c3103a1fee44640b431b420775d1c9, type: 3}
     m_FontSize: 34
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 45
@@ -2015,7 +2015,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC785\uB825\uC774 \uD544\uC694\n"
+  m_Text: "\uB545\uC744 \uADF8\uB9AC\uB294 \uC788\uB294 \uC911..."
 --- !u!222 &1260208671
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -1,6 +1,5 @@
 using Contents;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,12 +23,12 @@ public class CCManager : MonoBehaviour
             if (tempSprite != null)
             {
                 Parts[(int)itemType].sprite = tempSprite;
-                Parts[(int)itemType].color = new Color(255, 255, 255, 255);
+                Parts[(int)itemType].color = Color.white;
             }
             else
             {
                 Parts[(int)itemType].sprite = null;
-                 Parts[(int)itemType].color = new Color(0, 0, 0, 0);
+                Parts[(int)itemType].color = Color.clear;
             }
         }
     }
@@ -46,12 +45,12 @@ public class CCManager : MonoBehaviour
         if (tempSprite != null)
         {
             Parts[(int)type].sprite = tempSprite;
-            Parts[(int)type].color = new Color(255, 255, 255, 255);
+            Parts[(int)type].color = Color.white;
         }
         else
         {
             Parts[(int)type].sprite = null;
-            Parts[(int)type].color = new Color(0, 0, 0, 0);
+            Parts[(int)type].color = Color.clear;
         }
     }
 
@@ -67,12 +66,12 @@ public class CCManager : MonoBehaviour
             if (tempSprite != null)
             {
                 Parts[(int)itemType].sprite = tempSprite;
-                Parts[(int)itemType].color = new Color(255, 255, 255, 255);
+                Parts[(int)itemType].color = Color.white;
             }
             else
             {
                 Parts[(int)itemType].sprite = null;
-                Parts[(int)itemType].color = new Color(0, 0, 0, 0);
+                Parts[(int)itemType].color = Color.clear;
             }
         }
     }

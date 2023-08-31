@@ -18,7 +18,8 @@ namespace Contents
         Bird,
         Cat,
         Dog,
-        Frog
+        Frog,
+        None
     }
 
     public enum StatType

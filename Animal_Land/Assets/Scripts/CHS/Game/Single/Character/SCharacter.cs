@@ -192,12 +192,12 @@ public class SCharacter : MonoBehaviour
         SpriteRenderer Hat = this.gameObject.transform.Find("Hat").GetComponent<SpriteRenderer>();
         SpriteRenderer Face = this.gameObject.transform.Find("Face").GetComponent<SpriteRenderer>();
         SpriteRenderer Glasses = this.gameObject.transform.Find("Glass").GetComponent<SpriteRenderer>();
-        SpriteRenderer Etc = this.gameObject.transform.Find("Necklace").GetComponent<SpriteRenderer>();
+        SpriteRenderer Etc = this.gameObject.transform.Find("Etc").GetComponent<SpriteRenderer>();
 
-        DataManager _dataManager = GameObject.Find("@DataManager").GetComponent<DataManager>();
-        if(_dataManager != null )
+      //  DataManager _dataManager = GameObject.Find("@DataManager").GetComponent<DataManager>();
+        if(DataManager.Instance != null )
         {
-            CharacterCustom customData = _dataManager.CharacterCustomData[type];
+            CharacterCustom customData = DataManager.Instance.CharacterCustomData[type];
 
             // TODO : 여기서 스프라이트 name을 불러와서 파일에 접근한 뒤에 업데이트
             if (customData.ItemDict["Hat"] != null)
@@ -217,7 +217,7 @@ public class SCharacter : MonoBehaviour
 
             if (customData.ItemDict["Etc"] != null)
             {
-                Etc.sprite = Resources.Load<Sprite>("Sprites/Items/Hat/" + customData.ItemDict["Etc"]);
+                Etc.sprite = Resources.Load<Sprite>("Sprites/Items/Etc/" + customData.ItemDict["Etc"]);
             }
         }
     }

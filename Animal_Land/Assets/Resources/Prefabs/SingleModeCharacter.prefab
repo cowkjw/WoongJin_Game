@@ -837,7 +837,7 @@ GameObject:
   - component: {fileID: 2617230943077772889}
   - component: {fileID: 4613301083486643688}
   m_Layer: 6
-  m_Name: Necklace
+  m_Name: Etc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
