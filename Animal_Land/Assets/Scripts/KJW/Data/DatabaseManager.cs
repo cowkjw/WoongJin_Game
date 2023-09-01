@@ -1,26 +1,11 @@
 using Contents;
 using Firebase;
 using Firebase.Database;
-using Google.MiniJSON;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
-
-public class Rank
-{
-    public Rank() { }
-    public Rank(string name, int score)
-    {
-        this.Name = name;
-        this.Score = score;
-    }
-
-    public string Name; // 닉네임 설정
-    public int Score; // 점수
-}
 
 public enum DataType // 데이터 타입 enum
 {
@@ -94,11 +79,9 @@ public class DatabaseManager : MonoBehaviour
                 case DataType.Users: // 유저 정보
                    await ReadUsersData();
                     break;
-                case DataType.ItemData: // 상점 아이템 정보
-                    await ReadItemData();
-                    break;
-                case DataType.CustomData: // 만약 처음 실행이라면 커스텀 목록 json 파일 형식 받아와서 저장
-                    await ReadCustomData();
+
+                default:
+                    await ReadJsonData(root);
                     break;
             }
         }
@@ -107,6 +90,12 @@ public class DatabaseManager : MonoBehaviour
             Debug.LogError($"데이터 베이스를 읽는데 실패했습니다.: {e.Message}");
         }
     }
+
+    //public async Task WriteAndReadDB(int score = 0)
+    //{
+    //    await WriteDB();
+    //    await ReadDB(DataType.Users); // 불러올 때까지 기다림
+    //}
 
     async Task ReadUsersData()
     {
@@ -133,29 +122,13 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    async Task ReadItemData()
+    async Task ReadJsonData(DataType root)
     {
         try
         {
             DataSnapshot dataSnapshot = await reference.GetValueAsync();
             string jsonData = dataSnapshot.GetRawJsonValue();
-            string savePath = Path.Combine(Application.persistentDataPath, $"Data/{DataType.ItemData.ToString()}.json");
-            File.WriteAllText(savePath, jsonData);
-            DataManager.Instance?.ReloadData();
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"아이템 데이터를 읽는데 실패했습니다.: {e.Message}");
-        }
-    }
-
-    async Task ReadCustomData()
-    {
-        try
-        {
-            DataSnapshot dataSnapshot = await reference.GetValueAsync();
-            string jsonData = dataSnapshot.GetRawJsonValue();
-            string savePath = Path.Combine(Application.persistentDataPath, $"Data/{DataType.CustomData.ToString()}.json");
+            string savePath = Path.Combine(Application.persistentDataPath, $"Data/{root.ToString()}.json");
             File.WriteAllText(savePath, jsonData);
             DataManager.Instance?.ReloadData();
         }
