@@ -48,7 +48,6 @@ public class ShopMenuView : View
             categoryBtns[i]?.onClick.AddListener(() => OnItemCategoryButtonClicked(itemType));
         }
 
-
         categoryBtns[(int)ItemType.Face].image.color = Color.white; // 처음 켜질 때 얼굴 카테고리 버튼만 밝게
     }
 
@@ -102,6 +101,7 @@ public class ShopMenuView : View
             ShopManager.Instance.LoadCharacterCustom();
             characterType = (CharacterType)characterIndex;
             OnChangeCharacterAction?.Invoke();
+            ShopManager.Instance.InitSlotClicked();
         }
     }
 
@@ -193,11 +193,7 @@ public class ShopMenuView : View
         popUp.checkAction(false); // 완료 버튼만 뜨도록
         ViewManager.Show<PurchasePopUp>(true, true);
 
-        // 데이터 매니저의 캐릭터 커스텀 데이터를 현재 상점 창의 캐릭터 커스텀으로 할당
-        DataManager.Instance.CharacterCustomData[characterType.ToString()] = ShopManager.Instance.CharacterCustom;
-        DataManager.Instance.SaveData<IDictionary<string, Contents.CharacterCustom>>
-            (DataManager.Instance.CharacterCustomData, "CustomData");
-        DataManager.Instance.ReloadData(); // 다시 저장한 데이터 불러옴
+        ShopManager.Instance.CheckItemAndSave();
     }
     #endregion
 }
