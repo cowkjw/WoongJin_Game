@@ -37,9 +37,8 @@ public class DrawLine : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            Debug.Log("Draw Start");
             // 시작 위치에서 생성
             GameObject go = Instantiate(Prefab_line);
 
@@ -61,9 +60,8 @@ public class DrawLine : MonoBehaviour
             // 스택에 Line을 추가한다.
             Stack_Line.Push(go);
         }
-        else if (Input.GetMouseButton(0))
+        else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
-            Debug.Log("Drawing");
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             // 추가적으로 Line Renderer를 이용하여 그린다.
@@ -72,9 +70,8 @@ public class DrawLine : MonoBehaviour
             lr.positionCount++;
             lr.SetPosition(lr.positionCount - 1, pos);
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled))
         {
-            Debug.Log("Draw end");
             List_Points.Clear();
         }
     }
