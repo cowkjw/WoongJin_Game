@@ -29,7 +29,6 @@ public class DiagnosisAPI : MonoBehaviour
     private int _correctAnswerRemind; // 정답 인덱스 저장
     private int _diagnosisIndex; // 진단 인덱스
     private int _correctAnswers; // 맞은 정답 수 
-    private IEnumerator _timerCoroutine;
 
     private void Awake()
     {
@@ -41,7 +40,6 @@ public class DiagnosisAPI : MonoBehaviour
         _correctAnswerRemind = 0;
         _diagnosisIndex = 0;
         _correctAnswers = 0;
-        _timerCoroutine = null;
     }
 
     void Start()

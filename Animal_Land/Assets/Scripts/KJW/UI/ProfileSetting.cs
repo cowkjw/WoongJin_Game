@@ -17,9 +17,8 @@ public class ProfileSetting : MonoBehaviour
     [SerializeField] List<Image> Parts;
 
     private IDictionary<string, Sprite> _characterSprites = new Dictionary<string, Sprite>();
-    private CharacterType _characterType = CharacterType.None;
 
-    void Awake()
+    void Start()
     {
         InitProfile();
         OnChanageProfileAction += SetProfile;
