@@ -22,17 +22,6 @@ public class TitleUIManager : MonoBehaviour
     // 멤버 변수
     private bool _isCanMoveToLobby = false;
 
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
-
     public void SetCanMoveToLobby(bool value)
     {
         _isCanMoveToLobby = value;
@@ -62,7 +51,7 @@ public class TitleUIManager : MonoBehaviour
         }
     }
 
-    async void GoToLobby()
+    async Task GoToLobby()
     {
         if (Application.internetReachability == NetworkReachability.NotReachable) // 데이터 다운로드 또는 인터넷 연결
         {
@@ -78,7 +67,6 @@ public class TitleUIManager : MonoBehaviour
 
         if (DataManager.Instance.PropsItemDict.Count <= 0) // 데이터가 안불러와진 경우
         {
-
             TitlePopUp popUp = ViewManager.GetView<TitlePopUp>();
             if (popUp != null)
             {
@@ -91,7 +79,6 @@ public class TitleUIManager : MonoBehaviour
             {
               await DatabaseManager.Instance.ReadDB(DataType.ItemData);
             }
-
             return;
         }
 
@@ -108,6 +95,7 @@ public class TitleUIManager : MonoBehaviour
             {
                 await DatabaseManager.Instance.ReadDB(DataType.CustomData);
             }
+            return;
         }
 
         ChangeRoom("Lobby 1");
