@@ -35,7 +35,8 @@ public class SCharacter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        _moveGauge = 10f; _maxMoveGauge = 10f;
+        _moveGuageConsumption = 0.5f;
     }
 
 

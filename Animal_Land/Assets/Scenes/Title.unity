@@ -714,7 +714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &548024249
 Transform:
   m_ObjectHideFlags: 0
@@ -1458,8 +1458,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackGroundSound: {fileID: 8300000, guid: 5a62ce1a4374b054ab1916a3c8e9a68f, type: 3}
-  BGSound: {fileID: 0}
-  EffectSound: {fileID: 0}
+  BGSoundSlider: {fileID: 0}
+  EffectSoundSlider: {fileID: 0}
   _effectSource: {fileID: 601848605}
   _playerSource: {fileID: 1392068885}
   _monsterSource: {fileID: 874974147}
@@ -2928,8 +2928,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1304289e446615b44b0c9ab956d63b98, type: 2}
   - {fileID: 11400000, guid: 5a47f3347f0424f43a3241ed63b0352e, type: 2}
   - {fileID: 11400000, guid: 081334abf5ca55948b4925fe3be1c5a8, type: 2}
-  _soundVolume: 0.25
-  _effectVolume: 0.25
+  _soundVolume: 0.19
+  _effectVolume: 0.19
 --- !u!1 &2021033018
 GameObject:
   m_ObjectHideFlags: 0

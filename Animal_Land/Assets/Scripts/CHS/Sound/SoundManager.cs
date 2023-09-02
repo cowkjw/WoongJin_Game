@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.UI;
 
 public enum Effect
@@ -70,6 +71,20 @@ public class SoundManager : MonoBehaviour
         userManager = GameObject.Find("UserManager").GetComponent<UserManager>();
         if(userManager != null )
         {
+            float bgVolume = userManager.GetSoundVolume() + 0.06f;
+            float effectVolume = userManager.GetEffectVolume() + 0.06f;
+            if (bgVolume > 0.5f)
+            {
+                bgVolume = 0.5f;
+            }
+            if (effectVolume > 0.5f)
+            {
+                effectVolume = 0.5f;
+            }
+
+            userManager.SetEffectVolume(effectVolume);
+            userManager.SetSoundVolume(bgVolume);
+
             audioSource.volume = userManager.GetSoundVolume();
             if (BGSoundSlider != null)
             {
