@@ -82,7 +82,7 @@ public class PurchasePopUp : PopUpUI, IStatusCheckPopUP
         else
         {
             int difference = Math.Abs(playerGold - price); // 부족한 금액
-            return $"You ard {difference} Gold short"; 
+            return $"You are {difference} Gold short"; 
         }
     }
 
