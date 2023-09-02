@@ -143,7 +143,7 @@ public class ShopMenuView : View
 
         if (ShopManager.Instance.ItemInfo == null)
         {
-            popUp.SetCheckMessage("구매 할 아이템을 고르세요");
+            popUp.SetCheckMessage("Choose the purchase item");
             popUp.checkAction(false); // 완료 버튼만 뜨도록
         }
         ViewManager.Show<PurchasePopUp>(true, true);
@@ -165,11 +165,11 @@ public class ShopMenuView : View
         {
             if (ShopManager.Instance.CharacterCustom.ItemDict[ShopManager.Instance.ItemType.ToString()] == " ") // 기본 셋팅일때
             {
-                popUp.SetCheckMessage("장착 완료!");
+                popUp.SetCheckMessage("Complete a setting!");
             }
             else // 아무것도 고르지 않았을 때
             {
-                popUp.SetCheckMessage("장착 할 아이템을 고르세요");
+                popUp.SetCheckMessage("Select an item");
             }
 
         }
@@ -177,7 +177,7 @@ public class ShopMenuView : View
         {
             if (DataManager.Instance.PlayerData.ShoppingList.Contains(ShopManager.Instance.ItemInfo.Name) == false) // 아이템 미보유
             {
-                popUp.SetCheckMessage("보유하고 있지 않습니다!");
+                popUp.SetCheckMessage("You don't have it!");
                 ShopManager.Instance.ItemInfo = null;
                 popUp.checkAction(false); // 완료 버튼만 뜨도록
                 ViewManager.Show<PurchasePopUp>(true, true);
@@ -186,7 +186,7 @@ public class ShopMenuView : View
             else
             {
                 ShopManager.Instance.SetCharacterCustom(); // 선택 시에 만약 가지고 있는 아이템이라면
-                popUp.SetCheckMessage("장착 완료!");
+                popUp.SetCheckMessage("Complete a setting!");
                 ShopManager.Instance.ItemInfo = null;
             }
         }

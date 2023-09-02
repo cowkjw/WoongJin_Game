@@ -884,7 +884,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: 30.03}
+  m_AnchoredPosition: {x: 5, y: 24}
   m_SizeDelta: {x: 318.38, y: 60.07}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &125671303
@@ -40740,7 +40740,6 @@ MonoBehaviour:
   _playButton: {fileID: 0}
   UIManager: {fileID: 31344905}
   _areaScore: 0
-  _monsterScore: 0
   _timeScore: 0
   _solveScore: 0
   _money: 0

@@ -58,7 +58,7 @@ public class TitleUIManager : MonoBehaviour
             TitlePopUp popUp = ViewManager.GetView<TitlePopUp>();
             if (popUp != null)
             {
-                popUp.SetCheckMessage("인터넷 연결을 확인하세요.");
+                popUp.SetCheckMessage("Check your internet connection.");
                 ViewManager.Show<TitlePopUp>(true, true);
             }
             Debug.LogError("인터넷 연결을 확인하세요.");
@@ -70,7 +70,7 @@ public class TitleUIManager : MonoBehaviour
             TitlePopUp popUp = ViewManager.GetView<TitlePopUp>();
             if (popUp != null)
             {
-                popUp.SetCheckMessage("땅을 그리고 있는 중...");
+                popUp.SetCheckMessage("Drawing the ground...");
                 ViewManager.Show<TitlePopUp>(true, true);
             }
 
@@ -87,7 +87,7 @@ public class TitleUIManager : MonoBehaviour
             TitlePopUp popUp = ViewManager.GetView<TitlePopUp>();
             if (popUp != null)
             {
-                popUp.SetCheckMessage("거의 다 그렸어요!!");
+                popUp.SetCheckMessage("I'm almost done!!");
                 ViewManager.Show<TitlePopUp>(true, true);
             }
 

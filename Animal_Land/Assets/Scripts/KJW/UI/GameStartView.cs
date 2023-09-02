@@ -60,7 +60,7 @@ public class GameStartView : View
     IEnumerator WaitForClosePopUP(StatPurchasePopUp popUP, int index, StatType statType) // 구매 팝업 종료까지 기다리기 위한 코루틴
     {
 
-        popUP?.SetCheckMessage($"{statType.ToString()}를 구매하시겠습니까?");
+        popUP?.SetCheckMessage($"Want to buy {statType.ToString()}?");
 
         while (popUP.gameObject.activeSelf) // 팝업창이 종료될 때까지
         {
@@ -134,7 +134,7 @@ public class GameStartView : View
 
         if (DataManager.Instance.PlayerData.Gold < needGold)
         {
-            popUP.SetCheckMessage("골드가 부족합니다.");
+            popUP.SetCheckMessage("Not enough Gold");
             ViewManager.GetView<StatPurchasePopUp>()?.OnOkayButton(true);
             ViewManager.Show<StatPurchasePopUp>(true, true); // 구매창 팝업
             return;
@@ -163,7 +163,7 @@ public class GameStartView : View
         else
         {
             ViewManager.GetView<StatPurchasePopUp>()?.OnOkayButton(true);
-            popUP.SetCheckMessage($"더 구매할 수 없습니다.");
+            popUP.SetCheckMessage("You can't buy more");
         }
     }
     #endregion

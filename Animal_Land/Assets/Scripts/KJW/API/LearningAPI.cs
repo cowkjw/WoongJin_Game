@@ -235,6 +235,7 @@ public class LearningAPI : MonoBehaviour
                 if (currentQuestionIndex >= 2) // 문제 개수
                 {
                     StartCoroutine(ColoringCorrectAnswer(1.5f));
+               
                     //uIManager.CloseSolveScreen();
 
                     if (_timerCoroutine != null)
@@ -324,6 +325,8 @@ public class LearningAPI : MonoBehaviour
         ansCheckImage.gameObject.SetActive(false); 
         if (currentQuestionIndex >= 2) // 문제 개수
         {
+            textDescription.text = "";
+            textEquation.text = "";
             yield return null;
         }
         SetupQuestion(textCn, qstCn, qstCransr, qstWransr);

@@ -137,7 +137,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler
         ShopMenuView shopMenu = ViewManager.GetView<ShopMenuView>();
         if (DataManager.Instance.PlayerData.ShoppingList.Contains(SlotInfo.Name)) // 이미 구입한 아이템이라면
         {
-            message = "이미 구매한 아이템입니다.";
+            message = "Already been purchased";
             
             notHave = false;
             if (shopMenu != null)
@@ -147,7 +147,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler
         }
         else
         {
-            message = $"{SlotInfo.Price} 골드가 소모됩니다.\n구매 하시겠습니까?";
+            message = $"{SlotInfo.Price} Gold will be consumed.\nDo you want to buy it?";
             if (shopMenu != null)
        
      {

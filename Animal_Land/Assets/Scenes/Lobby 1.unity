@@ -1956,7 +1956,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 26c3103a1fee44640b431b420775d1c9, type: 3}
-    m_FontSize: 19
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -1967,7 +1967,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1.3
-  m_Text: "\uB367\uC148\uACFC \uBE84\uC148\uC744\n\uD560 \uC218 \uC788\uC5B4\uC694\n"
+  m_Text: 'Can addition
+
+    and substraction'
 --- !u!222 &268146419
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2996,7 +2998,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -36.000015}
+  m_AnchoredPosition: {x: 0, y: -42.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &437596632
@@ -3021,7 +3023,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 26c3103a1fee44640b431b420775d1c9, type: 3}
-    m_FontSize: 18
+    m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -3032,7 +3034,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1.3
-  m_Text: "\uBD84\uC218\uC640 \uC18C\uC218\uB97C\n\uC54C\uACE0 \uC788\uC5B4\uC694"
+  m_Text: 'Know fractions
+
+    and decimals'
 --- !u!222 &437596633
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7246,7 +7250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -166.99994, y: 254}
+  m_AnchoredPosition: {x: -221, y: 237}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1151999036
@@ -11296,7 +11300,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -36}
+  m_AnchoredPosition: {x: 0, y: -44.4}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1778824400
@@ -11332,7 +11336,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1.3
-  m_Text: "\uC218\uB97C\n\uC140 \uC218 \uC788\uC5B4\uC694"
+  m_Text: Can count
 --- !u!222 &1778824401
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11888,8 +11892,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -319.37, y: 59.39}
-  m_SizeDelta: {x: 172.37, y: 243.11}
+  m_AnchoredPosition: {x: -319.37, y: 56.825}
+  m_SizeDelta: {x: 172.37, y: 237.98}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1897189889
 MonoBehaviour:
@@ -12117,6 +12121,10 @@ PrefabInstance:
       value: -170
       objectReference: {fileID: 0}
     - target: {fileID: 8791535110845239980, guid: 62c7d73d706941b4d92d51cc084a3a59, type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8791535110845239980, guid: 62c7d73d706941b4d92d51cc084a3a59, type: 3}
       propertyPath: m_Color.b
       value: 0.28627452
       objectReference: {fileID: 0}
@@ -12133,8 +12141,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 12800000, guid: 26c3103a1fee44640b431b420775d1c9, type: 3}
     - target: {fileID: 8791535110845239980, guid: 62c7d73d706941b4d92d51cc084a3a59, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8791535110845239980, guid: 62c7d73d706941b4d92d51cc084a3a59, type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 67
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8791535110845239980, guid: 62c7d73d706941b4d92d51cc084a3a59, type: 3}
       propertyPath: m_FontData.m_FontStyle
@@ -12143,6 +12155,10 @@ PrefabInstance:
     - target: {fileID: 8791535110845239981, guid: 62c7d73d706941b4d92d51cc084a3a59, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 8791535110845239981, guid: 62c7d73d706941b4d92d51cc084a3a59, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 8791535110909875790, guid: 62c7d73d706941b4d92d51cc084a3a59, type: 3}
       propertyPath: m_IsActive
@@ -13442,7 +13458,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -34}
+  m_AnchoredPosition: {x: 0, y: -44.3}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2077524832
@@ -13467,7 +13483,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 26c3103a1fee44640b431b420775d1c9, type: 3}
-    m_FontSize: 18
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -13478,7 +13494,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1.3
-  m_Text: "\uACF1\uC148\uACFC \uB098\uB217\uC148\uC744\n\uD560 \uC218 \uC788\uC5B4\uC694"
+  m_Text: 'Can multiplication
+
+    and division'
 --- !u!222 &2077524833
 CanvasRenderer:
   m_ObjectHideFlags: 0

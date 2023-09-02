@@ -145,7 +145,7 @@ public class ShopManager : MonoBehaviour
         if (ItemInfo != null)
         {
             ItemInfo = null;
-            ViewManager.GetView<PurchasePopUp>()?.SetCheckMessage("구매 아이템을 선택해주세요.");
+            ViewManager.GetView<PurchasePopUp>()?.SetCheckMessage("Choose the purchase item");
             ViewManager.GetView<PurchasePopUp>()?.checkAction(false);
         }
     }
