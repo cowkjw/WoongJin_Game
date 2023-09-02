@@ -1,6 +1,7 @@
 using Contents;
 using System;
 using System.Collections.Generic;
+using TexDrawLib;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,7 +33,14 @@ public class ShopManager : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Start()
@@ -59,12 +67,12 @@ public class ShopManager : MonoBehaviour
 
     public void InitSlotClicked()
     {
-        if (slots.Count == 0)
-            return;
+        if (slots.Count == 0) return;
 
-        for (int i = 0; i < slots.Count; i++)
+        ItemInfo = null;
+        foreach (var slot in slots)
         {
-            slots[i].GetComponent<Image>().color = Color.white;
+            slot.GetComponent<Image>().color = Color.white;
         }
     }
 
@@ -104,6 +112,32 @@ public class ShopManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void CheckItemAndSave()
+    {
+        if (DataManager.Instance == null) return;  
+
+        foreach(var data in CharacterCustom.ItemDict)
+        {
+            string[] item = data.Value.Split("_");
+            if (DataManager.Instance.PlayerData.ShoppingList.TryGetValue(item[0], out string tempItem) && tempItem != null)
+            {
+                if(tempItem != null) 
+                {
+                    tempItem += ("_" + CharacterType.ToString());
+                    DataManager.Instance.CharacterCustomData[CharacterType.ToString()].ItemDict[data.Key] = tempItem;
+                }
+            }
+            else
+            {
+                DataManager.Instance.CharacterCustomData[CharacterType.ToString()].ItemDict[data.Key] = " ";
+            }
+        }
+        DataManager.Instance.SaveData<IDictionary<string, Contents.CharacterCustom>>
+           (DataManager.Instance.CharacterCustomData, "CustomData");
+        DataManager.Instance.ReloadData(); // 다시 저장한 데이터 불러옴
+        LoadCharacterCustom();
     }
 
     private void OnDisable()

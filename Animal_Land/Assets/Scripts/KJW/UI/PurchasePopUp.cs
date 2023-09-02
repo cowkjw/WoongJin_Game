@@ -22,9 +22,9 @@ public class PurchasePopUp : PopUpUI, IStatusCheckPopUP
         for (int i = 0; i < selectBtns.Count; i++)
         {
             int index = i; // 변수를 캡쳐하기 때문에 i를 안넣고 로컬로 따로 변수에 할당해서 사용
-            selectBtns[i].onClick.AddListener(() => OnSelectPurchase(index));
-            selectBtns[i].onClick.AddListener(() => ShopManager.Instance.InitSlotClicked());
-            selectBtns[i].gameObject.SetActive(false);
+            selectBtns[i]?.onClick.AddListener(() => OnSelectPurchase(index));
+            selectBtns[i]?.onClick.AddListener(() => ShopManager.Instance.InitSlotClicked());
+            selectBtns[i]?.gameObject.SetActive(false);
         }
         closeButton?.onClick.AddListener(() => ShopManager.Instance.InitSlotClicked());
     }
