@@ -152,12 +152,13 @@ public class DiagnosisAPI : MonoBehaviour
 
 
 
-        if (textCn.Contains("최대공약수") && textCn.Contains("최대공약수"))
+        if (textCn.Contains("최대공약수") || textCn.Contains("최소공배수") ||
+           textCn.Contains("greatest")|| textCn.Contains("minimum"))
         {
             ProblemConverter converter = new ProblemConverter();
             qstCn = converter.ProblemConvert(qstCn, ProblemType.A);
         }
-        else if (textCn.Contains("방정식"))
+        else if (textCn.Contains("방정식") || textCn.Contains("equation"))
         {
             ProblemConverter converter = new ProblemConverter();
             qstCn = converter.ProblemConvert(qstCn, ProblemType.B);
@@ -306,7 +307,6 @@ public class DiagnosisAPI : MonoBehaviour
         // TODO : 정답을 확인하고 알맞는 효과음 재생
         {
             SoundManager soundManager = GameObject.Find("UIManager").GetComponent<SoundManager>();
-            SGameManager gameManager = GameObject.Find("GameManager").GetComponent<SGameManager>();
             if (soundManager == null)
             {
                 return;
@@ -314,7 +314,6 @@ public class DiagnosisAPI : MonoBehaviour
 
             if (isCorrect)
             {
-                gameManager.AddSolveScore();
                 soundManager.PlayEffect(Effect.Correct);
             }
             else

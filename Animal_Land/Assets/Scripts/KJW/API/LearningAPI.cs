@@ -126,12 +126,13 @@ public class LearningAPI : MonoBehaviour
 
 
 
-        if (textCn.Contains("최대공약수") && textCn.Contains("최대공약수"))
+        if (textCn.Contains("최대공약수") || textCn.Contains("최소공배수")||
+           textCn.Contains("greatest") || textCn.Contains("minimum"))
         {
             ProblemConverter converter = new ProblemConverter();
             qstCn = converter.ProblemConvert(qstCn, ProblemType.A);
         }
-        else if (textCn.Contains("방정식"))
+        else if (textCn.Contains("방정식")|| textCn.Contains("equation"))
         {
             ProblemConverter converter = new ProblemConverter();
             qstCn = converter.ProblemConvert(qstCn, ProblemType.B);

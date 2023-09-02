@@ -29,6 +29,19 @@ namespace Contents
         ENERGY
     }
 
+    public class Rank
+    {
+        public Rank() { }
+        public Rank(string name, int score)
+        {
+            this.Name = name;
+            this.Score = score;
+        }
+
+        public string Name; // 닉네임 설정
+        public int Score; // 점수
+    }
+
     public class CharacterCustom
     {
         public CharacterCustom(CharacterCustom characterCustom)
