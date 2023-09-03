@@ -20,7 +20,7 @@ public class SBearAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _attackDamage = 30f;
     }
 
     // Update is called once per frame
