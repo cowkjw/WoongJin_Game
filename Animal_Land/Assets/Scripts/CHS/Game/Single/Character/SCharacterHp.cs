@@ -11,7 +11,7 @@ public class SCharacterHp : MonoBehaviour
     [SerializeField] private float _maxHp = 100f;
 
     private SGameUIManager gameUIManager;
-
+    private bool _isDead = false;
     void Start()
     {
         // TODO : 게임 UI상의 캐릭터 HP바와 연동
@@ -45,11 +45,14 @@ public class SCharacterHp : MonoBehaviour
 
     public void Damage(float damage)
     {
+        if (_isDead)
+            return;
+
         float newHp = _hp - damage;
         if (newHp <= 0)
         {
             newHp = 0;
-
+            _isDead = true;
             // TODO : 플레이어가 죽었다는 것에 대한 작업 처리
             GameObject.Find("GameManager").GetComponent<SGameManager>().EndGame(false);
         }
