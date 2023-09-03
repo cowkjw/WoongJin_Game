@@ -46,7 +46,7 @@ public class SGameUIManager : MonoBehaviour
         // Solve Screen 활성화
         _solveScreen.SetActive(true);
 
-        _gameManager.StopGame();
+        _gameManager.StopObject();
 
         _soundManager.PlayEffect(Effect.Button);
     }
@@ -56,7 +56,7 @@ public class SGameUIManager : MonoBehaviour
         // Solve Screen 비활성화
         _solveScreen.SetActive(false);
 
-        _gameManager.StartGame();
+        _gameManager.StartObject();
 
         _line.ClearLine();
 

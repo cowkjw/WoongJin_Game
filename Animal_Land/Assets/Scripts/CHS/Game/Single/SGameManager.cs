@@ -287,8 +287,9 @@ public class SGameManager : MonoBehaviour
         }
 
         // 획득 재화 계산
-        _money = GetTotalScore() / 5;   
-        
+        _money = GetTotalScore() / 5;
+        UIManager.CloseSettingScreen();
+        UIManager.CloseSolveScreen();
         UIManager.OpenResultPanel(isGameover, GetTotalScore(), _money, _gameTime);
 
         // DataManager에 값 저장 (재화, 스코어, 클리어 정보 등)
@@ -386,7 +387,45 @@ public class SGameManager : MonoBehaviour
         // 시간초 정지
         _gameStop = true;
     }
+    public void StartObject()
+    {
+        // TODO : 플레이어 이동
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.GetComponent<SCharacter>().StartPlayer();
+        }
 
+        // TODO : 몬스터 이동 
+        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        foreach (GameObject monster in monsters)
+        {
+            if (monster != null && monster.GetComponent<SMonster>() != null)
+            {
+                monster.GetComponent<SMonster>().StartMonster();
+            }
+        }
+    }
+
+    public void StopObject()
+    {
+        // 플레이어 정지 (Move)
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.GetComponent<SCharacter>().StopPlayer();
+        }
+
+        // Monster 정지 (Move, Attack 관련)
+        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        foreach (GameObject monster in monsters)
+        {
+            if (monster != null && monster.GetComponent<SMonster>() != null)
+            {
+                monster.GetComponent<SMonster>().StopMonster();
+            }
+        }
+    }
     public int CalAreaScore()
     {
         int result = 0;

@@ -18,6 +18,8 @@ public class DrawLine : MonoBehaviour
 
     private void Start()
     {
+        ob = new GameObject();
+
         List_Points = new List<Vector2>();
         if (List_Points == null)
         {
@@ -42,6 +44,7 @@ public class DrawLine : MonoBehaviour
         {
             // 시작 위치에서 생성
             GameObject go = Instantiate(Prefab_line);
+
             ob = go;
             if (go == null)
             {
