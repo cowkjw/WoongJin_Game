@@ -73,15 +73,15 @@ public class GameStartView : View
             {
                 case 0: // Speed
                     _playerStat.Speed++;
-                    _gold += 30;
+                    _gold += 100;
                     break;
                 case 1: // HP
                     _playerStat.HP++;
-                    _gold += 20;
+                    _gold += 50;
                     break;
                 case 2: //Shield
                     _playerStat.Energy++;
-                    _gold += 20;
+                    _gold += 70;
                     break;
             }
             UpdateGoldText();
@@ -125,10 +125,13 @@ public class GameStartView : View
         switch (index)
         {
             case 0: // Speed
-                needGold = 30;
+                needGold = 100;
                 break;
-            default:
-                needGold = 20;
+            case 1: // HP
+                needGold = 50;
+                break;
+            case 2: // Gauge
+                needGold = 70;
                 break;
         }
 
