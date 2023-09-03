@@ -14,6 +14,7 @@ public class DrawLine : MonoBehaviour
     LineRenderer lr;
     List<Vector2> List_Points;
     Stack<GameObject> Stack_Line;   // 되돌리기 기능을 위해 오브젝트를 Stack으로 보관
+    GameObject ob;
 
     private void Start()
     {
@@ -41,7 +42,7 @@ public class DrawLine : MonoBehaviour
         {
             // 시작 위치에서 생성
             GameObject go = Instantiate(Prefab_line);
-
+            ob = go;
             if (go == null)
             {
                 Debug.LogError("Prefab_Line을 생성하지 못하였습니다.");
@@ -49,6 +50,8 @@ public class DrawLine : MonoBehaviour
             }
 
             lr = go.GetComponent<LineRenderer>();
+            if (lr == null)
+                return;
 
             // 입력된 마우스의 위치값을 리스트에 추가
             List_Points.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -66,6 +69,12 @@ public class DrawLine : MonoBehaviour
 
             // 추가적으로 Line Renderer를 이용하여 그린다.
             List_Points.Add(pos);
+            if (ob != null)
+                return;
+
+            lr = ob.GetComponent<LineRenderer>();
+            if (lr == null)
+                return;
 
             lr.positionCount++;
             lr.SetPosition(lr.positionCount - 1, pos);
