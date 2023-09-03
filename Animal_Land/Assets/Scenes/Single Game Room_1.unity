@@ -40740,7 +40740,6 @@ MonoBehaviour:
   _playButton: {fileID: 0}
   UIManager: {fileID: 31344905}
   _areaScore: 0
-  _monsterScore: 0
   _timeScore: 0
   _solveScore: 0
   _money: 0
