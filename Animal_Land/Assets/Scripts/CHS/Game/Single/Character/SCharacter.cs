@@ -232,6 +232,8 @@ public class SCharacter : MonoBehaviour
             StopMove();
             _moveGauge = 0f;
             _gameUIManager.UpdateGauge(0f);
+            _gameUIManager.OpenSolveScreen();
+            GameObject.Find("API").GetComponent<LearningAPI>().ButtonEvent_GetLearning();
 
             return;
         }

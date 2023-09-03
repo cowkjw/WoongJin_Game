@@ -10395,7 +10395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1631425074
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11590,11 +11590,11 @@ MonoBehaviour:
   exitPanel: {fileID: 794425915}
   _stage: {fileID: 475345312}
   _stageSprites:
-  - {fileID: 21300000, guid: 259fc51a8ae7e1c41ad8607dbd9da8c4, type: 3}
-  - {fileID: 21300000, guid: 4db1e92deb3825e499ad56b896ec0585, type: 3}
-  - {fileID: 21300000, guid: 658ae40e0ec6b0c4596016f5c54541e1, type: 3}
-  - {fileID: 21300000, guid: ef0ab973c704cc944bbbce9a11b2ccb4, type: 3}
-  - {fileID: 21300000, guid: eaa8c16ab4f83624e976df5fd6836874, type: 3}
+  - {fileID: 21300000, guid: e1486ed5537d9af458024f6a5bb6d2e0, type: 3}
+  - {fileID: 21300000, guid: fc5e06cbd3091234bbf89e74a6526187, type: 3}
+  - {fileID: 21300000, guid: 81a9bcecc60849841aba73ababac0f73, type: 3}
+  - {fileID: 21300000, guid: 0d2fda6cbc49c5843951dac209d52a60, type: 3}
+  - {fileID: 21300000, guid: 39766d6421002954fbff5eed958f1957, type: 3}
   lobbyManager: {fileID: 1279743046}
 --- !u!114 &1868333705
 MonoBehaviour:
@@ -13583,7 +13583,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2114381718
 RectTransform:
   m_ObjectHideFlags: 0
